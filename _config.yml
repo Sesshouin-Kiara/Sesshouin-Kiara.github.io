@@ -98,4 +98,7 @@ theme: landscape
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type: ''
+  type: git
+  repo: https://github.com/Sesshouin-Kiara/Sesshouin-Kiara.github.io
+  # example, https://github.com/hexojs/hexojs.github.io
+  branch: master
