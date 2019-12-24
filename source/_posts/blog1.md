@@ -8,11 +8,9 @@ tags:
 - 复制
 - 对象
 - 深拷贝
-thumbnail: ../images/blog1/plant.jpg
+thumbnail: ../images/blog1.jpg
 ---
-```javascript
-var deepCloneObj = JSON.parse(JSON.stringify(obj))
-```
+**var deepCloneObj = JSON.parse(JSON.stringify(obj))**
 <!-- more -->
 ### 为什么要使用深拷贝？
 我们希望得到一个新的引用类型的变量（数组、对象），并且在修改这个引用类型变量的时候，不改变原数组（对象）的值。
