@@ -35,7 +35,7 @@ console.log(arr3) //concat()会返回一个新数组，打印结果arr3为[1,2,3
 
 
 3. 数组常用的一些方法
-[js数组常用方法-传送门](blog3/#more)
+[js数组常用方法-传送门](https://sesshouin-kiara.github.io/2019/12/26/blog3/#more)
 
 
 4. 遍历js对象和数组
