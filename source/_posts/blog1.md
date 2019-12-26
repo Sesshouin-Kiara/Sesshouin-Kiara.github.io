@@ -3,10 +3,10 @@ title: js实现引用类型的深拷贝
 date: 2019-12-24 15:01:51
 categories:
 - 技术
-- JS
+- JavaScript
 tags:
-- JS
-- 拷贝
+- JavaScript
+- 常用
 thumbnail: ../images/blog1.jpg
 ---
 **var deepCloneObj = JSON.parse(JSON.stringify(obj))**
