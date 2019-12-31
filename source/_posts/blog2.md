@@ -1,5 +1,5 @@
 ---
-title: 一些常用的前端知识点-JavaScript篇（一）
+title: 一些常用的前端知识点-JavaScript篇
 date: 2019-12-26 18:21:14
 categories:
 - [技术,JavaScript]
