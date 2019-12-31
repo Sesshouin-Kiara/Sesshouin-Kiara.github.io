@@ -1,5 +1,5 @@
 ---
-title: 常用的数组操作方法
+title: 常用的js数组方法
 date: 2019-12-26 17:01:18
 categories:
 - [技术,JavaScript]
@@ -8,7 +8,7 @@ tags:
 - 常用
 thumbnail: https://s2.ax1x.com/2019/12/31/l3E7D0.jpg
 ---
-本文记录了一些工作中经常使用到、但是不查百度就不会用的数组操作方法。
+本文系统的整理了工作中比较常用的数组方法。
 <!-- more -->
 #### 一、数组检测方法
 * instanceof
