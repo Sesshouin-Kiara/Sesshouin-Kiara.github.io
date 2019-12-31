@@ -6,7 +6,7 @@ categories:
 tags:
 - JavaScript
 - 常用
-thumbnail: ../images/blog3.jpg
+thumbnail: https://s2.ax1x.com/2019/12/31/l3E7D0.jpg
 ---
 本文记录了一些工作中经常使用到、但是不查百度就不会用的数组操作方法。
 <!-- more -->

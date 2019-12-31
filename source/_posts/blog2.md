@@ -6,7 +6,7 @@ categories:
 tags:
 - JavaScript
 - 常用
-thumbnail: ../images/blog2.jpg
+thumbnail: https://s2.ax1x.com/2019/12/31/l3EqET.jpg
 ---
 本文罗列了一些工作中经常使用到、但是不查百度就不会用的一些知识点和技巧。
 <!-- more -->

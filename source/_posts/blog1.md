@@ -7,7 +7,7 @@ categories:
 tags:
 - JavaScript
 - 常用
-thumbnail: ../images/blog1.jpg
+thumbnail: https://s2.ax1x.com/2019/12/31/l3E5gs.jpg
 ---
 **var deepCloneObj = JSON.parse(JSON.stringify(obj))**
 <!-- more -->
