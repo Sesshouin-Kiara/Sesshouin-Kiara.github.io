@@ -11,7 +11,7 @@ thumbnail: ../images/blog2.jpg
 本文罗列了一些工作中经常使用到、但是不查百度就不会用的一些知识点和技巧。
 <!-- more -->
 1. 数组常用的一些方法
-[传送门（js数组常用方法）](https://sesshouin-kiara.github.io/2019/12/26/blog3)
+[传送门（js数组常用方法）](https://wanghong.cool/2019/12/26/blog3)
 
 2. 字符串去空格
 ```javascript

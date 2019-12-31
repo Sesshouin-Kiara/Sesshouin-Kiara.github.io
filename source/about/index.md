@@ -23,7 +23,7 @@ date: 2019-12-25 10:49:56
 
 <div style="background-color:#c7e4f3;padding:5px 0;border-radius:8px;">
 <div style="padding:3px 16px;">本文作者：WangHong</div>
-<div style="padding:3px 16px;">永久链接：<a href="https://sesshouin-kiara.github.io/">sesshouin-kiara.github.io</a></div>
+<div style="padding:3px 16px;">永久链接：<a href="https://wanghong.cool/">wanghong.cool</a></div>
 <div style="padding:3px 16px;">版权声明：本网站所有博文均首发于WangHong的博客，转载请注明出处！</div>
 </div>
 
