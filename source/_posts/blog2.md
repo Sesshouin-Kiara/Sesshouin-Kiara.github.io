@@ -46,8 +46,21 @@ gender : female
 */
 ```
 
-5. 深拷贝
+4. 深拷贝
 var deepCloneObj = JSON.parse(JSON.stringify(obj))
+
+
+
+5. 截取字符串或数组
+ **slice(起始位置index1,结束位置index2)**
+需要注意的是，截取的结果包括index1对应的项，不包括index2对应的项
+```javascript
+let str = 'sesshouin kiara'
+console.log(str.slice(0,5))  //输出"sessh"
+
+let arr = [1,2,3,4,5,6,7]
+console.log(arr.slice(0,5))  //输出[1,2,3,4,5]
+```
 
 
 

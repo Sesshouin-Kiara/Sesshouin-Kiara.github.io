@@ -3,7 +3,7 @@ title: 关于
 date: 2019-12-25 10:49:56
 ---
 
-![](../images/blog1.jpg)
+![](https://s2.ax1x.com/2019/12/31/l3E5gs.jpg)
 
 
 > 也尝试过花里胡哨
