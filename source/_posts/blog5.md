@@ -1,7 +1,11 @@
 ---
-title: 发送手机验证码倒计时
+title: 发送手机验证码后按钮倒计时的功能
 date: 2019-12-31 15:27:00
+categories:
+- [技术,JavaScript]
 tags:
+- JavaScript
+- 常用
 thumbnail: https://s2.ax1x.com/2019/12/31/l3AAeK.jpg
 ---
 工作中开发项目时，经常会用到手机验证码登录的功能，这里记录一下发送验证码后按钮倒计时的方法。
@@ -54,7 +58,7 @@ export default {
                 console.log('请输入正确的手机号！')
             }
         },
-        // 发送验证码倒计时
+        // 按钮倒计时
         countDown() {
             this.disabled = true
             this.codeTxt = `已发送（${this.count}s）`
