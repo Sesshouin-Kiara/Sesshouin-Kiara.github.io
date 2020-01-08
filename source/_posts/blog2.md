@@ -6,10 +6,10 @@ categories:
 tags:
 - JavaScript
 - 常用
-thumbnail: https://s2.ax1x.com/2019/12/31/l3EqET.jpg
+thumbnail: https://s2.ax1x.com/2019/12/31/l3E5gs.jpg
 ---
 本文罗列了一些工作中经常使用到、但是不查百度就不会用的一些知识点和技巧。
-<!-- more -->
+
 1. 数组常用的一些方法
 [传送门（js数组常用方法）](https://wanghong.cool/2019/12/26/blog3)
 
@@ -22,6 +22,7 @@ console.log(str1) //trim()不会改变原字符串，打印结果str1为"   aaa 
 let str2 = str1.trim()
 console.log(str2) //trim()会返回一个新的字符串，打印结果str2为"aaa"
 ```
+<!-- more -->
 
 3. 遍历js对象
 ```javascript

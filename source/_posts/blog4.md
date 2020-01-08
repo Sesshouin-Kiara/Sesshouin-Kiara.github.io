@@ -11,7 +11,7 @@ tags:
 thumbnail: https://s2.ax1x.com/2019/12/31/l3E43j.jpg
 ---
 本文罗列了一些工作中经常使用到、但是不查百度就不会用的一些知识点和技巧。
-<!-- more -->
+
 #### 一、Flex 布局
 内容转自[阮一峰的Flex 布局教程](http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html),不过个人觉得阮一峰老师教程页面的布局和色调不是很利于阅读，于是在这里重构一下。详细内容还是建议看原文。
 ```css
@@ -27,6 +27,7 @@ thumbnail: https://s2.ax1x.com/2019/12/31/l3E43j.jpg
   flex-direction: row | row-reverse | column | column-reverse;
 }
 ```
+<!-- more -->
 * flex-wrap
 如果一条轴线排不下，如何换行。默认情况下，不换行
 ```css

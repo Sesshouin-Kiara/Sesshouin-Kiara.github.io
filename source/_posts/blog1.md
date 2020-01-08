@@ -10,7 +10,7 @@ tags:
 thumbnail: https://s2.ax1x.com/2019/12/31/l3E5gs.jpg
 ---
 **var deepCloneObj = JSON.parse(JSON.stringify(obj))**
-<!-- more -->
+
 ### 为什么要使用深拷贝？
 我们希望得到一个新的引用类型的变量（数组、对象），并且在修改这个引用类型变量的时候，不改变原数组（对象）的值。
 
@@ -26,8 +26,8 @@ var deepCloneObj = JSON.parse(JSON.stringify(obj));//拷贝对象
 
 console.log('obj:',obj)
 console.log('deepCloneObj:',deepCloneObj)
-
 ```
+<!-- more -->
 
 打印结果如下,两个对象的值是一样的：
 <div style="text-align:center;"><img src="/print1.png"></div>

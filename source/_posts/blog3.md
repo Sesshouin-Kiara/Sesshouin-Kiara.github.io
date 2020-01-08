@@ -9,7 +9,7 @@ tags:
 thumbnail: https://s2.ax1x.com/2019/12/31/l3E7D0.jpg
 ---
 本文系统的整理了工作中比较常用的数组方法。
-<!-- more -->
+
 #### 一、数组检测方法
 * instanceof
 * Array.isArray()**（推荐）**
@@ -19,7 +19,7 @@ console.log(arr instanceof Array); // true
 console.log(Array.isArray(arr)); // true 
 ```
 instanceof在跨多个iframe（即多个全局执行环境）时会失效，Array.isArray()才是最终的解决办法。
-
+<!-- more -->
 
 
 #### 二、数组操作方法（增删等）

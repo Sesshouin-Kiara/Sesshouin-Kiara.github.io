@@ -9,7 +9,6 @@ tags:
 thumbnail: https://s2.ax1x.com/2020/01/03/lUPGBn.jpg
 ---
 1. 将js的Date对象转换为指定格式，如：YYYY-mm-dd HH:MM、YYYY-mm-dd等。
-<!-- more -->
 ```javascript
 let now = new Date()
 console.log(now) 
@@ -30,6 +29,7 @@ format(data,format){
     return dataFormatStr
 }
 ```
+<!-- more -->
 对now调用format方法
 ```javascript
 let nowStr = this.format(now,'yyyy-MM-dd hh:mm:ss')
