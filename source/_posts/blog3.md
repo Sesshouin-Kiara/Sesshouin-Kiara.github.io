@@ -6,7 +6,7 @@ categories:
 tags:
 - JavaScript
 - 常用
-thumbnail: https://s2.ax1x.com/2019/12/31/l3E7D0.jpg
+thumbnail: https://s2.ax1x.com/2020/01/03/lUPGBn.jpg
 ---
 本文系统的整理了工作中比较常用的数组方法。
 

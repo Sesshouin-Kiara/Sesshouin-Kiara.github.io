@@ -6,7 +6,7 @@ categories:
 tags:
 - JavaScript
 - 常用
-thumbnail: https://s2.ax1x.com/2019/12/31/l3AAeK.jpg
+thumbnail: https://s2.ax1x.com/2020/01/08/lgtuXd.jpg
 ---
 工作中开发项目时，经常会用到手机验证码登录的功能，这里记录一下发送验证码后按钮倒计时的方法。
 *HTML*
