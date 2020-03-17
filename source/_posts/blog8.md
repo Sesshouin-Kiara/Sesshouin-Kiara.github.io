@@ -2,7 +2,7 @@
 title: js实现根据sku关键属性算出所有sku的算法
 date: 2020-01-08 11:06:06
 categories:
-- [技术,JavaScript]
+- JavaScript
 tags:
 - JavaScript
 thumbnail: https://s2.ax1x.com/2020/01/03/lUPGBn.jpg

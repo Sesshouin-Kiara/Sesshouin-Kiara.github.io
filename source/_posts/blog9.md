@@ -2,9 +2,9 @@
 title: Ant Design of Vue 的表单自定义验证规则
 date: 2020-01-08 14:32:57
 categories:
-- [技术,JavaScript]
-- [技术,Vue]
-- [技术,Ant Design]
+- [JavaScript]
+- [Vue]
+- [Ant Design]
 tags:
 - JavaScript
 - Vue

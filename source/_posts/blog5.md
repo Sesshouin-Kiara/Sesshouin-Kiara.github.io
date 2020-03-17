@@ -2,7 +2,7 @@
 title: 发送手机验证码后按钮倒计时的功能
 date: 2019-12-31 15:27:00
 categories:
-- [技术,JavaScript]
+- JavaScript
 tags:
 - JavaScript
 - 常用

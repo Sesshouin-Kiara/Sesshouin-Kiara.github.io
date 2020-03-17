@@ -2,7 +2,7 @@
 title: 在微信公众号中使用微信支付
 date: 2020-03-11 10:44:05
 categories:
-- [技术,JavaScript]
+- JavaScript
 tags:
 - JavaScript
 thumbnail: https://s2.ax1x.com/2019/12/31/l3AAeK.jpg

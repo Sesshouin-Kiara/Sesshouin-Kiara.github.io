@@ -2,7 +2,7 @@
 title: js日期对象Date和字符串的互相转化
 date: 2020-01-01 10:03:11
 categories:
-- [技术,JavaScript]
+- JavaScript
 tags:
 - JavaScript
 - 常用

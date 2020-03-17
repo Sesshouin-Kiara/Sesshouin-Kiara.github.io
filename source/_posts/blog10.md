@@ -2,7 +2,7 @@
 title: 数字保留两位小数及toFixed的bug带来的思考
 date: 2020-01-08 15:16:59
 categories:
-- [技术,JavaScript]
+- JavaScript
 tags:
 - JavaScript
 thumbnail: https://s2.ax1x.com/2020/01/08/lgtuXd.jpg

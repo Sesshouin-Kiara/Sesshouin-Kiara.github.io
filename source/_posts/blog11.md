@@ -2,7 +2,7 @@
 title: 文字超过部分显示省略号
 date: 2020-03-05 15:34:41
 categories:
-- [技术,CSS]
+- CSS
 tags:
 - CSS
 thumbnail: https://s2.ax1x.com/2019/12/31/l3E5gs.jpg

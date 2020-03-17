@@ -2,7 +2,7 @@
 title: 常用的js数组方法
 date: 2019-12-26 17:01:18
 categories:
-- [技术,JavaScript]
+- JavaScript
 tags:
 - JavaScript
 - 常用

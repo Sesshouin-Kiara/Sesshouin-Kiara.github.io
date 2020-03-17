@@ -2,7 +2,7 @@
 title: 不百度就不会用的技巧-JavaScript篇
 date: 2019-12-26 18:21:14
 categories:
-- [技术,JavaScript]
+- JavaScript
 tags:
 - JavaScript
 - 常用

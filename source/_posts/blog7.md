@@ -2,8 +2,8 @@
 title: 从零开始使用Vue Router
 date: 2020-01-06 10:26:07
 categories:
-- [技术,JavaScript]
-- [技术,Vue]
+- [JavaScript]
+- [Vue]
 tags:
 - JavaScript
 - 常用

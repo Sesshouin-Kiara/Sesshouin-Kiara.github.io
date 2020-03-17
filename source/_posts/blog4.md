@@ -2,8 +2,8 @@
 title: 不百度就不会用的技巧-HTML/CSS篇
 date: 2019-12-30 14:19:04
 categories:
-- [技术,HTML]
-- [技术,CSS]
+- [HTML]
+- [CSS]
 tags:
 - HTML
 - CSS
