@@ -16,12 +16,12 @@ thumbnail: https://s2.ax1x.com/2019/12/31/l3AAeK.jpg
 >3. 引入Vue Router
 >4. 引入node-sass/sass-loader
 >5. 登录页
->6. 完成页面的基本布局1（ 根据路由渲染菜单 ）
->7. 完成页面的基本布局2（ header、footer、面包屑等组件 ）
+>6. **完成页面的基本布局（ 根据路由渲染菜单组件、面包屑组件等 ）**
+>7. 
 >8. 
->9. 
->10. 
->11. 引入Axios、Vuex等插件,权限,xxx,xxx,xxx,xxx,xxx,xxx
+>9. 使用Vuex完成菜单的显示隐藏
+>10. 3级菜单和路由
+>11. 引入Axios等插件,权限,xxx,xxx,xxx,xxx,xxx等等
 <!-- more -->
 
 >tips：
@@ -600,7 +600,7 @@ export default router;
     ]
 },
 ```
-aside组件中，菜单是否能展开的判断条件从 是否有子路由children 改成 路由元信息中的unfold字段是否存在且为true
+aside组件中，菜单能否展开的判断条件从 是否有子路由children 改成 路由元信息中的unfold字段是否存在且为true
 ```html aside.vue
 <!-- 有children的路由 -->
 <a-sub-menu
