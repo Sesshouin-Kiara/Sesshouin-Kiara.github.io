@@ -20,7 +20,7 @@ thumbnail: https://s2.ax1x.com/2020/01/03/lUPGBn.jpg
 >5. **登录页**
 >6. 完成页面的基本布局（ 根据路由渲染菜单组件、面包屑组件等 ）
 >7. 使用 Vuex 完成菜单的显示隐藏
->8. 封装 Axios 
+>8. Ajax 以及 Axios 的封装
 >9. 
 >10. 
 <!-- more -->
