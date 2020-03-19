@@ -21,7 +21,7 @@ thumbnail: https://s2.ax1x.com/2020/01/03/lUPGBn.jpg
 >6. 完成页面的基本布局（ 根据路由渲染菜单组件、面包屑组件等 ）
 >7. 使用 Vuex 完成菜单的显示隐藏
 >8. Ajax 以及 Axios 的封装
->9. 
+>9. 全局方法 Utils、混合 Mixins
 >10. 
 <!-- more -->
 
@@ -47,8 +47,8 @@ $ npm i --save ant-design-vue
   
 
 3. **安装路由（[从零开始使用Vue Router](https://wanghong.cool/2020/01/06/blog7/)）**
-安装路由之前，我们可以在src目录下新建views和components两个文件夹，来存放项目需要用到的页面和组件。
-安装好之后，在src目录下新建一个router.js文件，记得**配置好路径为空或者不存在时的映射**（一般是跳转到首页或登录页）。
+安装路由之前，我们可以在src目录下新建<span style="background-color:rgb(245,245,245);padding:3px 6px;margin:0 6px;">views</span>和<span style="background-color:rgb(245,245,245);padding:3px 6px;margin:0 6px;">components</span>两个文件夹，来存放项目需要用到的页面和组件。
+安装好之后，在<span style="background-color:rgb(245,245,245);padding:3px 6px;margin:0 6px;">src</span>目录下新建一个<span style="background-color:rgb(245,245,245);padding:3px 6px;margin:0 6px;">router.js</span>文件，记得**配置好路径为空或者不存在时的映射**（一般是跳转到首页或登录页）。
 ```javascript router.js
 import Vue from 'vue'
 import VueRouter from 'vue-router'
@@ -110,7 +110,7 @@ new Vue({
     render: h => h(App),
 }).$mount('#app')
 ```
-App.vue中，添加一个&lt;router-view /&gt;标签作为路由的出口，我们可以通过进入不同的路由来显示不同的页面。
+<span style="background-color:rgb(245,245,245);padding:3px 6px;margin:0 6px;">App.vue</span>中，添加一个<span style="background-color:rgb(245,245,245);padding:3px 6px;margin:0 6px;">&lt;router-view /&gt;</span>标签作为路由的出口，我们可以通过进入不同的路由来显示不同的页面。
 ```html App.vue
 <template>
     <div id="app">

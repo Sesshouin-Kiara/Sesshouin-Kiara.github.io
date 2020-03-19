@@ -1,5 +1,5 @@
 ---
-title: 从零开始搭建后台管理系统（三）Ajax、Axios
+title: 从零开始搭建后台管理系统（四）Ajax、Axios
 date: 2020-03-18 10:52:58
 categories:
 - Ant Design
@@ -8,7 +8,7 @@ tags:
 - Vue
 - Ant Design
 - Axios
-thumbnail: https://s2.ax1x.com/2020/01/03/lUPGBn.jpg
+thumbnail: https://s2.ax1x.com/2019/12/31/l3E5gs.jpg
 ---
 本项目基于 Vue全家桶 和 Ant Design 进行开发。
 >目录
@@ -20,7 +20,7 @@ thumbnail: https://s2.ax1x.com/2020/01/03/lUPGBn.jpg
 >6. 完成页面的基本布局（ 根据路由渲染菜单组件、面包屑组件等 ）
 >7. 使用 Vuex 完成菜单的显示隐藏
 >8. **Ajax 以及 Axios 的封装**
->9. 
+>9. 全局方法 Utils、混合 Mixins
 >10. 
 <!-- more -->
 
@@ -32,6 +32,7 @@ thumbnail: https://s2.ax1x.com/2020/01/03/lUPGBn.jpg
 ```html src/views/movie/top250.vue
 <template>
     <div class="movie">
+        <!-- rowKey不能少 -->
         <a-table
             :columns="columns"
             :dataSource="data"

@@ -20,16 +20,16 @@ thumbnail: https://s2.ax1x.com/2019/12/31/l3E43j.jpg
 >6. **完成页面的基本布局（ 根据路由渲染菜单组件、面包屑组件等 ）**
 >7. 使用 Vuex 完成菜单的显示隐藏
 >8. Ajax 以及 Axios 的封装
->9. 
+>9. 全局方法 Utils、混合 Mixins
 >10. 
 <!-- more -->
 
 ### **6.完成页面的基本布局**
 > App.vue 中有一个 &lt;router-view /&gt; 标签作为路由的出口，这个出口可以用来匹配 Login 页 等不需要菜单、头部、面包屑、底部等公用组件的页面。但是对于菜单里面的功能页，每个页面都需要这些公用组件，如果用这个路由出口来匹配这些功能页的话，每个功能页都需要写入这些公用组件，显得十分臃肿。因此我们需要创建一个 main.vue 文件，来完成功能页面的布局（包括菜单、头部、底部组件以及显示页面对应功能内容的区域），并且在 main.vue 中再提供一个 &lt;router-view /&gt; 标签，作为功能页面路由的出口，用来显示所有需要用到菜单等组件的功能页面。
-* 在views 目录下创建 main.vue 文件。
-* 在 components 目录下创建 aside（侧边菜单）、breadcrumb（面包屑）、header（头部） 3个组件文件；
-* 在 views 目录下创建 account（账号）、department（部门）、setting（设置） 3个功能页面的文件夹。
-* 把新页面添加进router.js
+* 在<span style="background-color:rgb(245,245,245);padding:3px 6px;margin:0 6px;">views</span>目录下创建<span style="background-color:rgb(245,245,245);padding:3px 6px;margin:0 6px;">main.vue</span>文件。
+* 在<span style="background-color:rgb(245,245,245);padding:3px 6px;margin:0 6px;">components</span>目录下创建 <span style="background-color:rgb(245,245,245);padding:3px 6px;margin:0 6px;">aside（侧边菜单）</span>、<span style="background-color:rgb(245,245,245);padding:3px 6px;margin:0 6px;">breadcrumb（面包屑）</span>、<span style="background-color:rgb(245,245,245);padding:3px 6px;margin:0 6px;">header（头部）</span> 3个组件文件；
+* 在<span style="background-color:rgb(245,245,245);padding:3px 6px;margin:0 6px;">views</span>目录下创建 account（账号）、department（部门）、setting（设置） 3个功能页面的文件夹。
+* 把新页面添加进<span style="background-color:rgb(245,245,245);padding:3px 6px;margin:0 6px;">router.js</span>
 <div style="text-align:center;"><img src="/cata2.png"></div>
 
 ```js router.js
@@ -403,9 +403,9 @@ export default router;
 <div style="text-align:center;"><img src="/layout1.png"></div>
 <div style="text-align:center;"><img src="/layout2.png"></div>
 
-不过出现了一个小问题，我们使用 main.vue 来布局，使用 Main 的子路由来显示功能页的内容，这样导致首页、设置等只需要一级路由的模块有了两层路由，菜单中也出现了两级菜单，这不是我们期望的。
+不过出现了一个小问题，我们使用<span style="background-color:rgb(245,245,245);padding:3px 6px;margin:0 6px;">main.vue</span>来布局，使用<span style="background-color:rgb(245,245,245);padding:3px 6px;margin:0 6px;">Main</span>的子路由来显示功能页的内容，这样导致首页、设置等只需要一级路由的模块有了两层路由，菜单中也出现了两级菜单，这不是我们期望的。
 **解决方案：**
-我们在路由元信息meta中添加一个 unfold 字段来表示该项路由对应菜单的是否能展开，为 true 时表示该项菜单可以展开。
+我们在路由元信息<span style="background-color:rgb(245,245,245);padding:3px 6px;margin:0 6px;">meta</span>中添加一个<span style="background-color:rgb(245,245,245);padding:3px 6px;margin:0 6px;">unfold</span>字段来表示该项路由对应菜单的是否能展开，为 true 时表示该项菜单可以展开。
 ```js router.js
 {
     path: '/department',
@@ -423,7 +423,7 @@ export default router;
     ]
 },
 ```
-aside组件中，菜单能否展开的判断条件从 是否有子路由children 改成 路由元信息中的unfold字段是否存在且为true
+<span style="background-color:rgb(245,245,245);padding:3px 6px;margin-right:6px;">aside</span>组件中，菜单能否展开的判断条件从 是否有子路由<span style="background-color:rgb(245,245,245);padding:3px 6px;margin:0 6px;">children</span>改成 路由元信息中的<span style="background-color:rgb(245,245,245);padding:3px 6px;margin:0 6px;">unfold</span>字段是否存在且为true。
 ```html aside.vue
 <!-- 有children的路由 -->
 <a-sub-menu
