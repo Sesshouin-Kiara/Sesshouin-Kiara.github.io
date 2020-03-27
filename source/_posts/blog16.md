@@ -21,7 +21,7 @@ thumbnail: https://s2.ax1x.com/2019/12/31/l3E5gs.jpg
 >7. 使用 Vuex 完成菜单的显示隐藏
 >8. **Ajax 以及 Axios 的封装**
 >9. 全局方法 Utils、混合 Mixins
->10. 
+>10. 后续功能开发
 <!-- more -->
 
 ### **8.Ajax 以及 Axios 的封装**
