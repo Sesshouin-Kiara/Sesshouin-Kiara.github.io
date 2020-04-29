@@ -10,7 +10,7 @@ tags:
 - Axios
 thumbnail: https://s2.ax1x.com/2019/12/31/l3AAeK.jpg
 ---
-本项目基于 Vue全家桶 和 Ant Design 进行开发。
+本项目基于 [Vue全家桶](https://cn.vuejs.org/v2/guide/) 和 [Ant Design](https://www.antdv.com/docs/vue/use-with-vue-cli-cn/) 进行开发。
 >目录
 >1. 安装脚手架工具（vue-cli）、创建新项目
 >2. 引入 Ant Design
@@ -26,7 +26,7 @@ thumbnail: https://s2.ax1x.com/2019/12/31/l3AAeK.jpg
 
 ### **9. 全局方法 Utils、混合 Mixins**
 #### **9.1. Utils**
-项目中有一些方法很多地方都会用到，我们可以创建一个<span style="background-color:rgb(245,245,245);padding:3px 6px;margin:0 6px;">utils.js</span>文件存放这些方法：
+项目中有一些方法很多地方都会用到，我们可以创建一个<span class="backgroundBlock">utils.js</span>文件存放这些方法：
 ```js src/utils.js
 const STORAGE_ENGINE = localStorage;
 // const STORAGE_ENGINE = sessionStorage;
@@ -249,7 +249,7 @@ import Utils from "@/utils";
 ```
 
 #### **9.2. Mixins**
-像这类的后台管理系统，基本上每个模块都会有很多的列表页table页，会大量的使用到antd的table组件，我们完全可以把与table相关的一些属性和方法写到<span style="background-color:rgb(245,245,245);padding:3px 6px;margin:0 6px;">mixins.js</span>里。
+像这类的后台管理系统，基本上每个模块都会有很多的列表页、表格页，会大量的使用到<span class="backgroundBlock">antd</span>的<span class="backgroundBlock">table</span>组件，我们完全可以把与之相关的一些属性和方法写到<span class="backgroundBlock">mixins.js</span>里。
 ```js src/mixins.js
 export default {
     data() {
@@ -278,9 +278,6 @@ export default {
             this.$set(this.pagination, 'current', 1);
             this.$set(this.pagination, 'pageSize', 10);
             this.$refs.dp.reset();
-            this.buildingList = [];
-            this.floorList = [];
-            this.roomList = [];
             this.getList();
         },
         paginationChange(pagination, sorter) {
@@ -305,3 +302,13 @@ export default {
     }
 <script>
 ```
+
+### **10. 后续功能开发**
+经过前面的9个步骤，我们已经完成了下列工作：
+* 创建了项目，并且引入了 **Ant Design、node-sass/sass-loader、Vue Router、Vuex、Axios** 等<span class="importantBlock">插件</span>。
+* 完成了<span class="importantBlock">路由的搭建</span>和<span class="importantBlock">页面的布局</span>，包括一些<span class="importantBlock">组件的创建</span>（登录页、菜单、面包屑、头部组件等）
+* 封装了<span class="importantBlock">Axios</span>和一些<span class="importantBlock">全局方法</span>。
+
+项目的基本框架和方法封装已经完成，接下来功能模块的开发都是一些业务逻辑代码，只需要根据已有的模板，按照<span class="importantBlock">模块化、组件化</span>的思想继续开发就行了。
+
+（完）

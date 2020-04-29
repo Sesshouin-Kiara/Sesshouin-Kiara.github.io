@@ -11,7 +11,7 @@ tags:
 - sass
 thumbnail: https://s2.ax1x.com/2020/01/03/lUPGBn.jpg
 ---
-本项目基于 Vue全家桶 和 Ant Design 进行开发。
+本项目基于 [Vue全家桶](https://cn.vuejs.org/v2/guide/) 和 [Ant Design](https://www.antdv.com/docs/vue/use-with-vue-cli-cn/) 进行开发。
 >目录
 >1. **安装脚手架工具（vue-cli）、创建新项目**
 >2. **引入 Ant Design**
@@ -47,8 +47,8 @@ $ npm i --save ant-design-vue
   
 
 3. **安装路由（[从零开始使用Vue Router](https://wanghong.cool/2020/01/06/blog7/)）**
-安装路由之前，我们可以在src目录下新建<span style="background-color:rgb(245,245,245);padding:3px 6px;margin:0 6px;">views</span>和<span style="background-color:rgb(245,245,245);padding:3px 6px;margin:0 6px;">components</span>两个文件夹，来存放项目需要用到的页面和组件。
-安装好之后，在<span style="background-color:rgb(245,245,245);padding:3px 6px;margin:0 6px;">src</span>目录下新建一个<span style="background-color:rgb(245,245,245);padding:3px 6px;margin:0 6px;">router.js</span>文件，记得**配置好路径为空或者不存在时的映射**（一般是跳转到首页或登录页）。
+安装路由之前，我们可以在src目录下新建<span class="backgroundBlock">views</span>和<span class="backgroundBlock">components</span>两个文件夹，来存放项目需要用到的页面和组件。
+安装好之后，在<span class="backgroundBlock">src</span>目录下新建一个<span class="backgroundBlock">router.js</span>文件，记得**配置好路径为空或者不存在时的映射**（一般是跳转到首页或登录页）。
 ```javascript router.js
 import Vue from 'vue'
 import VueRouter from 'vue-router'
@@ -97,7 +97,7 @@ const router = new VueRouter({
 // 将router暴露出去供其他文件使用
 export default router;
 ```
-在main.js中引用router.js
+在<span class="backgroundBlock">main.js</span>中引用<span class="backgroundBlock">router.js</span>
 ```javascript main.js
 import Vue from 'vue'
 import App from './App.vue'     
@@ -110,7 +110,7 @@ new Vue({
     render: h => h(App),
 }).$mount('#app')
 ```
-<span style="background-color:rgb(245,245,245);padding:3px 6px;margin:0 6px;">App.vue</span>中，添加一个<span style="background-color:rgb(245,245,245);padding:3px 6px;margin:0 6px;">&lt;router-view /&gt;</span>标签作为路由的出口，我们可以通过进入不同的路由来显示不同的页面。
+<span class="backgroundBlock">App.vue</span>中，添加一个<span class="backgroundBlock">&lt;router-view /&gt;</span>标签作为路由的出口，我们可以通过进入不同的路由来显示不同的页面。
 ```html App.vue
 <template>
     <div id="app">

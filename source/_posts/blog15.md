@@ -10,7 +10,7 @@ tags:
 - Vuex
 thumbnail: https://s2.ax1x.com/2020/01/08/lgtuXd.jpg
 ---
-本项目基于 Vue全家桶 和 Ant Design 进行开发。
+本项目基于 [Vue全家桶](https://cn.vuejs.org/v2/guide/) 和 [Ant Design](https://www.antdv.com/docs/vue/use-with-vue-cli-cn/) 进行开发。
 >目录
 >1. 安装脚手架工具（vue-cli）、创建新项目
 >2. 引入 Ant Design
@@ -34,7 +34,7 @@ thumbnail: https://s2.ax1x.com/2020/01/08/lgtuXd.jpg
 $ npm install vuex --save
 ```
 #### **7.1. state**
-在 src 目录下新建 store/index.js 文件：
+在<span class="backgroundBlock">src</span>目录下新建<span class="backgroundBlock">store/index.js</span>文件：
 ```js store/index.js
 import Vue from 'vue'
 import Vuex from 'vuex'
@@ -50,7 +50,7 @@ const store = new Vuex.Store({
 
 export default store
 ```
-在 main.js 中引入并使用 store：
+在<span class="backgroundBlock">main.js</span>中引入并使用<span class="backgroundBlock">store</span>：
 ```js main.js
 import Vue from 'vue'
 import App from './App.vue'
@@ -79,9 +79,9 @@ new Vue({
     render: h => h(App),
 }).$mount('#app')
 ```
-在其他页面和组件中能通过 **this.$store.state** 或者 **mapState** 拿到 store.state 中定义的值。
+在其他页面和组件中能通过<span class="importantBlock">this.$store.state</span>或者<span class="importantBlock">mapState</span>拿到<span class="backgroundBlock">store.state</span>中定义的值。
 #### **7.2. getters**
-在 store/index.js 中添加 getter：
+在<span class="backgroundBlock">store/index.js</span>中添加<span class="backgroundBlock">getter</span>：
 ```js store/index.js
 import Vue from 'vue'
 import Vuex from 'vuex'
@@ -102,7 +102,8 @@ const store = new Vuex.Store({
 
 export default store
 ```
-Getter相当于vue中的computed计算属性，在其他页面和组件中可以通过 **this.$store.getters** 或者 **mapGetters** 拿到值。
+<span class="backgroundBlock">Getter</span>相当于<span class="backgroundBlock">vue</span>中的<span class="backgroundBlock">computed</span>计算属性，在其他页面和组件中可以通过<span class="importantBlock">this.$store.getters</span>或者<span class="importantBlock">mapGetters</span>拿到值。
+
 ```js xxx.vue
 import { mapState,mapGetters } from "vuex";
 export default {
@@ -117,7 +118,7 @@ export default {
 }
 ```
 #### **7.3. mutations**
-在 store/index.js 中继续添加 mutations：
+在<span class="backgroundBlock">store/index.js</span>中继续添加<span class="backgroundBlock">mutations</span>：
 ```js store/index.js
 const store = new Vuex.Store({
     //......
@@ -130,9 +131,9 @@ const store = new Vuex.Store({
     //......
 })
 ```
-在其他页面和组件中可以使用 **this.$store.commit('changeShowState')** 或者 **mapMutations** 来调用mutation去修改state中的值。
+在其他页面和组件中可以使用<span class="importantBlock">this.$store.commit('changeShowState')</span>或者<span class="importantBlock">mapMutations</span>来调用<span class="backgroundBlock">mutation</span>去修改<span class="backgroundBlock">state</span>中的值。
 
-修改 aside 和 header 组件的相关代码：
+修改<span class="backgroundBlock">aside</span>和<span class="backgroundBlock">header</span>组件的相关代码：
 ```html aside.vue
 <template>
     <div class="myAside">
@@ -243,8 +244,9 @@ const store = new Vuex.Store({
   
 
 #### **7.4. actions**
-通过 Action 提交 mutation，再通过 mutation 去改变 state，乍一眼看上去感觉多此一举，我们直接分发 mutation 岂不更方便？
-实际上并非如此，mutation 必须是同步函数，任何在回调函数中进行的状态的改变都是不可追踪的。在 mutation 中混合异步调用会导致程序很难调试，为了处理异步操作，我们需要 Action。
+<span class="importantBlock">通过 Action 提交 mutation，再通过 mutation 去改变 state</span>，乍一眼看上去感觉多此一举，我们直接分发<span class="backgroundBlock">mutation</span>岂不更方便？
+
+实际上并非如此，**mutation 必须是同步函数**，任何在回调函数中进行的状态的改变都是不可追踪的。在<span class="backgroundBlock">mutation</span> 中混合异步调用会导致程序很难调试，为了处理异步操作，我们需要<span class="backgroundBlock">Action</span>。
 ```js store/index.js
 const store = new Vuex.Store({
     state: {
@@ -271,7 +273,7 @@ const store = new Vuex.Store({
     },
 })
 ```
-Action 通过 **this.$store.dispatch** 方法触发。我们将header组件中按钮的点击事件函数修改为使用 Action：
+<span class="backgroundBlock">Action</span>通过<span class="importantBlock">this.$store.dispatch</span>方法触发。我们将<span class="backgroundBlock">header</span>组件中按钮的点击事件函数修改为使用<span class="backgroundBlock">Action</span>：
 ```js header.vue
 toggleCollapsed() {
     // this.$store.commit('changeShowState')   // mutation
@@ -280,7 +282,8 @@ toggleCollapsed() {
 },
 ```
 现在点击按钮，效果变成了点击事件触发后1s菜单才隐藏/显示。
-同样，Actions 也可以通过 **mapActions** 来简化写法。
+同样，<span class="backgroundBlock">Actions</span>也可以通过<span class="importantBlock">mapActions</span>来简化写法。
+
 ```js header.vue
 import { mapState, mapGetters, mapMutations,mapActions } from "vuex";
 export default {
@@ -312,11 +315,11 @@ export default {
     }
 }
 ```
-当然，仅就本节的显示隐藏菜单功能没必要使用Action。
-> 其实我在 mutations 中使用异步操作一样可以正确执行，也就是说异步Mutation不会对数据造成丢失或其他影响。
+当然，仅就本节的显示隐藏菜单功能没必要使用<span class="backgroundBlock">Action</span>。
+> 其实我尝试在 mutations 中使用异步操作，一样可以正确执行，也就是说异步 Mutation 不会对数据造成丢失或其他影响。
 >
 > vuex原文解释：『在 mutation 中混合异步调用会导致你的程序很难调试。例如，当你能调用了两个包含异步回调的 mutation 来改变状态，你怎么知道什么时候回调和哪个先回调呢？这就是为什么我们要区分这两个概念。在 Vuex 中，mutation 都是同步事务。』
 >
 > 我们使用Devtools去看state的变化，当我们去查看多次Mutation状态时，发现同步的显示Ok，异步Mutation的 state 数据显示和我们预期结果不一致，所以会造成状态改变的不可追踪，所以官方说我们Mutation是同步的。
 > 
-mutation 的提交是对state做确定的 、立即生效的修改。
+<span class="backgroundBlock">mutation</span>的提交是对<span class="backgroundBlock">state</span>做<span class="importantBlock">确定的 、立即生效的修改</span>。

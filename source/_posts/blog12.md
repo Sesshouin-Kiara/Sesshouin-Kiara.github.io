@@ -16,7 +16,7 @@ thumbnail: https://s2.ax1x.com/2019/12/31/l3AAeK.jpg
 * **前提**：公众号需要在微信公众平台中开通支付功能。  
 
 
-* **第一步**：进入页面时对页面进行重定向，获取code
+* **第一步**：进入页面时对页面进行重定向，获取<span class="backgroundBlock">code</span>
 ```javascript
 export function redirectPage(path) {
     let appid = "wxa2b43f80deee74aa";
@@ -37,7 +37,7 @@ export function redirectPage(path) {
 ```
   
 
-* **第二步**：获取code之后，调用后端接口获取openid
+* **第二步**：获取code之后，调用后端接口获取<span class="backgroundBlock">openid</span>
 ```javascript
 export function getOpenid(code) {
     return dispatch => {

@@ -10,7 +10,7 @@ tags:
 - Axios
 thumbnail: https://s2.ax1x.com/2019/12/31/l3E5gs.jpg
 ---
-本项目基于 Vue全家桶 和 Ant Design 进行开发。
+本项目基于 [Vue全家桶](https://cn.vuejs.org/v2/guide/) 和 [Ant Design](https://www.antdv.com/docs/vue/use-with-vue-cli-cn/) 进行开发。
 >目录
 >1. 安装脚手架工具（vue-cli）、创建新项目
 >2. 引入 Ant Design
@@ -154,13 +154,16 @@ thumbnail: https://s2.ax1x.com/2019/12/31/l3E5gs.jpg
     }
 </style>
 ```
-以上是原生ajax的用法，先创建一个xhr对象，然后调用open()和send()方法发送请求。在 readyState=4 的 readystatechange 事件回调中进行操作。
+以上是原生<span class="backgroundBlock">ajax</span>的用法，先创建一个<span class="backgroundBlock">xhr</span>对象，然后调用<span class="backgroundBlock">open()</span>和<span class="backgroundBlock">send()</span>方法发送请求。在<span class="importantBlock">readyState=4 的 readystatechange 事件回调</span>中进行操作。
+
 效果如下，成功拿到了豆瓣的数据：
 <div style="text-align:center;"><img src="/print1.png"></div>
 
-> 使用豆瓣API的过程中发现了一个**问题**，管理系统请求到的图片资源在 network 中全部是403禁止访问，导致在网页中不能正常显示，但是把图片url放到浏览器中可以正常打开图片。
-> **原因**是豆瓣有防盗链，后台会根据请求头header里的 Referrer 属性来判断请求是不是来自一个白名单内的网站，如果不是就返回 403 forbidden。
-> **解决方法**如下，我们把 Referrer 信息去掉就好了。在 index.html 文件中添加一个 **&lt;meta name="referrer" content="never"&gt;** 标签。
+使用豆瓣API的过程中发现了一个**问题**，管理系统请求到的图片资源在<span class="backgroundBlock">network</span>中全部是<span class="backgroundBlock">403</span>禁止访问，导致在网页中不能正常显示，但是把图片url放到浏览器中可以正常打开图片。
+
+**原因**是豆瓣有防盗链，后台会根据请求头<span class="backgroundBlock">header</span>里的<span class="backgroundBlock">Referrer</span>属性来判断请求是不是来自一个白名单内的网站，如果不是就返回 403 forbidden。
+
+**解决方法**如下，我们把<span class="backgroundBlock">Referrer</span>信息去掉就好了。在<span class="backgroundBlock">index.html</span>文件中添加一个<span class="importantBlock">&lt;meta name="referrer" content="never"&gt;</span>标签。( 不过按照我的使用经验来说，像腾讯云之类的<span class="backgroundBlock">oss</span>是可以配置必传<span class="backgroundBlock">Referrer</span>信息的，但是很多网站没配置这个选项 )
 
 #### **8.2. Axios**
 接下来看看 [Axios（查看文档）](http://www.axios-js.com/zh-cn/docs/) 的用法。
@@ -168,7 +171,7 @@ thumbnail: https://s2.ax1x.com/2019/12/31/l3E5gs.jpg
 ```sh
 $ npm install axios
 ```
-在需要用到axios的页面引入
+在需要用到<span class="backgroundBlock">axios</span>的页面引入
 ```js top250.vue
 import axios from "axios";
 //......
@@ -200,11 +203,17 @@ getList() {
     });
 },
 ```
-我们不希望每个页面都去引入一次axios，更重要的是，实际开发中，接口通常会很多，需要**分模块、系统**地管理api，所以我们需要对axios进行封装。
+我们不希望每个页面都去引入一次<span class="backgroundBlock">axios</span>，更重要的是，实际开发中，接口通常会很多，需要<span class="importantBlock">分模块、系统</span>地管理api，所以我们需要对<span class="backgroundBlock">axios</span>进行封装。
 
 #### **8.3. 对 Axios 进行封装**
-在src目录下新建axios.js文件，用来写axios的配置项和拦截器等。
-在src目录下新建一个api文件夹。api/modules文件夹用来存放所有api模块；api/index.js文件用来统一封装ajax方法。
+在<span class="backgroundBlock">src</span>目录下新建<span class="backgroundBlock">axios.js</span>文件，用来写<span class="backgroundBlock">axios</span>的<span class="importantBlock">配置项和拦截器</span>等。
+
+在<span class="backgroundBlock">src</span>目录下新建一个<span class="backgroundBlock">api</span>文件夹:
+
+<span class="backgroundBlock">api / modules</span>文件夹用来存放<span class="importantBlock">所有api模块</span>；
+
+<span class="backgroundBlock">api / index.js</span>文件用来<span class="importantBlock">统一封装ajax方法</span>。
+
 目录如下：
 <div style="text-align:center;"><img src="/print2.png"></div>
 
@@ -460,17 +469,19 @@ Object.keys(APIS).forEach(apiName => {
 
 export default API_;
 ```
-> 当系统有很多功能模块、每个模块都有许多接口时，我们可以按不同的功能模块把 api 写在不同的 src/api/modules/xxx(模块名).api.js 文件中，每个 xxx.api.js 文件只写本模块相关的 api。
+当系统有很多功能模块，每个模块都有许多接口时，我们可以<span class="importantBlock">按不同的功能模块</span>把<span class="backgroundBlock">api</span>写在不同的<span class="backgroundBlock">src / api / modules / xxx(模块名).api.js</span>文件中，<span class="importantBlock">每个 xxx.api.js 文件只写本模块相关的 api</span>。
 
-记得在main.js中引入axios相关文件，这样就不用每个文件引入axios了。
-（ 引用和依赖关系：main.js <== api/index.js <== axios.js ）
+记得在<span class="backgroundBlock">main.js</span>中引入<span class="backgroundBlock">axios</span>相关文件，这样就<span class="importantBlock">不用每个文件引入axios</span>了。
+
+**Axios的引用和依赖关系：main.js <== api/index.js <== axios.js**
+
 ```js main.js
 import api from './api';
 
 Vue.prototype.$api = api;
 ```
-现在，我们可以直接通过 this.$api.[模块名].[接口名] 的形式在任意页面调用接口了。
-views/movie/top250.vue 中的 getList 方法可以改成这样：
+现在，我们可以直接通过<span class="importantBlock">this.$api.[模块名].[接口名]</span>的形式在任意页面调用接口了。
+<span class="backgroundBlock">views/movie/top250.vue</span>中的<span class="backgroundBlock">getList</span>方法可以改成这样：
 ```js top250.vue
 getList() {
     this.$api.movie.getTop250({

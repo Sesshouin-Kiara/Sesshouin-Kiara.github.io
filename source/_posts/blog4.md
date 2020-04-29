@@ -21,7 +21,7 @@ thumbnail: https://s2.ax1x.com/2019/12/31/l3E43j.jpg
 }
 ```
 常用属性
-* flex-direction
+* **flex-direction**
 决定主轴的方向（即项目的排列方向）。
 ```css
 .box {
@@ -29,61 +29,71 @@ thumbnail: https://s2.ax1x.com/2019/12/31/l3E43j.jpg
 }
 ```
 <!-- more -->
-* flex-wrap
+<div style="text-align:center;"><img src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071005.png"></div>
+
+* **flex-wrap**
 如果一条轴线排不下，如何换行。默认情况下，不换行
 ```css
 .box{
   flex-wrap: nowrap | wrap | wrap-reverse;
 }
 ```
-* justify-content
+<div style="text-align:center;"><img src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071006.png"></div>
+
+* **justify-content**
 定义项目在主轴上的对齐方式。
 ```css
 .box {
   justify-content: flex-start | flex-end | center | space-between | space-around;
 }
 ```
-* align-items
+<div style="text-align:center;"><img src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071010.png"></div>
+
+* **align-items**
 定义项目在交叉轴上如何对齐。
 ```css
 .box {
   align-items: flex-start | flex-end | center | baseline | stretch;
 }
 ```
-* align-content
+<div style="text-align:center;"><img src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071011.png"></div>
+
+* **align-content**
 定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。
 ```css
 .box {
   align-content: flex-start | flex-end | center | space-between | space-around | stretch;
 }
 ```
+<div style="text-align:center;"><img src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071012.png"></div>
 
-#### 二、子元素选择器：nth-child()
-```css
-/* 选择第n个，n为数字  */
-:nth-child(n)
 
-选择列表中的偶数标签
-:nth-child(2n)
+#### 二、子元素选择器：**nth-child()**
 
-选择列表中的奇数标签
-:nth-child(2n-1)
+1. 选择<span class="importantBlock">第n个</span>子元素，n为数字
+<span class="backgroundBlock">:nth-child(n)</span>
 
-选择前几个元素
-/*【负方向范围】选择第1个到第6个 */
-:nth-child(-n+6){}
+2. 选择列表中的<span class="importantBlock">偶数</span>子元素
+<span class="backgroundBlock">:nth-child(2n)</span>
 
-从第几个开始选择
-/*【正方向范围】选择从第6个开始的，直到最后  */
-:nth-child(n+6){}
+3. 选择列表中的<span class="importantBlock">奇数</span>子元素
+<span class="backgroundBlock">:nth-child(2n-1)</span>
 
-两者结合使用，可以限制选择某一个范围
-/*【限制范围】选择第6个到第9个，取两者的交集 */
-:nth-child(-n+9):nth-child(n+6){}
+4. 选择<span class="importantBlock">前n个</span>子元素
+【负方向范围】选择第1个到第6个
+<span class="backgroundBlock">:nth-child(-n+6){}</span>
 
-选择列表中的倒数第n个标签 n为数字
-:nth-last-child(n) 
-```
+5. <span class="importantBlock">从第n个</span>子元素开始选择
+【正方向范围】选择从第6个开始的，直到最后
+<span class="backgroundBlock">:nth-child(n+6){}</span>
+
+6. 两者结合使用，可以限制选择<span class="importantBlock">某个范围内</span>的子元素
+【限制范围】选择第6个到第9个，取两者的交集
+<span class="backgroundBlock">:nth-child(-n+9):nth-child(n+6){}</span>
+
+7. 选择列表中的<span class="importantBlock">倒数第n个</span>子元素
+<span class="backgroundBlock">:nth-last-child(n)</span>
+
 例子：
 ```css
 /*给class="tagWrap"的div的前三个.tag子元素加上右外边距 */

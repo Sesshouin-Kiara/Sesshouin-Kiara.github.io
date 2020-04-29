@@ -359,11 +359,17 @@ let lineData2 = [{
 <div style="text-align:center;"><img src="https://s1.ax1x.com/2020/03/27/GCtsun.gif"></div>
 
 有几点需要注意一下：
-> 1. 绘制地图的函数 drawMap 放在了 mounted 中，而不是 created 。写在 created 中会报 "Cannot read property 'getAttribute' of null" 的错误。想知道为什么不能放在 created 中，首先需要知道这两个生命周期的区别： created 是在模板渲染成 html 前调用，此时 el 还是 undefined ， data 已经存在，这里不能对 dom 进行操作； mounted 是在模板渲染成 html 后调用，此时 el ， data 都已经加载完成。一般对 dom 的操作都写在 mounted 中，例如获取 innerHTML ，初始化 echarts 等。
+1. 绘制地图的函数 drawMap<span class="importantBlock">需要放在 mounted 中，而不是 created</span>。写在<span class="backgroundBlock">created</span>中会报 "Cannot read property 'getAttribute' of null" 的错误。想知道原因，首先需要知道这两个生命周期的区别：
+    * <span class="backgroundBlock">created</span>是在模板渲染成 html 前调用，此时 el 还是 undefined ， data 已经存在，<span class="importantBlock">此时不能对 dom 进行操作</span>；
+    * <span class="backgroundBlock">mounted</span>是在模板渲染成 html 后调用，此时 el ， data 都已经加载完成。<span class="importantBlock">一般对 dom 的操作都写在 mounted 中</span>，例如获取 innerHTML ，初始化 echarts 等。
 
-> 2. 需要绘制的内容都可以放在 option 的 series 中（ type 为 line、pie、title、map 等等），也可以和 series 同级，以 type 为对象的名字（例如上面的 title、legend、geo 等）。样式可以分为 normal 和 emphasis ，前者为普通情况下的样式，后者是 hover 时的样式。
+2. 需要绘制的内容可以写在两个地方：
+    * 1.放在<span class="backgroundBlock">option</span>的<span class="backgroundBlock">series</span>中（ type 为 line、pie、title、map 等等），
+    * 2.和<span class="backgroundBlock">series</span>同级，以<span class="backgroundBlock">type</span>为对象的名字（例如上面的 title、legend、geo 等）。
+    * 样式可以分为<span class="backgroundBlock">normal</span>和<span class="backgroundBlock">emphasis</span>，前者为普通情况下的样式，后者是 hover 时的样式。
 
-> 3. 两个 linedata 是因为要区分从不同的城市发出的路线以及显示不同的颜色， legend 中的 data 数组项必须是 series 数组中存在的项的 name 字段。某个 legend 处于 hover 状态时，对应的 series 也会处于 hover 状态（鼠标移入上海 legend 时，所有上海的路线都会 hover ）。
+3. 两个 linedata 是因为要区分从不同的城市发出的路线以及显示不同的颜色，即鼠标移入不同的<span class="backgroundBlock">legend</span>时，对应的路线应该亮起。要实现这个效果，<span class="importantBlock">legend 中的 data 数组项必须是 series 数组中存在的项的 name 字段</span>。某个 legend 处于 hover 状态时，对应的 series 也会处于 hover 状态（鼠标移入上海 legend 时，所有上海的路线都会 hover ）。
+
 
 最后附上柱状-折现图的绘制方法：
 ```js

@@ -42,6 +42,6 @@ console.log('deepCloneObj:',deepCloneObj)
 ```
 打印结果如下：
 <div style="text-align:center;"><img src="/print2.png"></div>
-新对象的name属性改变了，但是并没有影响到原对象name属性的值，这说明新对象和旧对象指向不同的存储空间，拷贝完成。
+新对象的<span class="backgroundBlock">name</span>属性改变了，但是并没有影响到原对象<span class="backgroundBlock">name</span>属性的值，这说明新对象和旧对象指向不同的存储空间，拷贝完成。
 <div style="height:12px;"></div>
-但是这种方式也是有局限性的，当源对象中有<span style="background-color:rgb(245,245,245);padding:3px 6px;margin:0 6px;">函数、undefined、null、NaN、正则</span>等一些属性时，拷贝会失败。
+但是这种方式也是有局限性的，当源对象中有<span class="backgroundBlock">函数、undefined、null、NaN、正则</span>等一些属性时，拷贝会失败。

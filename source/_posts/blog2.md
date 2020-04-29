@@ -8,13 +8,14 @@ tags:
 - 常用
 thumbnail: https://s2.ax1x.com/2019/12/31/l3AAeK.jpg
 ---
+（持续更新中......）
 本文罗列了一些工作中经常使用到、但是不查百度就不会用的一些知识点和技巧。
 
 1. 数组常用的一些方法
 [传送门（js数组常用方法）](https://wanghong.cool/2019/12/26/blog3)
 
 2. 字符串去空格
-```javascript
+```javascript trim()
 let str1 = "   aaa   "
 str1.trim()
 console.log(str1) //trim()不会改变原字符串，打印结果str1为"   aaa   "

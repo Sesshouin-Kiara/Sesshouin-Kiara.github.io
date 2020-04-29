@@ -11,7 +11,7 @@ tags:
 - Ant Design
 thumbnail: https://s2.ax1x.com/2019/12/31/l3E43j.jpg
 ---
-公司的后台项目使用的UI库是Ant Design。在工作中，由于 Ant Design 表单 From 提供的验证方式比较单一，经常会用到表单Form的自定义验证，这里总结一下基本的用法。
+公司的后台项目使用的UI库是<span class="backgroundBlock">Ant Design</span>。在工作中，由于<span class="backgroundBlock">Ant Design</span>表单<span class="backgroundBlock">From</span>提供的验证方式比较单一，经常会用到表单的自定义验证，这里总结一下基本的用法。
 <!-- more -->
 ```javascript
 <a-input

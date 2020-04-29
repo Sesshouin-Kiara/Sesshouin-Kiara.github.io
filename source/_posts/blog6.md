@@ -8,40 +8,40 @@ tags:
 - 常用
 thumbnail: https://s2.ax1x.com/2019/12/31/l3E5gs.jpg
 ---
-1. 将js的Date对象转换为指定格式，如：YYYY-mm-dd HH:MM、YYYY-mm-dd等。
-```javascript
+1. **Date对象转换为指定格式的字符串**，如：<span class="backgroundBlock">YYYY-mm-dd HH:MM</span><span class="backgroundBlock">YYYY-mm-dd</span>等。
+```javascript 一个Date对象
 let now = new Date()
 console.log(now) 
 //打印结果：Fri Jan 03 2020 10:05:48 GMT+0800 (中国标准时间)
 ```
-定义格式化Date的方法：
+定义格式化Date的方法<span class="backgroundBlock">format</span>：
 ```javascript
-format(data,format){
-    let dataFormatStr = ''
-    let year = data.getFullYear()
-    let mouth = data.getMonth()+1 //Date对象中月份为0-11
-    let day = data.getDate()
-    let hour = data.getHours()
-    let min = data.getMinutes()
-    let s = data.getSeconds()
+format(date,format){
+    let dateFormatStr = ''
+    let year = date.getFullYear()
+    let mouth = date.getMonth()+1 //Date对象中月份为0-11
+    let day = date.getDate()
+    let hour = date.getHours()
+    let min = date.getMinutes()
+    let s = date.getSeconds()
     // 将format格式中的字符串替换
-    dataFormatStr = format.replace(/yyyy/, year).replace(/MM/, mouth).replace(/dd/, day).replace(/hh/, hour).replace(/mm/, min).replace(/ss/, s)
-    return dataFormatStr
+    dateFormatStr = format.replace(/yyyy/, year).replace(/MM/, mouth).replace(/dd/, day).replace(/hh/, hour).replace(/mm/, min).replace(/ss/, s)
+    return dateFormatStr
 }
 ```
 <!-- more -->
-对now调用format方法
+对<span class="backgroundBlock">Date</span>对象调用<span class="backgroundBlock">format</span>方法:
 ```javascript
 let nowStr = this.format(now,'yyyy-MM-dd hh:mm:ss')
 console.log(nowStr) 
 //打印结果：2020-1-1 10:5:48
 ```
-对format方法传入不同的format参数，即可转换成不同格式。
+对 format 方法传入不同的 format 参数，即可转换成不同格式。
 
 
 
 
-2. 将字符串转换成Date对象：
+2. **字符串转换成Date对象**
 ```javascript
 //传入字符串
 let date1 = new Date("2020-1-1")
@@ -55,4 +55,4 @@ console.log(date3)
 console.log(date4)
 //Sat Feb 01 2020 00:00:00 GMT+0800 (中国标准时间)
 ```
-注意：Date对象中月份是0-11，所以date4这样传入整数生成的Date对象代表2020年2月1日
+注意：<span class="importantBlock">Date对象中月份是0-11</span>，所以date4这样传入整数生成的Date对象代表2020年2月1日
