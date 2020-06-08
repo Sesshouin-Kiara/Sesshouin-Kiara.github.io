@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html  lang="zh">
+
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 4.1.1" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>从零开始使用Vue Router - 王宏的个人网站</title>
+
+
+    <meta name="description" content="公司项目大都是在已经搭建好的模板上进行开发，加上自己也没有认真梳理过，导致工作大半年了对vue-router还是不太熟练，每次使用都要看文档。这次趁着有时间，在这里系统地梳理一下相关内容，从零开始过一遍。 首先创建一个vue项目，然后安装vue-router。   NPM 1npm install vue-router Yarn 1yarn add vue-router 建议使用Yarn，安装速度">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从零开始使用Vue Router">
+<meta property="og:url" content="https:&#x2F;&#x2F;sesshouin-kiara.github.io&#x2F;2020&#x2F;01&#x2F;06&#x2F;blog7&#x2F;index.html">
+<meta property="og:site_name" content="王宏的个人网站">
+<meta property="og:description" content="公司项目大都是在已经搭建好的模板上进行开发，加上自己也没有认真梳理过，导致工作大半年了对vue-router还是不太熟练，每次使用都要看文档。这次趁着有时间，在这里系统地梳理一下相关内容，从零开始过一遍。 首先创建一个vue项目，然后安装vue-router。   NPM 1npm install vue-router Yarn 1yarn add vue-router 建议使用Yarn，安装速度">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;s2.ax1x.com&#x2F;2019&#x2F;12&#x2F;31&#x2F;l3AAeK.jpg">
+<meta property="article:published_time" content="2020-01-06T02:26:07.000Z">
+<meta property="article:modified_time" content="2020-04-30T14:19:30.768Z">
+<meta property="article:author" content="王宏">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="常用">
+<meta property="article:tag" content="Vue">
+<meta property="article:tag" content="Vue Router">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;s2.ax1x.com&#x2F;2019&#x2F;12&#x2F;31&#x2F;l3AAeK.jpg">
+
+
+
+
+
+
+
+<link rel="icon" href="https://s2.ax1x.com/2020/01/03/lUMNLV.jpg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="从零开始使用Vue Router" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">主页</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://github.com/Sesshouin-Kiara">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+        
+            <section class="section">
+                <div class="container">
+                    <div class="columns">
+                        <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
+                            
+<div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="https://s2.ax1x.com/2019/12/31/l3AAeK.jpg" alt="从零开始使用Vue Router">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-01-06T02:26:07.000Z">2020-01-06</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/JavaScript/">JavaScript</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/Vue/">Vue</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    9 分钟 读完 (大约 1337 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                从零开始使用Vue Router
+            
+        </h1>
+        <div class="content">
+            <p>公司项目大都是在已经搭建好的模板上进行开发，加上自己也没有认真梳理过，导致工作大半年了对<span class="backgroundBlock"><a href="https://router.vuejs.org/zh/" target="_blank" rel="noopener">vue-router</a></span>还是不太熟练，每次使用都要看文档。这次趁着有时间，在这里系统地梳理一下相关内容，从零开始过一遍。</p>
+<p>首先创建一个<span class="backgroundBlock">vue</span>项目，然后安装<span class="backgroundBlock"><a href="https://router.vuejs.org/zh/" target="_blank" rel="noopener">vue-router</a></span>。  </p>
+<p>NPM</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install vue-router</span><br></pre></td></tr></table></figure>
+<p>Yarn</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add vue-router</span><br></pre></td></tr></table></figure>
+<p>建议使用<span class="backgroundBlock">Yarn</span>，安装速度更快更稳定。<span class="backgroundBlock">npm</span>可能会出现由于速度慢连接不稳定而导致的下载文件缺失导致项目运行失败。</p>
+<a id="more"></a>
+<h2 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h2><p>首先在<span class="backgroundBlock">src/components</span>中新建<span class="backgroundBlock">foo.vue</span>和<span class="backgroundBlock">bar.vue</span>两个文件，作为路由显示的页面内容。<br>然后在<span class="backgroundBlock">src</span>目录下新建一个<span class="backgroundBlock">router.js</span>文件，写入以下内容：</p>
+<figure class="highlight javascript hljs"><figcaption><span>router.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 引入Vue和VueRouter</span></span><br><span class="line"><span class="hljs-keyword">import</span> Vue <span class="hljs-keyword">from</span> <span class="hljs-string">'vue'</span></span><br><span class="line"><span class="hljs-keyword">import</span> VueRouter <span class="hljs-keyword">from</span> <span class="hljs-string">'vue-router'</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 引入（路由）组件</span></span><br><span class="line"><span class="hljs-keyword">import</span> Foo <span class="hljs-keyword">from</span> <span class="hljs-string">'./components/foo.vue'</span></span><br><span class="line"><span class="hljs-keyword">import</span> Bar <span class="hljs-keyword">from</span> <span class="hljs-string">'./components/bar.vue'</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 告诉 Vue 使用 VueRouter</span></span><br><span class="line">Vue.use(VueRouter)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 定义路由router</span></span><br><span class="line"><span class="hljs-keyword">const</span> router = <span class="hljs-keyword">new</span> VueRouter(&#123;</span><br><span class="line">    routes: [</span><br><span class="line">        &#123;</span><br><span class="line">            path: <span class="hljs-string">'/foo'</span>,</span><br><span class="line">            component: Foo</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            path: <span class="hljs-string">'/bar'</span>,</span><br><span class="line">            component: Bar</span><br><span class="line">        &#125;,</span><br><span class="line">    ]</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 将router暴露出去供其他文件使用</span></span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> router;</span><br></pre></td></tr></table></figure>
+<p>此时项目的目录结构为：</p>
+<div style="text-align:center;"><img src="https://s2.ax1x.com/2020/01/06/lrIv4g.png"></div>
+
+<p>在<span class="backgroundBlock">main.js</span>中引入<span class="backgroundBlock">router.js</span>文件：</p>
+<figure class="highlight javascript hljs"><figcaption><span>main.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> Vue <span class="hljs-keyword">from</span> <span class="hljs-string">'vue'</span></span><br><span class="line"><span class="hljs-keyword">import</span> App <span class="hljs-keyword">from</span> <span class="hljs-string">'./App.vue'</span></span><br><span class="line"><span class="hljs-keyword">import</span> router <span class="hljs-keyword">from</span> <span class="hljs-string">'./router'</span></span><br><span class="line"></span><br><span class="line">Vue.config.productionTip = <span class="hljs-literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">new</span> Vue(&#123;</span><br><span class="line">    router,<span class="hljs-comment">// 将路由注入到根实例中</span></span><br><span class="line">    render: <span class="hljs-function"><span class="hljs-params">h</span> =&gt;</span> h(App),</span><br><span class="line">&#125;).$mount(<span class="hljs-string">'#app'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>在<span class="backgroundBlock">App.vue</span>中添加<span class="backgroundBlock">router-link</span>和<span class="backgroundBlock">router-view</span>：</p>
+<figure class="highlight html hljs"><figcaption><span>App.vue</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app"</span>&gt;</span></span><br><span class="line">        <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Hello VueRouter!<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span><br><span class="line">        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="line">            <span class="hljs-comment">&lt;!-- &lt;router-link&gt; 默认会被渲染成一个 `&lt;a&gt;` 标签 --&gt;</span></span><br><span class="line">            <span class="hljs-tag">&lt;<span class="hljs-name">router-link</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/foo"</span>&gt;</span>Go to Foo<span class="hljs-tag">&lt;/<span class="hljs-name">router-link</span>&gt;</span></span><br><span class="line">            <span class="hljs-tag">&lt;<span class="hljs-name">router-link</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/bar"</span>&gt;</span>Go to Bar<span class="hljs-tag">&lt;/<span class="hljs-name">router-link</span>&gt;</span></span><br><span class="line">        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="line">         <span class="hljs-comment">&lt;!-- 路由出口 --&gt;</span></span><br><span class="line">        <span class="hljs-tag">&lt;<span class="hljs-name">router-view</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">router-view</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span></span><br><span class="line"><span class="hljs-javascript">    <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span></span><br><span class="line"><span class="hljs-actionscript">        name: <span class="hljs-string">'app'</span>,</span></span><br><span class="line">        components: &#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span></span><br><span class="line"><span class="hljs-css">    <span class="hljs-selector-id">#app</span> &#123;</span></span><br><span class="line">        text-align: center;</span><br><span class="line">        margin-top: 60px;</span><br><span class="line">    &#125;</span><br><span class="line">    a &#123;</span><br><span class="line">        margin-right: 16px;</span><br><span class="line">        text-decoration: none;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>运行项目，效果如下，点击页面上的<span class="backgroundBlock">router-link</span>可以切换显示对应的<span class="backgroundBlock">router</span>组件：</p>
+<div style="text-align:center;"><img src="https://s2.ax1x.com/2020/01/06/lrbzXd.png"></div>
+<div style="text-align:center;"><img src="https://s2.ax1x.com/2020/01/06/lrqpnA.png"></div>
+
+<p>但是当首次进入页面的时候，<span class="backgroundBlock">router-view</span>中并没有显示任何内容。这是因为首次进入页面时，它的路径是<span class="backgroundBlock">/</span>，我们并没有给这个路径做相应的配置。<br>我们可以在<span class="backgroundBlock">router.js</span>中添加一项路由，给空路径<span class="backgroundBlock">/</span>指定一个组件，</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    path: <span class="hljs-string">'/'</span>,</span><br><span class="line">    component: Foo</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>或者是给空路径<span class="backgroundBlock">/</span>重定向一个其他的路径，（建议使用这种方式）</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    path: <span class="hljs-string">'/'</span>,</span><br><span class="line">    component: Foo</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>修改之后<span class="backgroundBlock">router.js</span>内容如下：</p>
+<figure class="highlight javascript hljs"><figcaption><span>router.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 引入Vue和VueRouter</span></span><br><span class="line"><span class="hljs-keyword">import</span> Vue <span class="hljs-keyword">from</span> <span class="hljs-string">'vue'</span></span><br><span class="line"><span class="hljs-keyword">import</span> VueRouter <span class="hljs-keyword">from</span> <span class="hljs-string">'vue-router'</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 引入（路由）组件</span></span><br><span class="line"><span class="hljs-keyword">import</span> Foo <span class="hljs-keyword">from</span> <span class="hljs-string">'./components/foo.vue'</span></span><br><span class="line"><span class="hljs-keyword">import</span> Bar <span class="hljs-keyword">from</span> <span class="hljs-string">'./components/bar.vue'</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 告诉 Vue 使用 VueRouter</span></span><br><span class="line">Vue.use(VueRouter)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 定义路由router</span></span><br><span class="line"><span class="hljs-keyword">const</span> router = <span class="hljs-keyword">new</span> VueRouter(&#123;</span><br><span class="line">    routes: [</span><br><span class="line">        <span class="hljs-comment">// &#123;</span></span><br><span class="line">        <span class="hljs-comment">//     path: '/',</span></span><br><span class="line">        <span class="hljs-comment">//     component: Foo</span></span><br><span class="line">        <span class="hljs-comment">// &#125;,</span></span><br><span class="line">        &#123;</span><br><span class="line">            path: <span class="hljs-string">'/'</span>,</span><br><span class="line">            redirect: <span class="hljs-string">'/foo'</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            path: <span class="hljs-string">'/foo'</span>,</span><br><span class="line">            component: Foo</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            path: <span class="hljs-string">'/bar'</span>,</span><br><span class="line">            component: Bar</span><br><span class="line">        &#125;,</span><br><span class="line">    ]</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 将router暴露出去供其他文件使用</span></span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> router;</span><br></pre></td></tr></table></figure>
+
+<h2 id="嵌套路由"><a href="#嵌套路由" class="headerlink" title="嵌套路由"></a>嵌套路由</h2><p><span class="backgroundBlock">App.vue</span>中的<span class="backgroundBlock">router-view</span>是最顶层的出口，渲染最高级路由匹配到的组件。同样的，一个被渲染组件同样可以包含自己的嵌套<span class="backgroundBlock">router-view</span>。</p>
+<p>例如，在 Bar 组件的模板添加一个 router-view ，其中包含 BarChild1 和 BarChild2 两个子组件。</p>
+<p>在 src/components 目录下新建 bar-child1.vue 和 bar-child2.vue 两个文件，然后将 bar.vue 和 router.js 修改成如下内容：</p>
+<figure class="highlight html hljs"><figcaption><span>bar.vue</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"margin:33px;"</span>&gt;</span></span><br><span class="line">        这里是bar</span><br><span class="line">        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="line">            <span class="hljs-comment">&lt;!-- &lt;router-link&gt; 默认会被渲染成一个 `&lt;a&gt;` 标签 --&gt;</span></span><br><span class="line">            <span class="hljs-tag">&lt;<span class="hljs-name">router-link</span> <span class="hljs-attr">:to</span>=<span class="hljs-string">"&#123;name:'BarChild1'&#125;"</span>&gt;</span>Go to bar-child1<span class="hljs-tag">&lt;/<span class="hljs-name">router-link</span>&gt;</span></span><br><span class="line">            <span class="hljs-tag">&lt;<span class="hljs-name">router-link</span> <span class="hljs-attr">:to</span>=<span class="hljs-string">"&#123;name:'BarChild2'&#125;"</span>&gt;</span>Go to bar-child2<span class="hljs-tag">&lt;/<span class="hljs-name">router-link</span>&gt;</span></span><br><span class="line">        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="line">        <span class="hljs-comment">&lt;!-- 路由出口 --&gt;</span></span><br><span class="line">        <span class="hljs-tag">&lt;<span class="hljs-name">router-view</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">router-view</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript hljs"><figcaption><span>router.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> Vue <span class="hljs-keyword">from</span> <span class="hljs-string">'vue'</span></span><br><span class="line"><span class="hljs-keyword">import</span> VueRouter <span class="hljs-keyword">from</span> <span class="hljs-string">'vue-router'</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">import</span> Foo <span class="hljs-keyword">from</span> <span class="hljs-string">'./components/foo.vue'</span></span><br><span class="line"><span class="hljs-keyword">import</span> Bar <span class="hljs-keyword">from</span> <span class="hljs-string">'./components/bar.vue'</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">import</span> BarChild1 <span class="hljs-keyword">from</span> <span class="hljs-string">'./components/bar-child1.vue'</span></span><br><span class="line"><span class="hljs-keyword">import</span> BarChild2 <span class="hljs-keyword">from</span> <span class="hljs-string">'./components/bar-child2.vue'</span></span><br><span class="line"></span><br><span class="line">Vue.use(VueRouter)</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">const</span> router = <span class="hljs-keyword">new</span> VueRouter(&#123;</span><br><span class="line">    routes: [&#123;</span><br><span class="line">            path: <span class="hljs-string">'/'</span>,</span><br><span class="line">            redirect: <span class="hljs-string">'/foo'</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            path: <span class="hljs-string">'/foo'</span>,</span><br><span class="line">            component: Foo,</span><br><span class="line">            name: <span class="hljs-string">'Foo'</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            path: <span class="hljs-string">'/bar'</span>,</span><br><span class="line">            component: Bar,</span><br><span class="line">            name: <span class="hljs-string">'Bar'</span>,</span><br><span class="line">            children: [&#123;</span><br><span class="line">                    path: <span class="hljs-string">'bar-child1'</span>,</span><br><span class="line">                    component: BarChild1,</span><br><span class="line">                    name: <span class="hljs-string">'BarChild1'</span>,</span><br><span class="line">                &#125;,</span><br><span class="line">                &#123;</span><br><span class="line">                    path: <span class="hljs-string">'bar-child2'</span>,</span><br><span class="line">                    component: BarChild2,</span><br><span class="line">                    name: <span class="hljs-string">'BarChild2'</span>,</span><br><span class="line">                &#125;,</span><br><span class="line">            ]</span><br><span class="line">        &#125;,</span><br><span class="line">    ]</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> router;</span><br></pre></td></tr></table></figure>
+<p>为了方便使用，我们在定义路由的时候加上了<span class="backgroundBlock">name</span>字段，在<span class="backgroundBlock">router-link</span>中，我们可以使用对象来代替之前的路径了。</p>
+<p>运行效果如下：</p>
+<div style="text-align:center;"><img src="https://s2.ax1x.com/2020/01/06/lsGMlt.png"></div>
+
+<p><strong>要注意，以 / 开头的嵌套路径会被当作根路径。 这让你充分的使用嵌套组件而无须设置嵌套的路径。</strong><br>例如，当 router.js 中 BarChild1 组件的路由path是这样时：</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    path: <span class="hljs-string">'bar-child1'</span>,</span><br><span class="line">    component: BarChild1,</span><br><span class="line">    name: <span class="hljs-string">'BarChild1'</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>BarChild1 在浏览器地址栏的路径是：<span class="backgroundBlock">localhost:8080/#/bar/bar-child1</span>。  </p>
+<p>而当 BarChild1 组件的路由path是以<span class="backgroundBlock">/</span>开头时：</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    path: <span class="hljs-string">'/bar-child1'</span>,</span><br><span class="line">    component: BarChild1,</span><br><span class="line">    name: <span class="hljs-string">'BarChild1'</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>BarChild1 在浏览器地址栏的路径是：<span class="backgroundBlock">localhost:8080/#/bar-child1</span>。 </p>
+<h2 id="路由元信息"><a href="#路由元信息" class="headerlink" title="路由元信息"></a>路由元信息</h2><p>工作中，我们常常还会为路由定义一些自定义属性，这些属性我们可以放在<span class="backgroundBlock">meta</span>字段（路由元信息）中：</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    path: <span class="hljs-string">'/home'</span>,</span><br><span class="line">    component: Home,</span><br><span class="line">    name: <span class="hljs-string">'Home'</span>,</span><br><span class="line">    meta: &#123;</span><br><span class="line">        name: <span class="hljs-string">'主页'</span>,</span><br><span class="line">        isShow: <span class="hljs-literal">true</span>,</span><br><span class="line">        requiresAuth: <span class="hljs-literal">true</span>,</span><br><span class="line">        ......</span><br><span class="line">    &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p>可以通过<span class="backgroundBlock">this.$router.meta[属性名]</span>拿到对应的值。</p>
+<h2 id="编程式的导航"><a href="#编程式的导航" class="headerlink" title="编程式的导航"></a>编程式的导航</h2><p>除了通过<span class="backgroundBlock">router-link</span>来创建导航链接外，我们还可以借助<span class="importantBlock">router的实例方法</span>，通过js代码来实现。<br>将<span class="backgroundBlock">App.vue</span>中的<span class="backgroundBlock">router-link</span>修改为<span class="backgroundBlock">button</span>，通过添加点击事件方法同样可以完成路由的切换。</p>
+<figure class="highlight html hljs"><figcaption><span>App.vue</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app"</span>&gt;</span></span><br><span class="line">        <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Hello VueRouter!<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span><br><span class="line">        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="line">            <span class="hljs-tag">&lt;<span class="hljs-name">router-link</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/foo"</span>&gt;</span>Go to Foo<span class="hljs-tag">&lt;/<span class="hljs-name">router-link</span>&gt;</span></span><br><span class="line">            <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"goPage('Bar')"</span>&gt;</span>Go to Bar<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="line">        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="line">        <span class="hljs-comment">&lt;!-- 路由出口 --&gt;</span></span><br><span class="line">        <span class="hljs-tag">&lt;<span class="hljs-name">router-view</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">router-view</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span><br><span class="line">    name: <span class="hljs-string">'app'</span>,</span><br><span class="line">    components: &#123;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">        goPage(routerName) &#123;</span><br><span class="line">            <span class="hljs-keyword">this</span>.$router.push(&#123;</span><br><span class="line">                name: routerName</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>效果如下：</p>
+<div style="text-align:center;"><img src="https://s2.ax1x.com/2020/01/06/lsNk3d.png"></div>
+
+
+
+<p>Vue Router 的基本使用就是这样了，更加复杂的使用可以看：<a href="https://wanghong.cool/2020/03/14/blog14/" target="_blank" rel="noopener">使用Vue搭建后台管理系统</a>。</p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/JavaScript/" rel="tag">JavaScript</a>, <a class="has-link-grey -link" href="/tags/Vue/" rel="tag">Vue</a>, <a class="has-link-grey -link" href="/tags/Vue-Router/" rel="tag">Vue Router</a>, <a class="has-link-grey -link" href="/tags/%E5%B8%B8%E7%94%A8/" rel="tag">常用</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/images/zhifubaoPay.jpg" alt="支付宝"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/weixinPay.jpg" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/01/08/blog8/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">js实现根据sku关键属性算出所有sku的算法</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/01/01/blog6/">
+                <span class="level-item">js日期对象Date和字符串的互相转化</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="valine-thread" class="content"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#valine-thread' ,
+        notify: false,
+        verify: false,
+        app_id: 'XICGs6n9m3NLPFkfB2l9Pg76-gzGzoHsz',
+        app_key: 'uxlHsYMfxumpS3JiCL1Hmrs5',
+        placeholder: '留下你的评论吧!'
+    });
+</script>
+
+    </div>
+</div>
+
+                        </div>
+                        
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+    <div class="card widget">
+        <div class="card-content">
+            <nav class="level">
+                <div class="level-item has-text-centered" style="flex-shrink: 1">
+                    <div>
+                        
+                            <figure class="image is-128x128 has-mb-6">
+                                <img class="" src="https://s2.ax1x.com/2020/01/03/lUMNLV.jpg" alt="王宏">
+                            </figure>
+                            
+                                <p class="is-size-4 is-block">
+                                    王宏
+                                </p>
+                                
+                                    
+                                        <p class="is-size-6 is-block">
+                                            人的梦想，是不会终结的
+                                        </p>
+                                        
+                                            
+                                                <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                                                    <i class="fas fa-map-marker-alt has-mr-7"></i>
+                                                    <span>浙江 杭州</span>
+                                                </p>
+                                                
+                    </div>
+                </div>
+            </nav>
+            <nav class="level is-mobile">
+                <div class="level-item has-text-centered is-marginless">
+                    <div>
+                        <p class="heading">
+                            文章
+                        </p>
+                        <a href="/archives">
+                            <p class="title has-text-weight-normal">
+                                20
+                            </p>
+                        </a>
+                    </div>
+                </div>
+                <div class="level-item has-text-centered is-marginless">
+                    <div>
+                        <p class="heading">
+                            分类
+                        </p>
+                        <a href="/categories">
+                            <p class="title has-text-weight-normal">
+                                9
+                            </p>
+                        </a>
+                    </div>
+                </div>
+                <div class="level-item has-text-centered is-marginless">
+                    <div>
+                        <p class="heading">
+                            标签
+                        </p>
+                        <a href="/tags">
+                            <p class="title has-text-weight-normal">
+                                14
+                            </p>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+            
+                <div class="level">
+                    <a class="level-item button is-link is-rounded" href="https://github.com/Sesshouin-Kiara" target="_blank">
+                        关注我
+                    </a>
+                </div>
+                
+                    
+                        
+        </div>
+    </div>
+    
+        
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://bilibili.com" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Bilibili</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">bilibili.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://lanshublog.top/" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">张瀚文</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">lanshublog.top</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/Ant-Design/">
+            <span class="level-start">
+                <span class="level-item">Ant Design</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">6</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/CSS/">
+            <span class="level-start">
+                <span class="level-item">CSS</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Echarts/">
+            <span class="level-start">
+                <span class="level-item">Echarts</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/HTML/">
+            <span class="level-start">
+                <span class="level-item">HTML</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/JavaScript/">
+            <span class="level-start">
+                <span class="level-item">JavaScript</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">11</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Vue/">
+            <span class="level-start">
+                <span class="level-item">Vue</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">8</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/categories/Vue/Axios/">
+            <span class="level-start">
+                <span class="level-item">Axios</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Vue/Vue-Router/">
+            <span class="level-start">
+                <span class="level-item">Vue Router</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Vue/Vuex/">
+            <span class="level-start">
+                <span class="level-item">Vuex</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li></ul></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/Ant-Design/" style="font-size: 15px;">Ant Design</a> <a href="/tags/Axios/" style="font-size: 11.67px;">Axios</a> <a href="/tags/CSS/" style="font-size: 11.67px;">CSS</a> <a href="/tags/Echarts/" style="font-size: 10px;">Echarts</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Vue/" style="font-size: 18.33px;">Vue</a> <a href="/tags/Vue-Router/" style="font-size: 13.33px;">Vue Router</a> <a href="/tags/Vuex/" style="font-size: 10px;">Vuex</a> <a href="/tags/sass/" style="font-size: 10px;">sass</a> <a href="/tags/vuedraggable/" style="font-size: 10px;">vuedraggable</a> <a href="/tags/%E5%B8%B8%E7%94%A8/" style="font-size: 16.67px;">常用</a> <a href="/tags/%E6%8B%96%E6%8B%BD/" style="font-size: 10px;">拖拽</a> <a href="/tags/%E9%97%AD%E5%8C%85/" style="font-size: 10px;">闭包</a>
+    </div>
+</div>
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/06/08/blog20/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2020/01/08/lgtuXd.jpg" alt="使用vuedraggable进行拖拽操作">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-08T06:08:50.000Z">2020-06-08</time></div>
+                    <a href="/2020/06/08/blog20/" class="title has-link-black-ter is-size-6 has-text-weight-normal">使用vuedraggable进行拖拽操作</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Vue/">Vue</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/27/blog19/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2019/12/31/l3E43j.jpg" alt="使用Echarts绘制geo航线图">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-27T02:35:18.000Z">2020-03-27</time></div>
+                    <a href="/2020/03/27/blog19/" class="title has-link-black-ter is-size-6 has-text-weight-normal">使用Echarts绘制geo航线图</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Echarts/">Echarts</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/20/blog18/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2020/01/03/lUPGBn.jpg" alt="对Js闭包的理解">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-20T08:39:49.000Z">2020-03-20</time></div>
+                    <a href="/2020/03/20/blog18/" class="title has-link-black-ter is-size-6 has-text-weight-normal">对Js闭包的理解</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JavaScript/">JavaScript</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/19/blog17/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2019/12/31/l3AAeK.jpg" alt="从零开始搭建后台管理系统（五）Utils、Mixins">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-19T01:52:27.000Z">2020-03-19</time></div>
+                    <a href="/2020/03/19/blog17/" class="title has-link-black-ter is-size-6 has-text-weight-normal">从零开始搭建后台管理系统（五）Utils、Mixins</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Ant-Design/">Ant Design</a> / <a class="has-link-grey -link" href="/categories/Vue/">Vue</a> / <a class="has-link-grey -link" href="/categories/Vue/Axios/">Axios</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/18/blog16/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2019/12/31/l3E5gs.jpg" alt="从零开始搭建后台管理系统（四）Ajax、Axios">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-18T02:52:58.000Z">2020-03-18</time></div>
+                    <a href="/2020/03/18/blog16/" class="title has-link-black-ter is-size-6 has-text-weight-normal">从零开始搭建后台管理系统（四）Ajax、Axios</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Ant-Design/">Ant Design</a> / <a class="has-link-grey -link" href="/categories/Vue/">Vue</a> / <a class="has-link-grey -link" href="/categories/Vue/Axios/">Axios</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/06/">
+                <span class="level-start">
+                    <span class="level-item">六月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">三月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">9</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Ant-Design/">
+                        <span class="tag">Ant Design</span>
+                        <span class="tag is-grey">6</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Axios/">
+                        <span class="tag">Axios</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/CSS/">
+                        <span class="tag">CSS</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Echarts/">
+                        <span class="tag">Echarts</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/HTML/">
+                        <span class="tag">HTML</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/JavaScript/">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag is-grey">11</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Vue/">
+                        <span class="tag">Vue</span>
+                        <span class="tag is-grey">8</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Vue-Router/">
+                        <span class="tag">Vue Router</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Vuex/">
+                        <span class="tag">Vuex</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/sass/">
+                        <span class="tag">sass</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vuedraggable/">
+                        <span class="tag">vuedraggable</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%B8%B8%E7%94%A8/">
+                        <span class="tag">常用</span>
+                        <span class="tag is-grey">7</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%8B%96%E6%8B%BD/">
+                        <span class="tag">拖拽</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%97%AD%E5%8C%85/">
+                        <span class="tag">闭包</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                            
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/06/08/blog20/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2020/01/08/lgtuXd.jpg" alt="使用vuedraggable进行拖拽操作">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-08T06:08:50.000Z">2020-06-08</time></div>
+                    <a href="/2020/06/08/blog20/" class="title has-link-black-ter is-size-6 has-text-weight-normal">使用vuedraggable进行拖拽操作</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Vue/">Vue</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/27/blog19/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2019/12/31/l3E43j.jpg" alt="使用Echarts绘制geo航线图">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-27T02:35:18.000Z">2020-03-27</time></div>
+                    <a href="/2020/03/27/blog19/" class="title has-link-black-ter is-size-6 has-text-weight-normal">使用Echarts绘制geo航线图</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Echarts/">Echarts</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/20/blog18/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2020/01/03/lUPGBn.jpg" alt="对Js闭包的理解">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-20T08:39:49.000Z">2020-03-20</time></div>
+                    <a href="/2020/03/20/blog18/" class="title has-link-black-ter is-size-6 has-text-weight-normal">对Js闭包的理解</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JavaScript/">JavaScript</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/19/blog17/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2019/12/31/l3AAeK.jpg" alt="从零开始搭建后台管理系统（五）Utils、Mixins">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-19T01:52:27.000Z">2020-03-19</time></div>
+                    <a href="/2020/03/19/blog17/" class="title has-link-black-ter is-size-6 has-text-weight-normal">从零开始搭建后台管理系统（五）Utils、Mixins</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Ant-Design/">Ant Design</a> / <a class="has-link-grey -link" href="/categories/Vue/">Vue</a> / <a class="has-link-grey -link" href="/categories/Vue/Axios/">Axios</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/18/blog16/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2019/12/31/l3E5gs.jpg" alt="从零开始搭建后台管理系统（四）Ajax、Axios">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-18T02:52:58.000Z">2020-03-18</time></div>
+                    <a href="/2020/03/18/blog16/" class="title has-link-black-ter is-size-6 has-text-weight-normal">从零开始搭建后台管理系统（四）Ajax、Axios</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Ant-Design/">Ant Design</a> / <a class="has-link-grey -link" href="/categories/Vue/">Vue</a> / <a class="has-link-grey -link" href="/categories/Vue/Axios/">Axios</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/06/">
+                <span class="level-start">
+                    <span class="level-item">六月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">三月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">9</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Ant-Design/">
+                        <span class="tag">Ant Design</span>
+                        <span class="tag is-grey">6</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Axios/">
+                        <span class="tag">Axios</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/CSS/">
+                        <span class="tag">CSS</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Echarts/">
+                        <span class="tag">Echarts</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/HTML/">
+                        <span class="tag">HTML</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/JavaScript/">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag is-grey">11</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Vue/">
+                        <span class="tag">Vue</span>
+                        <span class="tag is-grey">8</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Vue-Router/">
+                        <span class="tag">Vue Router</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Vuex/">
+                        <span class="tag">Vuex</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/sass/">
+                        <span class="tag">sass</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vuedraggable/">
+                        <span class="tag">vuedraggable</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%B8%B8%E7%94%A8/">
+                        <span class="tag">常用</span>
+                        <span class="tag is-grey">7</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%8B%96%E6%8B%BD/">
+                        <span class="tag">拖拽</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%97%AD%E5%8C%85/">
+                        <span class="tag">闭包</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+                    </div>
+
+                </div>
+            </section>
+            <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="从零开始使用Vue Router" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 王宏&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commonsaaa" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+                <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+<script>
+var IcarusThemeSettings = {
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+    
+    
+<script src="/js/animation.js"></script>
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+    
+    
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/" target="_blank" rel="noopener">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+    
+    
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+                    
+                        <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+                            
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":180,"height":360},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+
+</html>
+<!-- 雪花特效 -->
+<script type="text/javascript" src="\js\snow.js"></script>

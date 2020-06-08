@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html  lang="zh">
+
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 4.1.1" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>从零开始搭建后台管理系统（五）Utils、Mixins - 王宏的个人网站</title>
+
+
+    <meta name="description" content="本项目基于 Vue全家桶 和 Ant Design 进行开发。  目录  安装脚手架工具（vue-cli）、创建新项目 引入 Ant Design 引入 Vue Router 引入 node-sass&#x2F;sass-loader 登录页 完成页面的基本布局（ 根据路由渲染菜单组件、面包屑组件等 ） 使用 Vuex 完成菜单的显示隐藏 Ajax 以及 Axios 的封装 全局方法 Utils、混合 Mi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从零开始搭建后台管理系统（五）Utils、Mixins">
+<meta property="og:url" content="https:&#x2F;&#x2F;sesshouin-kiara.github.io&#x2F;2020&#x2F;03&#x2F;19&#x2F;blog17&#x2F;index.html">
+<meta property="og:site_name" content="王宏的个人网站">
+<meta property="og:description" content="本项目基于 Vue全家桶 和 Ant Design 进行开发。  目录  安装脚手架工具（vue-cli）、创建新项目 引入 Ant Design 引入 Vue Router 引入 node-sass&#x2F;sass-loader 登录页 完成页面的基本布局（ 根据路由渲染菜单组件、面包屑组件等 ） 使用 Vuex 完成菜单的显示隐藏 Ajax 以及 Axios 的封装 全局方法 Utils、混合 Mi">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;s2.ax1x.com&#x2F;2019&#x2F;12&#x2F;31&#x2F;l3AAeK.jpg">
+<meta property="article:published_time" content="2020-03-19T01:52:27.000Z">
+<meta property="article:modified_time" content="2020-04-30T14:19:30.768Z">
+<meta property="article:author" content="王宏">
+<meta property="article:tag" content="Vue">
+<meta property="article:tag" content="Ant Design">
+<meta property="article:tag" content="Axios">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;s2.ax1x.com&#x2F;2019&#x2F;12&#x2F;31&#x2F;l3AAeK.jpg">
+
+
+
+
+
+
+
+<link rel="icon" href="https://s2.ax1x.com/2020/01/03/lUMNLV.jpg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="从零开始搭建后台管理系统（五）Utils、Mixins" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">主页</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://github.com/Sesshouin-Kiara">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+        
+            <section class="section">
+                <div class="container">
+                    <div class="columns">
+                        <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
+                            
+<div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="https://s2.ax1x.com/2019/12/31/l3AAeK.jpg" alt="从零开始搭建后台管理系统（五）Utils、Mixins">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-03-19T01:52:27.000Z">2020-03-19</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/Ant-Design/">Ant Design</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/Vue/">Vue</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/Vue/Axios/">Axios</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    8 分钟 读完 (大约 1189 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                从零开始搭建后台管理系统（五）Utils、Mixins
+            
+        </h1>
+        <div class="content">
+            <p>本项目基于 <a href="https://cn.vuejs.org/v2/guide/" target="_blank" rel="noopener">Vue全家桶</a> 和 <a href="https://www.antdv.com/docs/vue/use-with-vue-cli-cn/" target="_blank" rel="noopener">Ant Design</a> 进行开发。</p>
+<blockquote>
+<p>目录</p>
+<ol>
+<li>安装脚手架工具（vue-cli）、创建新项目</li>
+<li>引入 Ant Design</li>
+<li>引入 Vue Router</li>
+<li>引入 node-sass/sass-loader</li>
+<li>登录页</li>
+<li>完成页面的基本布局（ 根据路由渲染菜单组件、面包屑组件等 ）</li>
+<li>使用 Vuex 完成菜单的显示隐藏</li>
+<li>Ajax 以及 Axios 的封装</li>
+<li><strong>全局方法 Utils、混合 Mixins</strong></li>
+<li>后续功能开发</li>
+</ol>
+</blockquote>
+<a id="more"></a>
+
+<h3 id="9-全局方法-Utils、混合-Mixins"><a href="#9-全局方法-Utils、混合-Mixins" class="headerlink" title="9. 全局方法 Utils、混合 Mixins"></a><strong>9. 全局方法 Utils、混合 Mixins</strong></h3><h4 id="9-1-Utils"><a href="#9-1-Utils" class="headerlink" title="9.1. Utils"></a><strong>9.1. Utils</strong></h4><p>项目中有一些方法很多地方都会用到，我们可以创建一个<span class="backgroundBlock">utils.js</span>文件存放这些方法：</p>
+<figure class="highlight js hljs"><figcaption><span>src/utils.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> STORAGE_ENGINE = localStorage;</span><br><span class="line"><span class="hljs-comment">// const STORAGE_ENGINE = sessionStorage;</span></span><br><span class="line"><span class="hljs-keyword">const</span> Utils = &#123;</span><br><span class="line">    <span class="hljs-comment">// 在stroage中存/取数据</span></span><br><span class="line">    setItem(key, val) &#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> val === <span class="hljs-string">'object'</span>) &#123;</span><br><span class="line">            STORAGE_ENGINE.setItem(key, <span class="hljs-built_in">JSON</span>.stringify(val))</span><br><span class="line">        &#125; <span class="hljs-keyword">else</span> &#123;</span><br><span class="line">            STORAGE_ENGINE.setItem(key, val)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    getItem(key) &#123;</span><br><span class="line">        <span class="hljs-keyword">let</span> ele = STORAGE_ENGINE.getItem(key);</span><br><span class="line">        <span class="hljs-keyword">let</span> val = <span class="hljs-literal">null</span>;</span><br><span class="line">        <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">            val = <span class="hljs-built_in">JSON</span>.parse(ele);</span><br><span class="line">        &#125; <span class="hljs-keyword">catch</span> (error) &#123;</span><br><span class="line">            val = ele;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> val;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">// 用户信息相关方法</span></span><br><span class="line">    <span class="hljs-comment">// 在stroage中存/取用户token</span></span><br><span class="line">    setToken(token) &#123;</span><br><span class="line">        STORAGE_ENGINE.setItem(<span class="hljs-string">'_token'</span>, token);</span><br><span class="line">    &#125;,</span><br><span class="line">    getToken() &#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> STORAGE_ENGINE.getItem(<span class="hljs-string">'_token'</span>);</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">// 在stroage中存/取用户信息</span></span><br><span class="line">    setUserInfo(userInfo) &#123;</span><br><span class="line">        STORAGE_ENGINE.setItem(<span class="hljs-string">'_userInfo'</span>, userInfo);</span><br><span class="line">    &#125;,</span><br><span class="line">    getUserInfo() &#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> STORAGE_ENGINE.getItem(<span class="hljs-string">'_userInfo'</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment">// 清除stroage中数据</span></span><br><span class="line">    clear() &#123;</span><br><span class="line">        STORAGE_ENGINE.clear();</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment">//登出</span></span><br><span class="line">    logout() &#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.clear();</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">// 获取登录时存放的权限字段数组</span></span><br><span class="line">    getPermission() &#123;</span><br><span class="line">        <span class="hljs-keyword">let</span> val = [];</span><br><span class="line">        <span class="hljs-keyword">try</span> &#123;</span><br><span class="line">            val = <span class="hljs-built_in">JSON</span>.parse(STORAGE_ENGINE.getItem(<span class="hljs-string">'_permission_'</span>));</span><br><span class="line">        &#125; <span class="hljs-keyword">catch</span> (error) &#123;</span><br><span class="line">            val = [];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> val;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">// 权限控制：根据权限字段返回Boolean值，用来判断路由或者页面中按钮的显示隐藏</span></span><br><span class="line">    canVisit(name) &#123;</span><br><span class="line">        <span class="hljs-keyword">let</span> permission = <span class="hljs-keyword">this</span>.getPermission();</span><br><span class="line">        <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">Array</span>.isArray(permission)) &#123;</span><br><span class="line">            permission = [];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">let</span> isPermission = <span class="hljs-literal">false</span></span><br><span class="line">        <span class="hljs-keyword">let</span> obj = <span class="hljs-literal">null</span>;</span><br><span class="line">        obj = permission.find(<span class="hljs-function">(<span class="hljs-params">item, index</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> item.symbol.includes(name);</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="hljs-keyword">if</span> (obj) &#123;</span><br><span class="line">            isPermission = <span class="hljs-literal">true</span>;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="hljs-keyword">if</span> (isPermission || name === <span class="hljs-string">'index'</span> || name === <span class="hljs-string">'homeIndex'</span>) &#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;</span><br><span class="line">        &#125; <span class="hljs-keyword">else</span> &#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-comment">// return true;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * 对象的深度拷贝</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param </span>data 需要拷贝的元数据</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@return <span class="hljs-type">&#123;any&#125;</span> </span>返回拷贝后的新数据</span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    deepClone(data) &#123;</span><br><span class="line">        <span class="hljs-keyword">const</span> type = <span class="hljs-keyword">this</span>.getType(data);</span><br><span class="line">        <span class="hljs-keyword">let</span> obj;</span><br><span class="line"></span><br><span class="line">        <span class="hljs-keyword">if</span> (type === <span class="hljs-string">'array'</span>) &#123;</span><br><span class="line">            obj = [];</span><br><span class="line">        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (type === <span class="hljs-string">'object'</span>) &#123;</span><br><span class="line">            obj = &#123;&#125;;</span><br><span class="line">        &#125; <span class="hljs-keyword">else</span> &#123;</span><br><span class="line">            <span class="hljs-comment">//不再具有下一层次</span></span><br><span class="line">            <span class="hljs-keyword">return</span> data;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">if</span> (type === <span class="hljs-string">'array'</span>) &#123;</span><br><span class="line">            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>, len = data.length; i &lt; len; i++) &#123;</span><br><span class="line">                obj.push(<span class="hljs-keyword">this</span>.deepClone(data[i]));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (type === <span class="hljs-string">'object'</span>) &#123;</span><br><span class="line">            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> key <span class="hljs-keyword">in</span> data) &#123;</span><br><span class="line">                obj[key] = <span class="hljs-keyword">this</span>.deepClone(data[key]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">const</span> <span class="hljs-keyword">constructor</span> = data.<span class="hljs-keyword">constructor</span>;</span><br><span class="line">        if (<span class="hljs-keyword">constructor</span>) &#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.assign(<span class="hljs-keyword">new</span> <span class="hljs-keyword">constructor</span>(), obj);</span><br><span class="line">        &#125;</span><br><span class="line">        return obj;</span><br><span class="line">    &#125;,</span><br><span class="line">    numFormat(num) &#123;</span><br><span class="line">        <span class="hljs-keyword">var</span> c = (num.toString().indexOf(<span class="hljs-string">'.'</span>) !== <span class="hljs-number">-1</span>) ? num.toLocaleString() : num.toString().replace(<span class="hljs-regexp">/(\d)(?=(?:\d&#123;3&#125;)+$)/g</span>, <span class="hljs-string">'$1,'</span>);</span><br><span class="line">        <span class="hljs-keyword">return</span> c;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * 处理空的参数</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param <span class="hljs-variable">data</span></span></span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@returns</span></span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    cleanData(data) &#123;</span><br><span class="line">        <span class="hljs-keyword">let</span> _data = &#123;&#125;;</span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> key <span class="hljs-keyword">in</span> data) &#123;</span><br><span class="line">            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Object</span>.prototype.toString.call(data[key]) === <span class="hljs-string">'[object Object]'</span>) &#123;</span><br><span class="line">                _data[key] = <span class="hljs-literal">null</span>;</span><br><span class="line">            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (data[key] <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Array</span>) &#123;</span><br><span class="line">                _data[key] = [];</span><br><span class="line">            &#125; <span class="hljs-keyword">else</span> &#123;</span><br><span class="line">                _data[key] = <span class="hljs-literal">undefined</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> _data;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * 判断对象类型</span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param <span class="hljs-type">&#123;Object&#125;</span> <span class="hljs-variable">object</span></span></span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@return <span class="hljs-type">&#123;String&#125;</span> </span>object type</span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    getType(object) &#123;</span><br><span class="line">        <span class="hljs-keyword">var</span> toString = <span class="hljs-built_in">Object</span>.prototype.toString;</span><br><span class="line">        <span class="hljs-keyword">var</span> map = &#123;</span><br><span class="line">            <span class="hljs-string">'[object Boolean]'</span>: <span class="hljs-string">'boolean'</span>,</span><br><span class="line">            <span class="hljs-string">'[object Number]'</span>: <span class="hljs-string">'number'</span>,</span><br><span class="line">            <span class="hljs-string">'[object String]'</span>: <span class="hljs-string">'string'</span>,</span><br><span class="line">            <span class="hljs-string">'[object Function]'</span>: <span class="hljs-string">'function'</span>,</span><br><span class="line">            <span class="hljs-string">'[object Array]'</span>: <span class="hljs-string">'array'</span>,</span><br><span class="line">            <span class="hljs-string">'[object Date]'</span>: <span class="hljs-string">'date'</span>,</span><br><span class="line">            <span class="hljs-string">'[object RegExp]'</span>: <span class="hljs-string">'regExp'</span>,</span><br><span class="line">            <span class="hljs-string">'[object Undefined]'</span>: <span class="hljs-string">'undefined'</span>,</span><br><span class="line">            <span class="hljs-string">'[object Null]'</span>: <span class="hljs-string">'null'</span>,</span><br><span class="line">            <span class="hljs-string">'[object Object]'</span>: <span class="hljs-string">'object'</span></span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="hljs-keyword">if</span> (object <span class="hljs-keyword">instanceof</span> Element) &#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-string">'element'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> map[toString.call(object)];</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    preventClose(e) &#123;</span><br><span class="line">        e = e || <span class="hljs-built_in">window</span>.event;</span><br><span class="line">        <span class="hljs-comment">// 兼容IE8和Firefox 4之前的版本</span></span><br><span class="line">        <span class="hljs-keyword">if</span> (e) &#123;</span><br><span class="line">            e.returnValue = <span class="hljs-string">'关闭提示'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-comment">// Chrome, Safari, Firefox 4+, Opera 12+ , IE 9+</span></span><br><span class="line">        <span class="hljs-keyword">return</span> <span class="hljs-string">'关闭提示'</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">     * </span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param <span class="hljs-type">&#123;路由守卫next回调&#125;</span> </span>next </span></span><br><span class="line"><span class="hljs-comment">     * <span class="hljs-doctag">@param <span class="hljs-type">&#123;vue&#125;</span> </span>that </span></span><br><span class="line"><span class="hljs-comment">     */</span></span><br><span class="line">    showConfirm(next, that) &#123;</span><br><span class="line">        that.$confirm(&#123;</span><br><span class="line">            title: <span class="hljs-string">'确定要离开当前页面吗？'</span>,</span><br><span class="line">            content: <span class="hljs-string">'离开后您将取消本次编辑的全部内容，确定要离开吗？'</span>,</span><br><span class="line">            cancelText: <span class="hljs-string">"取消"</span>,</span><br><span class="line">            okText: <span class="hljs-string">'确定'</span>,</span><br><span class="line">            centered: <span class="hljs-literal">true</span>,</span><br><span class="line">            onOk() &#123;</span><br><span class="line">                next();</span><br><span class="line">            &#125;,</span><br><span class="line">            onCancel() &#123;</span><br><span class="line">                that.$router.go(<span class="hljs-number">1</span>);</span><br><span class="line">            &#125;,</span><br><span class="line">            class: 'test',</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="hljs-comment">//附件url转换</span></span><br><span class="line">    changefileUrl(url, str = <span class="hljs-string">''</span>) &#123;</span><br><span class="line">        <span class="hljs-keyword">let</span> arr = url ? url.split(<span class="hljs-string">','</span>) : [];</span><br><span class="line">        <span class="hljs-keyword">let</span> arr1 = [];</span><br><span class="line">        arr.map(<span class="hljs-function">(<span class="hljs-params">ele, index</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="hljs-keyword">let</span> one = ele.lastIndexOf(<span class="hljs-string">'_'</span>);</span><br><span class="line">            <span class="hljs-keyword">let</span> two = ele.lastIndexOf(<span class="hljs-string">'.'</span>);</span><br><span class="line">            <span class="hljs-keyword">let</span> newStr = ele.replace(ele.substring(one, two), <span class="hljs-string">''</span>);</span><br><span class="line">            <span class="hljs-keyword">let</span> arr = newStr.split(<span class="hljs-string">'/'</span>)</span><br><span class="line">            <span class="hljs-keyword">let</span> name = arr[arr.length - <span class="hljs-number">1</span>];</span><br><span class="line">            arr1.push(&#123;</span><br><span class="line">                uid: (index + <span class="hljs-number">1</span>) / <span class="hljs-number">-1</span> + <span class="hljs-string">''</span>,</span><br><span class="line">                name: name,</span><br><span class="line">                url: ele,</span><br><span class="line">                status: <span class="hljs-string">'done'</span></span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">        <span class="hljs-keyword">return</span> arr1;</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Utils;</span><br></pre></td></tr></table></figure>
+<p>用的时候引入就可以了</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> Utils <span class="hljs-keyword">from</span> <span class="hljs-string">"@/utils"</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="9-2-Mixins"><a href="#9-2-Mixins" class="headerlink" title="9.2. Mixins"></a><strong>9.2. Mixins</strong></h4><p>像这类的后台管理系统，基本上每个模块都会有很多的列表页、表格页，会大量的使用到<span class="backgroundBlock">antd</span>的<span class="backgroundBlock">table</span>组件，我们完全可以把与之相关的一些属性和方法写到<span class="backgroundBlock">mixins.js</span>里。</p>
+<figure class="highlight js hljs"><figcaption><span>src/mixins.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span><br><span class="line">    data() &#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> &#123;</span><br><span class="line">            searchObj: &#123;&#125;,<span class="hljs-comment">//搜索条件的对象</span></span><br><span class="line">            pagination: &#123;</span><br><span class="line">                current: <span class="hljs-number">1</span>,</span><br><span class="line">                pageSize: <span class="hljs-number">10</span>,</span><br><span class="line">                total: <span class="hljs-number">0</span>,</span><br><span class="line">                showTotal() &#123;</span><br><span class="line">                    <span class="hljs-keyword">return</span> <span class="hljs-string">`共 <span class="hljs-subst">$&#123;<span class="hljs-keyword">this</span>.total&#125;</span> 条数据`</span></span><br><span class="line">                &#125;,</span><br><span class="line">                showSizeChanger: <span class="hljs-literal">true</span></span><br><span class="line">            &#125;,</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">        <span class="hljs-comment">// 搜索方法</span></span><br><span class="line">        query() &#123;</span><br><span class="line">            <span class="hljs-keyword">this</span>.$<span class="hljs-keyword">set</span>(this.pagination, 'current', 1);</span><br><span class="line">            this.$<span class="hljs-keyword">set</span>(this.pagination, 'pageSize', 10);</span><br><span class="line">            this.getList();</span><br><span class="line">        &#125;,</span><br><span class="line">        // 重置搜索字段方法</span><br><span class="line">        reset() &#123;</span><br><span class="line">            <span class="hljs-keyword">this</span>.$<span class="hljs-keyword">set</span>(this.pagination, 'current', 1);</span><br><span class="line">            this.$<span class="hljs-keyword">set</span>(this.pagination, 'pageSize', 10);</span><br><span class="line">            this.$refs.dp.reset();</span><br><span class="line">            this.getList();</span><br><span class="line">        &#125;,</span><br><span class="line">        paginationChange(pagination, sorter) &#123;</span><br><span class="line">            <span class="hljs-keyword">this</span>.pagination.current = pagination.current;</span><br><span class="line">            <span class="hljs-keyword">this</span>.pagination.pageSize = pagination.pageSize;</span><br><span class="line">            <span class="hljs-keyword">this</span>.getList();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用的时候在页面注入就行了：</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="hljs-keyword">import</span> mixins <span class="hljs-keyword">from</span> <span class="hljs-string">"@/plugins/mixins"</span>;</span><br><span class="line">    <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span><br><span class="line">        mixins: [mixins],</span><br><span class="line">        data() &#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> &#123;</span><br><span class="line">                <span class="hljs-comment">//</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;script&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="10-后续功能开发"><a href="#10-后续功能开发" class="headerlink" title="10. 后续功能开发"></a><strong>10. 后续功能开发</strong></h3><p>经过前面的9个步骤，我们已经完成了下列工作：</p>
+<ul>
+<li>创建了项目，并且引入了 <strong>Ant Design、node-sass/sass-loader、Vue Router、Vuex、Axios</strong> 等<span class="importantBlock">插件</span>。</li>
+<li>完成了<span class="importantBlock">路由的搭建</span>和<span class="importantBlock">页面的布局</span>，包括一些<span class="importantBlock">组件的创建</span>（登录页、菜单、面包屑、头部组件等）</li>
+<li>封装了<span class="importantBlock">Axios</span>和一些<span class="importantBlock">全局方法</span>。</li>
+</ul>
+<p>项目的基本框架和方法封装已经完成，接下来功能模块的开发都是一些业务逻辑代码，只需要根据已有的模板，按照<span class="importantBlock">模块化、组件化</span>的思想继续开发就行了。</p>
+<p>（完）</p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/Ant-Design/" rel="tag">Ant Design</a>, <a class="has-link-grey -link" href="/tags/Axios/" rel="tag">Axios</a>, <a class="has-link-grey -link" href="/tags/Vue/" rel="tag">Vue</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/images/zhifubaoPay.jpg" alt="支付宝"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/weixinPay.jpg" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/03/20/blog18/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">对Js闭包的理解</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/03/18/blog16/">
+                <span class="level-item">从零开始搭建后台管理系统（四）Ajax、Axios</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="valine-thread" class="content"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#valine-thread' ,
+        notify: false,
+        verify: false,
+        app_id: 'XICGs6n9m3NLPFkfB2l9Pg76-gzGzoHsz',
+        app_key: 'uxlHsYMfxumpS3JiCL1Hmrs5',
+        placeholder: '留下你的评论吧!'
+    });
+</script>
+
+    </div>
+</div>
+
+                        </div>
+                        
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+    <div class="card widget">
+        <div class="card-content">
+            <nav class="level">
+                <div class="level-item has-text-centered" style="flex-shrink: 1">
+                    <div>
+                        
+                            <figure class="image is-128x128 has-mb-6">
+                                <img class="" src="https://s2.ax1x.com/2020/01/03/lUMNLV.jpg" alt="王宏">
+                            </figure>
+                            
+                                <p class="is-size-4 is-block">
+                                    王宏
+                                </p>
+                                
+                                    
+                                        <p class="is-size-6 is-block">
+                                            人的梦想，是不会终结的
+                                        </p>
+                                        
+                                            
+                                                <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                                                    <i class="fas fa-map-marker-alt has-mr-7"></i>
+                                                    <span>浙江 杭州</span>
+                                                </p>
+                                                
+                    </div>
+                </div>
+            </nav>
+            <nav class="level is-mobile">
+                <div class="level-item has-text-centered is-marginless">
+                    <div>
+                        <p class="heading">
+                            文章
+                        </p>
+                        <a href="/archives">
+                            <p class="title has-text-weight-normal">
+                                20
+                            </p>
+                        </a>
+                    </div>
+                </div>
+                <div class="level-item has-text-centered is-marginless">
+                    <div>
+                        <p class="heading">
+                            分类
+                        </p>
+                        <a href="/categories">
+                            <p class="title has-text-weight-normal">
+                                9
+                            </p>
+                        </a>
+                    </div>
+                </div>
+                <div class="level-item has-text-centered is-marginless">
+                    <div>
+                        <p class="heading">
+                            标签
+                        </p>
+                        <a href="/tags">
+                            <p class="title has-text-weight-normal">
+                                14
+                            </p>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+            
+                <div class="level">
+                    <a class="level-item button is-link is-rounded" href="https://github.com/Sesshouin-Kiara" target="_blank">
+                        关注我
+                    </a>
+                </div>
+                
+                    
+                        
+        </div>
+    </div>
+    
+        
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://bilibili.com" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Bilibili</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">bilibili.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://lanshublog.top/" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">张瀚文</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">lanshublog.top</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/Ant-Design/">
+            <span class="level-start">
+                <span class="level-item">Ant Design</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">6</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/CSS/">
+            <span class="level-start">
+                <span class="level-item">CSS</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Echarts/">
+            <span class="level-start">
+                <span class="level-item">Echarts</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/HTML/">
+            <span class="level-start">
+                <span class="level-item">HTML</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/JavaScript/">
+            <span class="level-start">
+                <span class="level-item">JavaScript</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">11</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Vue/">
+            <span class="level-start">
+                <span class="level-item">Vue</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">8</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/categories/Vue/Axios/">
+            <span class="level-start">
+                <span class="level-item">Axios</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Vue/Vue-Router/">
+            <span class="level-start">
+                <span class="level-item">Vue Router</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Vue/Vuex/">
+            <span class="level-start">
+                <span class="level-item">Vuex</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li></ul></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/Ant-Design/" style="font-size: 15px;">Ant Design</a> <a href="/tags/Axios/" style="font-size: 11.67px;">Axios</a> <a href="/tags/CSS/" style="font-size: 11.67px;">CSS</a> <a href="/tags/Echarts/" style="font-size: 10px;">Echarts</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Vue/" style="font-size: 18.33px;">Vue</a> <a href="/tags/Vue-Router/" style="font-size: 13.33px;">Vue Router</a> <a href="/tags/Vuex/" style="font-size: 10px;">Vuex</a> <a href="/tags/sass/" style="font-size: 10px;">sass</a> <a href="/tags/vuedraggable/" style="font-size: 10px;">vuedraggable</a> <a href="/tags/%E5%B8%B8%E7%94%A8/" style="font-size: 16.67px;">常用</a> <a href="/tags/%E6%8B%96%E6%8B%BD/" style="font-size: 10px;">拖拽</a> <a href="/tags/%E9%97%AD%E5%8C%85/" style="font-size: 10px;">闭包</a>
+    </div>
+</div>
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/06/08/blog20/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2020/01/08/lgtuXd.jpg" alt="使用vuedraggable进行拖拽操作">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-08T06:08:50.000Z">2020-06-08</time></div>
+                    <a href="/2020/06/08/blog20/" class="title has-link-black-ter is-size-6 has-text-weight-normal">使用vuedraggable进行拖拽操作</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Vue/">Vue</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/27/blog19/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2019/12/31/l3E43j.jpg" alt="使用Echarts绘制geo航线图">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-27T02:35:18.000Z">2020-03-27</time></div>
+                    <a href="/2020/03/27/blog19/" class="title has-link-black-ter is-size-6 has-text-weight-normal">使用Echarts绘制geo航线图</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Echarts/">Echarts</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/20/blog18/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2020/01/03/lUPGBn.jpg" alt="对Js闭包的理解">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-20T08:39:49.000Z">2020-03-20</time></div>
+                    <a href="/2020/03/20/blog18/" class="title has-link-black-ter is-size-6 has-text-weight-normal">对Js闭包的理解</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JavaScript/">JavaScript</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/19/blog17/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2019/12/31/l3AAeK.jpg" alt="从零开始搭建后台管理系统（五）Utils、Mixins">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-19T01:52:27.000Z">2020-03-19</time></div>
+                    <a href="/2020/03/19/blog17/" class="title has-link-black-ter is-size-6 has-text-weight-normal">从零开始搭建后台管理系统（五）Utils、Mixins</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Ant-Design/">Ant Design</a> / <a class="has-link-grey -link" href="/categories/Vue/">Vue</a> / <a class="has-link-grey -link" href="/categories/Vue/Axios/">Axios</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/18/blog16/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2019/12/31/l3E5gs.jpg" alt="从零开始搭建后台管理系统（四）Ajax、Axios">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-18T02:52:58.000Z">2020-03-18</time></div>
+                    <a href="/2020/03/18/blog16/" class="title has-link-black-ter is-size-6 has-text-weight-normal">从零开始搭建后台管理系统（四）Ajax、Axios</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Ant-Design/">Ant Design</a> / <a class="has-link-grey -link" href="/categories/Vue/">Vue</a> / <a class="has-link-grey -link" href="/categories/Vue/Axios/">Axios</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/06/">
+                <span class="level-start">
+                    <span class="level-item">六月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">三月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">9</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Ant-Design/">
+                        <span class="tag">Ant Design</span>
+                        <span class="tag is-grey">6</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Axios/">
+                        <span class="tag">Axios</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/CSS/">
+                        <span class="tag">CSS</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Echarts/">
+                        <span class="tag">Echarts</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/HTML/">
+                        <span class="tag">HTML</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/JavaScript/">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag is-grey">11</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Vue/">
+                        <span class="tag">Vue</span>
+                        <span class="tag is-grey">8</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Vue-Router/">
+                        <span class="tag">Vue Router</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Vuex/">
+                        <span class="tag">Vuex</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/sass/">
+                        <span class="tag">sass</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vuedraggable/">
+                        <span class="tag">vuedraggable</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%B8%B8%E7%94%A8/">
+                        <span class="tag">常用</span>
+                        <span class="tag is-grey">7</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%8B%96%E6%8B%BD/">
+                        <span class="tag">拖拽</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%97%AD%E5%8C%85/">
+                        <span class="tag">闭包</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                            
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/06/08/blog20/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2020/01/08/lgtuXd.jpg" alt="使用vuedraggable进行拖拽操作">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-08T06:08:50.000Z">2020-06-08</time></div>
+                    <a href="/2020/06/08/blog20/" class="title has-link-black-ter is-size-6 has-text-weight-normal">使用vuedraggable进行拖拽操作</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Vue/">Vue</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/27/blog19/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2019/12/31/l3E43j.jpg" alt="使用Echarts绘制geo航线图">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-27T02:35:18.000Z">2020-03-27</time></div>
+                    <a href="/2020/03/27/blog19/" class="title has-link-black-ter is-size-6 has-text-weight-normal">使用Echarts绘制geo航线图</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Echarts/">Echarts</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/20/blog18/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2020/01/03/lUPGBn.jpg" alt="对Js闭包的理解">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-20T08:39:49.000Z">2020-03-20</time></div>
+                    <a href="/2020/03/20/blog18/" class="title has-link-black-ter is-size-6 has-text-weight-normal">对Js闭包的理解</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JavaScript/">JavaScript</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/19/blog17/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2019/12/31/l3AAeK.jpg" alt="从零开始搭建后台管理系统（五）Utils、Mixins">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-19T01:52:27.000Z">2020-03-19</time></div>
+                    <a href="/2020/03/19/blog17/" class="title has-link-black-ter is-size-6 has-text-weight-normal">从零开始搭建后台管理系统（五）Utils、Mixins</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Ant-Design/">Ant Design</a> / <a class="has-link-grey -link" href="/categories/Vue/">Vue</a> / <a class="has-link-grey -link" href="/categories/Vue/Axios/">Axios</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/18/blog16/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2019/12/31/l3E5gs.jpg" alt="从零开始搭建后台管理系统（四）Ajax、Axios">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-18T02:52:58.000Z">2020-03-18</time></div>
+                    <a href="/2020/03/18/blog16/" class="title has-link-black-ter is-size-6 has-text-weight-normal">从零开始搭建后台管理系统（四）Ajax、Axios</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Ant-Design/">Ant Design</a> / <a class="has-link-grey -link" href="/categories/Vue/">Vue</a> / <a class="has-link-grey -link" href="/categories/Vue/Axios/">Axios</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/06/">
+                <span class="level-start">
+                    <span class="level-item">六月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">三月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">9</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Ant-Design/">
+                        <span class="tag">Ant Design</span>
+                        <span class="tag is-grey">6</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Axios/">
+                        <span class="tag">Axios</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/CSS/">
+                        <span class="tag">CSS</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Echarts/">
+                        <span class="tag">Echarts</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/HTML/">
+                        <span class="tag">HTML</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/JavaScript/">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag is-grey">11</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Vue/">
+                        <span class="tag">Vue</span>
+                        <span class="tag is-grey">8</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Vue-Router/">
+                        <span class="tag">Vue Router</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Vuex/">
+                        <span class="tag">Vuex</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/sass/">
+                        <span class="tag">sass</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vuedraggable/">
+                        <span class="tag">vuedraggable</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%B8%B8%E7%94%A8/">
+                        <span class="tag">常用</span>
+                        <span class="tag is-grey">7</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%8B%96%E6%8B%BD/">
+                        <span class="tag">拖拽</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%97%AD%E5%8C%85/">
+                        <span class="tag">闭包</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+                    </div>
+
+                </div>
+            </section>
+            <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="从零开始搭建后台管理系统（五）Utils、Mixins" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 王宏&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commonsaaa" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+                <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+<script>
+var IcarusThemeSettings = {
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+    
+    
+<script src="/js/animation.js"></script>
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+    
+    
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/" target="_blank" rel="noopener">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+    
+    
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+                    
+                        <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+                            
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":180,"height":360},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+
+</html>
+<!-- 雪花特效 -->
+<script type="text/javascript" src="\js\snow.js"></script>

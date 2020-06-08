@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html  lang="zh">
+
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 4.1.1" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>使用Echarts绘制geo航线图 - 王宏的个人网站</title>
+
+
+    <meta name="description" content="前不久接到一个任务，是绘制一个物流公司的运输路线图。记录一下完成这个功能的过程。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Echarts绘制geo航线图">
+<meta property="og:url" content="https:&#x2F;&#x2F;sesshouin-kiara.github.io&#x2F;2020&#x2F;03&#x2F;27&#x2F;blog19&#x2F;index.html">
+<meta property="og:site_name" content="王宏的个人网站">
+<meta property="og:description" content="前不久接到一个任务，是绘制一个物流公司的运输路线图。记录一下完成这个功能的过程。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;s2.ax1x.com&#x2F;2019&#x2F;12&#x2F;31&#x2F;l3E43j.jpg">
+<meta property="article:published_time" content="2020-03-27T02:35:18.000Z">
+<meta property="article:modified_time" content="2020-06-08T06:10:11.570Z">
+<meta property="article:author" content="王宏">
+<meta property="article:tag" content="Echarts">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;s2.ax1x.com&#x2F;2019&#x2F;12&#x2F;31&#x2F;l3E43j.jpg">
+
+
+
+
+
+
+
+<link rel="icon" href="https://s2.ax1x.com/2020/01/03/lUMNLV.jpg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="使用Echarts绘制geo航线图" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">主页</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://github.com/Sesshouin-Kiara">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+        
+            <section class="section">
+                <div class="container">
+                    <div class="columns">
+                        <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
+                            
+<div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="https://s2.ax1x.com/2019/12/31/l3E43j.jpg" alt="使用Echarts绘制geo航线图">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-03-27T02:35:18.000Z">2020-03-27</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/Echarts/">Echarts</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    9 分钟 读完 (大约 1389 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                使用Echarts绘制geo航线图
+            
+        </h1>
+        <div class="content">
+            <p>前不久接到一个任务，是绘制一个物流公司的运输路线图。<br>记录一下完成这个功能的过程。</p>
+<a id="more"></a>
+<p>产品要求如下：</p>
+<div style="text-align:center;"><img src="https://s1.ax1x.com/2020/03/27/GCNSKA.png"></div>
+
+<p>不多说，直接上代码。<br>在地图中绘制散点图和线图需要各城市的经纬度坐标，这里直接给出：</p>
+<figure class="highlight js hljs"><figcaption><span>散点图Data</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> pointData = [&#123;</span><br><span class="line">    name: <span class="hljs-string">'上海'</span>,</span><br><span class="line">    value: [<span class="hljs-number">121.77333</span>, <span class="hljs-number">31.03000</span>]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    name: <span class="hljs-string">'北京'</span>,</span><br><span class="line">    value: [<span class="hljs-number">116.41667</span>, <span class="hljs-number">39.91667</span>]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    name: <span class="hljs-string">'广州'</span>,</span><br><span class="line">    value: [<span class="hljs-number">113.23333</span>, <span class="hljs-number">23.16667</span>]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    name: <span class="hljs-string">'杭州'</span>,</span><br><span class="line">    value: [<span class="hljs-number">120.20000</span>, <span class="hljs-number">30.26667</span>]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    name: <span class="hljs-string">'南京'</span>,</span><br><span class="line">    value: [<span class="hljs-number">118.78333</span>, <span class="hljs-number">32.05000</span>]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    name: <span class="hljs-string">'重庆'</span>,</span><br><span class="line">    value: [<span class="hljs-number">106.45000</span>, <span class="hljs-number">29.56667</span>]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    name: <span class="hljs-string">'长沙'</span>,</span><br><span class="line">    value: [<span class="hljs-number">113.00000</span>, <span class="hljs-number">28.21667</span>]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    name: <span class="hljs-string">'厦门'</span>,</span><br><span class="line">    value: [<span class="hljs-number">118.10000</span>, <span class="hljs-number">24.46667</span>]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    name: <span class="hljs-string">'成都'</span>,</span><br><span class="line">    value: [<span class="hljs-number">104.06667</span>, <span class="hljs-number">30.66667</span>]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    name: <span class="hljs-string">'拉萨'</span>,</span><br><span class="line">    value: [<span class="hljs-number">91.00000</span>, <span class="hljs-number">29.60000</span>]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    name: <span class="hljs-string">'乌鲁木齐'</span>,</span><br><span class="line">    value: [<span class="hljs-number">87.68333</span>, <span class="hljs-number">43.76667</span>]</span><br><span class="line">&#125;, , &#123;</span><br><span class="line">    name: <span class="hljs-string">'昆明'</span>,</span><br><span class="line">    value: [<span class="hljs-number">102.73333</span>, <span class="hljs-number">25.05000</span>]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    name: <span class="hljs-string">'西安'</span>,</span><br><span class="line">    value: [<span class="hljs-number">108.95000</span>, <span class="hljs-number">34.26667</span>]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    name: <span class="hljs-string">'哈尔滨'</span>,</span><br><span class="line">    value: [<span class="hljs-number">126.63333</span>, <span class="hljs-number">45.75000</span>]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    name: <span class="hljs-string">'武汉'</span>,</span><br><span class="line">    value: [<span class="hljs-number">114.31667</span>, <span class="hljs-number">30.51667</span>]</span><br><span class="line">&#125;]</span><br></pre></td></tr></table></figure>
+<figure class="highlight js hljs"><figcaption><span>线图Data</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> lineData1 = [&#123;</span><br><span class="line">    fromName: <span class="hljs-string">'上海'</span>,</span><br><span class="line">    toName: <span class="hljs-string">'北京'</span>,</span><br><span class="line">    coords: [[<span class="hljs-number">121.77333</span>, <span class="hljs-number">31.03000</span>], [<span class="hljs-number">116.41667</span>, <span class="hljs-number">39.91667</span>]]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    fromName: <span class="hljs-string">'上海'</span>,</span><br><span class="line">    toName: <span class="hljs-string">'广州'</span>,</span><br><span class="line">    coords: [[<span class="hljs-number">121.77333</span>, <span class="hljs-number">31.03000</span>], [<span class="hljs-number">113.23333</span>, <span class="hljs-number">23.16667</span>]]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    fromName: <span class="hljs-string">'上海'</span>,</span><br><span class="line">    toName: <span class="hljs-string">'杭州'</span>,</span><br><span class="line">    coords: [[<span class="hljs-number">121.77333</span>, <span class="hljs-number">31.03000</span>], [<span class="hljs-number">120.20000</span>, <span class="hljs-number">30.26667</span>]]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    fromName: <span class="hljs-string">'上海'</span>,</span><br><span class="line">    toName: <span class="hljs-string">'南京'</span>,</span><br><span class="line">    coords: [[<span class="hljs-number">121.77333</span>, <span class="hljs-number">31.03000</span>], [<span class="hljs-number">118.78333</span>, <span class="hljs-number">32.05000</span>]]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    fromName: <span class="hljs-string">'上海'</span>,</span><br><span class="line">    toName: <span class="hljs-string">'重庆'</span>,</span><br><span class="line">    coords: [[<span class="hljs-number">121.77333</span>, <span class="hljs-number">31.03000</span>], [<span class="hljs-number">106.45000</span>, <span class="hljs-number">29.56667</span>]]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    fromName: <span class="hljs-string">'上海'</span>,</span><br><span class="line">    toName: <span class="hljs-string">'长沙'</span>,</span><br><span class="line">    coords: [[<span class="hljs-number">121.77333</span>, <span class="hljs-number">31.03000</span>], [<span class="hljs-number">113.00000</span>, <span class="hljs-number">28.21667</span>]]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    fromName: <span class="hljs-string">'上海'</span>,</span><br><span class="line">    toName: <span class="hljs-string">'厦门'</span>,</span><br><span class="line">    coords: [[<span class="hljs-number">121.77333</span>, <span class="hljs-number">31.03000</span>], [<span class="hljs-number">118.10000</span>, <span class="hljs-number">24.46667</span>]]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    fromName: <span class="hljs-string">'上海'</span>,</span><br><span class="line">    toName: <span class="hljs-string">'成都'</span>,</span><br><span class="line">    coords: [[<span class="hljs-number">121.77333</span>, <span class="hljs-number">31.03000</span>], [<span class="hljs-number">104.06667</span>, <span class="hljs-number">30.66667</span>]]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    fromName: <span class="hljs-string">'上海'</span>,</span><br><span class="line">    toName: <span class="hljs-string">'拉萨'</span>,</span><br><span class="line">    coords: [[<span class="hljs-number">121.77333</span>, <span class="hljs-number">31.03000</span>], [<span class="hljs-number">91.00000</span>, <span class="hljs-number">29.60000</span>]]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    fromName: <span class="hljs-string">'上海'</span>,</span><br><span class="line">    toName: <span class="hljs-string">'乌鲁木齐'</span>,</span><br><span class="line">    coords: [[<span class="hljs-number">121.77333</span>, <span class="hljs-number">31.03000</span>], [<span class="hljs-number">87.68333</span>, <span class="hljs-number">43.76667</span>]]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    fromName: <span class="hljs-string">'上海'</span>,</span><br><span class="line">    toName: <span class="hljs-string">'昆明'</span>,</span><br><span class="line">    coords: [[<span class="hljs-number">121.77333</span>, <span class="hljs-number">31.03000</span>], [<span class="hljs-number">102.73333</span>, <span class="hljs-number">25.05000</span>]]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    fromName: <span class="hljs-string">'上海'</span>,</span><br><span class="line">    toName: <span class="hljs-string">'西安'</span>,</span><br><span class="line">    coords: [[<span class="hljs-number">121.77333</span>, <span class="hljs-number">31.03000</span>], [<span class="hljs-number">108.95000</span>, <span class="hljs-number">34.26667</span>]]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    fromName: <span class="hljs-string">'上海'</span>,</span><br><span class="line">    toName: <span class="hljs-string">'哈尔滨'</span>,</span><br><span class="line">    coords: [[<span class="hljs-number">121.77333</span>, <span class="hljs-number">31.03000</span>], [<span class="hljs-number">126.63333</span>, <span class="hljs-number">45.75000</span>]]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    fromName: <span class="hljs-string">'上海'</span>,</span><br><span class="line">    toName: <span class="hljs-string">'武汉'</span>,</span><br><span class="line">    coords: [[<span class="hljs-number">121.77333</span>, <span class="hljs-number">31.03000</span>], [<span class="hljs-number">114.31667</span>, <span class="hljs-number">30.51667</span>]]</span><br><span class="line">&#125;]</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">let</span> lineData2 = [&#123;</span><br><span class="line">    fromName: <span class="hljs-string">'广州'</span>,</span><br><span class="line">    toName: <span class="hljs-string">'杭州'</span>,</span><br><span class="line">    coords: [[<span class="hljs-number">113.23333</span>, <span class="hljs-number">23.16667</span>], [<span class="hljs-number">120.20000</span>, <span class="hljs-number">30.26667</span>]]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    fromName: <span class="hljs-string">'广州'</span>,</span><br><span class="line">    toName: <span class="hljs-string">'南京'</span>,</span><br><span class="line">    coords: [[<span class="hljs-number">113.23333</span>, <span class="hljs-number">23.16667</span>], [<span class="hljs-number">118.78333</span>, <span class="hljs-number">32.05000</span>]]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    fromName: <span class="hljs-string">'广州'</span>,</span><br><span class="line">    toName: <span class="hljs-string">'重庆'</span>,</span><br><span class="line">    coords: [[<span class="hljs-number">113.23333</span>, <span class="hljs-number">23.16667</span>], [<span class="hljs-number">106.45000</span>, <span class="hljs-number">29.56667</span>]]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    fromName: <span class="hljs-string">'广州'</span>,</span><br><span class="line">    toName: <span class="hljs-string">'长沙'</span>,</span><br><span class="line">    coords: [[<span class="hljs-number">113.23333</span>, <span class="hljs-number">23.16667</span>], [<span class="hljs-number">113.00000</span>, <span class="hljs-number">28.21667</span>]]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    fromName: <span class="hljs-string">'广州'</span>,</span><br><span class="line">    toName: <span class="hljs-string">'厦门'</span>,</span><br><span class="line">    coords: [[<span class="hljs-number">113.23333</span>, <span class="hljs-number">23.16667</span>], [<span class="hljs-number">118.10000</span>, <span class="hljs-number">24.46667</span>]]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    fromName: <span class="hljs-string">'广州'</span>,</span><br><span class="line">    toName: <span class="hljs-string">'成都'</span>,</span><br><span class="line">    coords: [[<span class="hljs-number">113.23333</span>, <span class="hljs-number">23.16667</span>], [<span class="hljs-number">104.06667</span>, <span class="hljs-number">30.66667</span>]]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    fromName: <span class="hljs-string">'广州'</span>,</span><br><span class="line">    toName: <span class="hljs-string">'拉萨'</span>,</span><br><span class="line">    coords: [[<span class="hljs-number">113.23333</span>, <span class="hljs-number">23.16667</span>], [<span class="hljs-number">91.00000</span>, <span class="hljs-number">29.60000</span>]]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    fromName: <span class="hljs-string">'广州'</span>,</span><br><span class="line">    toName: <span class="hljs-string">'乌鲁木齐'</span>,</span><br><span class="line">    coords: [[<span class="hljs-number">113.23333</span>, <span class="hljs-number">23.16667</span>], [<span class="hljs-number">87.68333</span>, <span class="hljs-number">43.76667</span>]]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    fromName: <span class="hljs-string">'广州'</span>,</span><br><span class="line">    toName: <span class="hljs-string">'昆明'</span>,</span><br><span class="line">    coords: [[<span class="hljs-number">113.23333</span>, <span class="hljs-number">23.16667</span>], [<span class="hljs-number">102.73333</span>, <span class="hljs-number">25.05000</span>]]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    fromName: <span class="hljs-string">'广州'</span>,</span><br><span class="line">    toName: <span class="hljs-string">'西安'</span>,</span><br><span class="line">    coords: [[<span class="hljs-number">113.23333</span>, <span class="hljs-number">23.16667</span>], [<span class="hljs-number">108.95000</span>, <span class="hljs-number">34.26667</span>]]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    fromName: <span class="hljs-string">'广州'</span>,</span><br><span class="line">    toName: <span class="hljs-string">'哈尔滨'</span>,</span><br><span class="line">    coords: [[<span class="hljs-number">113.23333</span>, <span class="hljs-number">23.16667</span>], [<span class="hljs-number">126.63333</span>, <span class="hljs-number">45.75000</span>]]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    fromName: <span class="hljs-string">'广州'</span>,</span><br><span class="line">    toName: <span class="hljs-string">'武汉'</span>,</span><br><span class="line">    coords: [[<span class="hljs-number">113.23333</span>, <span class="hljs-number">23.16667</span>], [<span class="hljs-number">114.31667</span>, <span class="hljs-number">30.51667</span>]]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    fromName: <span class="hljs-string">'广州'</span>,</span><br><span class="line">    toName: <span class="hljs-string">'北京'</span>,</span><br><span class="line">    coords: [[<span class="hljs-number">113.23333</span>, <span class="hljs-number">23.16667</span>], [<span class="hljs-number">116.41667</span>, <span class="hljs-number">39.91667</span>]]</span><br><span class="line">&#125;]</span><br></pre></td></tr></table></figure>
+<p>实际开发中，不同的场景可能需要通过不同的方式获取地点坐标，例如调用地图api、从项目服务端获取、直接下载资源js文件等，但最终用来渲染的数据都应该是上面的格式。</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="hljs-keyword">import</span> echarts <span class="hljs-keyword">from</span> <span class="hljs-string">'echarts'</span></span><br><span class="line">    <span class="hljs-keyword">import</span> <span class="hljs-string">'../../../node_modules/echarts/map/js/china.js'</span>      <span class="hljs-comment">// 引入中国地图</span></span><br><span class="line">    <span class="hljs-comment">// import '../../../node_modules/echarts/map/js/world.js'   // 引入世界地图</span></span><br><span class="line">    <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span><br><span class="line">        data() &#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> &#123;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        created() &#123;</span><br><span class="line">        &#125;,</span><br><span class="line">        mounted() &#123;</span><br><span class="line">            <span class="hljs-keyword">this</span>.drawMap()</span><br><span class="line">        &#125;,</span><br><span class="line">        methods: &#123;</span><br><span class="line">            drawMap() &#123;</span><br><span class="line">                <span class="hljs-comment">// 定义飞机飞行路线的运行效果</span></span><br><span class="line">                <span class="hljs-keyword">let</span> planePath = <span class="hljs-string">'path://M1705.06,1318.313v-89.254l-319.9-221.799l0.073-208.063c0.521-84.662-26.629-121.796-63.961-121.491c-37.332-0.305-64.482,36.829-63.961,121.491l0.073,208.063l-319.9,221.799v89.254l330.343-157.288l12.238,241.308l-134.449,92.931l0.531,42.034l175.125-42.917l175.125,42.917l0.531-42.034l-134.449-92.931l12.238-241.308L1705.06,1318.313z'</span>;</span><br><span class="line">                <span class="hljs-comment">// 定义路线hover时的显示</span></span><br><span class="line">                <span class="hljs-keyword">let</span> label = &#123;</span><br><span class="line">                    normal: &#123;</span><br><span class="line">                        show: <span class="hljs-literal">false</span>,</span><br><span class="line">                        <span class="hljs-comment">// formatter: '&#123;b&#125;',   //标签内容格式器。模板变量有 &#123;a&#125;、&#123;b&#125;、&#123;c&#125;，分别表示系列名，数据名，数据值。</span></span><br><span class="line">                        formatter: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">params</span>) </span>&#123;</span><br><span class="line">                            <span class="hljs-comment">// console.log(params)</span></span><br><span class="line">                            <span class="hljs-comment">// params中包含这个canvas图标中的所有数据</span></span><br><span class="line">                            <span class="hljs-keyword">return</span> <span class="hljs-string">'路线'</span> + <span class="hljs-string">'：'</span> + params.data.fromName + <span class="hljs-string">'-'</span> + params.data.toName</span><br><span class="line">                        &#125;,</span><br><span class="line">                        textStyle: &#123;</span><br><span class="line">                            fontSize: <span class="hljs-number">12</span>,</span><br><span class="line">                            backgroundColor: <span class="hljs-string">'#999'</span>,</span><br><span class="line">                            color: <span class="hljs-string">'white'</span>,</span><br><span class="line">                            lineHeight: <span class="hljs-number">24</span>,</span><br><span class="line">                            padding: [<span class="hljs-number">2</span>, <span class="hljs-number">10</span>, <span class="hljs-number">0</span>, <span class="hljs-number">10</span>],</span><br><span class="line">                            borderRadius: <span class="hljs-number">6</span>,</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;,</span><br><span class="line">                    emphasis: &#123;</span><br><span class="line">                        show: <span class="hljs-literal">true</span>,</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;                </span><br><span class="line"></span><br><span class="line">                <span class="hljs-keyword">let</span> option = &#123;</span><br><span class="line">                    title: &#123;</span><br><span class="line">                        text: <span class="hljs-string">'物流运输全国路线覆盖'</span>,</span><br><span class="line">                        textStyle: &#123;</span><br><span class="line">                            fontStyle: <span class="hljs-string">'normal'</span>,</span><br><span class="line">                            fontWeight: <span class="hljs-string">'600'</span>,</span><br><span class="line">                            fontSize: <span class="hljs-number">16</span>,</span><br><span class="line">                            align: <span class="hljs-string">'center'</span></span><br><span class="line">                        &#125;,</span><br><span class="line">                        x: <span class="hljs-string">'center'</span>,</span><br><span class="line">                    &#125;,</span><br><span class="line">                    legend: &#123;</span><br><span class="line">                        data: [<span class="hljs-string">'上海'</span>, <span class="hljs-string">'广州'</span>],</span><br><span class="line">                        left: <span class="hljs-string">'center'</span>,</span><br><span class="line">                        bottom: <span class="hljs-number">0</span></span><br><span class="line">                    &#125;,</span><br><span class="line">                    geo: &#123;</span><br><span class="line">                        center: [<span class="hljs-number">121.4648</span>, <span class="hljs-number">31.2891</span>],</span><br><span class="line">                        name: <span class="hljs-string">'全国'</span>,</span><br><span class="line">                        map: <span class="hljs-string">'china'</span>,</span><br><span class="line">                        <span class="hljs-comment">// roam: true,</span></span><br><span class="line">                        zoom: <span class="hljs-number">1.2</span>,</span><br><span class="line">                        center: [<span class="hljs-number">105.97</span>, <span class="hljs-number">35.71</span>],</span><br><span class="line">                        <span class="hljs-comment">// 省份面积块的样式</span></span><br><span class="line">                        itemStyle: &#123;</span><br><span class="line">                            normal: &#123;</span><br><span class="line">                                borderColor: <span class="hljs-string">'white'</span>,</span><br><span class="line">                                borderWidth: <span class="hljs-number">1</span>,</span><br><span class="line">                                areaColor: <span class="hljs-string">'#c6d9f1'</span></span><br><span class="line">                            &#125;,</span><br><span class="line">                            emphasis: &#123;</span><br><span class="line">                                areaColor: <span class="hljs-string">'#4089d3'</span></span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;,</span><br><span class="line">                        <span class="hljs-comment">// 省份鼠标移入文字的样式</span></span><br><span class="line">                        label: &#123;</span><br><span class="line">                            normal: &#123;</span><br><span class="line">                                textStyle: &#123;</span><br><span class="line">                                    fontSize: <span class="hljs-number">12</span>,</span><br><span class="line">                                &#125;</span><br><span class="line">                            &#125;,</span><br><span class="line">                            emphasis: &#123;</span><br><span class="line">                                textStyle: &#123;</span><br><span class="line">                                    fontSize: <span class="hljs-number">12</span>,</span><br><span class="line">                                    color: <span class="hljs-string">'white'</span></span><br><span class="line">                                &#125;</span><br><span class="line">                            &#125;,</span><br><span class="line">                        &#125;,</span><br><span class="line">                    &#125;,</span><br><span class="line">                    series: [</span><br><span class="line">                        &#123;</span><br><span class="line">                            name: <span class="hljs-string">'上海'</span>,</span><br><span class="line">                            type: <span class="hljs-string">'lines'</span>,    <span class="hljs-comment">//  飞机飞行路线的运行效果</span></span><br><span class="line">                            zlevel: <span class="hljs-number">2</span>,</span><br><span class="line">                            symbolSize: <span class="hljs-number">110</span>,</span><br><span class="line">                            effect: &#123;       <span class="hljs-comment">// 模拟效果路线特效</span></span><br><span class="line">                                show: <span class="hljs-literal">true</span>,</span><br><span class="line">                                period: <span class="hljs-number">6</span>,</span><br><span class="line">                                trailLength: <span class="hljs-number">0</span>,</span><br><span class="line">                                symbol: planePath,</span><br><span class="line">                                symbolSize: <span class="hljs-number">15</span>,</span><br><span class="line">                            &#125;,</span><br><span class="line">                            lineStyle: &#123;</span><br><span class="line">                                normal: &#123;</span><br><span class="line">                                    color: <span class="hljs-string">'#3f73a8'</span>,</span><br><span class="line">                                    width: <span class="hljs-number">1</span>,</span><br><span class="line">                                    opacity: <span class="hljs-number">0.6</span>,</span><br><span class="line">                                    curveness: <span class="hljs-number">0.2</span></span><br><span class="line">                                &#125;,</span><br><span class="line">                                emphasis: &#123;</span><br><span class="line">                                    width: <span class="hljs-number">2</span>,</span><br><span class="line">                                    color: <span class="hljs-string">'red'</span></span><br><span class="line">                                &#125;</span><br><span class="line">                            &#125;,</span><br><span class="line">                            <span class="hljs-comment">// label: label,   // 将上面let的label注入</span></span><br><span class="line">                            data: lineData1</span><br><span class="line">                        &#125;, &#123;</span><br><span class="line">                            name: <span class="hljs-string">'广州'</span>,</span><br><span class="line">                            type: <span class="hljs-string">'lines'</span>,    <span class="hljs-comment">//  飞机飞行路线的运行效果</span></span><br><span class="line">                            zlevel: <span class="hljs-number">2</span>,</span><br><span class="line">                            symbolSize: <span class="hljs-number">110</span>,</span><br><span class="line">                            effect: &#123;</span><br><span class="line">                                show: <span class="hljs-literal">true</span>,</span><br><span class="line">                                period: <span class="hljs-number">6</span>,</span><br><span class="line">                                trailLength: <span class="hljs-number">0</span>,</span><br><span class="line">                                symbol: planePath,</span><br><span class="line">                                symbolSize: <span class="hljs-number">15</span>,</span><br><span class="line">                            &#125;,</span><br><span class="line">                            lineStyle: &#123;</span><br><span class="line">                                normal: &#123;</span><br><span class="line">                                    color: <span class="hljs-string">'#9370DB'</span>,</span><br><span class="line">                                    width: <span class="hljs-number">1</span>,</span><br><span class="line">                                    opacity: <span class="hljs-number">0.6</span>,</span><br><span class="line">                                    curveness: <span class="hljs-number">0.2</span></span><br><span class="line">                                &#125;,</span><br><span class="line">                                emphasis: &#123;</span><br><span class="line">                                    width: <span class="hljs-number">2</span>,</span><br><span class="line">                                    color: <span class="hljs-string">'red'</span></span><br><span class="line">                                &#125;</span><br><span class="line">                            &#125;,</span><br><span class="line">                            <span class="hljs-comment">// label: label,</span></span><br><span class="line">                            data: lineData2</span><br><span class="line">                        &#125;, &#123;</span><br><span class="line">                            name: <span class="hljs-string">'地点'</span>,</span><br><span class="line">                            type: <span class="hljs-string">'effectScatter'</span>,   <span class="hljs-comment">//  行程目标地点的 标注</span></span><br><span class="line">                            coordinateSystem: <span class="hljs-string">'geo'</span>,  <span class="hljs-comment">// 使用的坐标系</span></span><br><span class="line">                            zlevel: <span class="hljs-number">3</span>,</span><br><span class="line">                            rippleEffect: &#123;          <span class="hljs-comment">// 涟漪特效相关配置</span></span><br><span class="line">                                brushType: <span class="hljs-string">'stoke'</span></span><br><span class="line">                            &#125;,</span><br><span class="line">                            label: &#123;</span><br><span class="line">                                normal: &#123;</span><br><span class="line">                                    show: <span class="hljs-literal">true</span>,</span><br><span class="line">                                    position: <span class="hljs-string">'right'</span>,</span><br><span class="line">                                    formatter: <span class="hljs-string">'&#123;b&#125;'</span></span><br><span class="line">                                &#125;</span><br><span class="line">                            &#125;,</span><br><span class="line">                            symbolSize: <span class="hljs-number">5</span>,</span><br><span class="line">                            itemStyle: &#123;</span><br><span class="line">                                normal: &#123;</span><br><span class="line">                                    color: <span class="hljs-string">'#3f73a8'</span></span><br><span class="line">                                &#125;</span><br><span class="line">                            &#125;,</span><br><span class="line">                            data: pointData</span><br><span class="line">                        &#125;</span><br><span class="line">                    ]</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="hljs-keyword">var</span> chart = echarts.init(<span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'map'</span>));</span><br><span class="line">                chart.setOption(option)</span><br><span class="line">            &#125;,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">&lt;<span class="hljs-regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>绘制完成，预览效果如图：</p>
+<div style="text-align:center;"><img src="https://s1.ax1x.com/2020/03/27/GCtsun.gif"></div>
+
+<p>有几点需要注意一下：</p>
+<ol>
+<li><p>绘制地图的函数 drawMap<span class="importantBlock">需要放在 mounted 中，而不是 created</span>。写在<span class="backgroundBlock">created</span>中会报 “Cannot read property ‘getAttribute’ of null” 的错误。想知道原因，首先需要知道这两个生命周期的区别：</p>
+<ul>
+<li><span class="backgroundBlock">created</span>是在模板渲染成 html 前调用，此时 el 还是 undefined ， data 已经存在，<span class="importantBlock">此时不能对 dom 进行操作</span>；</li>
+<li><span class="backgroundBlock">mounted</span>是在模板渲染成 html 后调用，此时 el ， data 都已经加载完成。<span class="importantBlock">一般对 dom 的操作都写在 mounted 中</span>，例如获取 innerHTML ，初始化 echarts 等。</li>
+</ul>
+</li>
+<li><p>需要绘制的内容可以写在两个地方：</p>
+<ul>
+<li>1.放在<span class="backgroundBlock">option</span>的<span class="backgroundBlock">series</span>中（ type 为 line、pie、title、map 等等），</li>
+<li>2.和<span class="backgroundBlock">series</span>同级，以<span class="backgroundBlock">type</span>为对象的名字（例如上面的 title、legend、geo 等）。</li>
+<li>样式可以分为<span class="backgroundBlock">normal</span>和<span class="backgroundBlock">emphasis</span>，前者为普通情况下的样式，后者是 hover 时的样式。</li>
+</ul>
+</li>
+<li><p>两个 linedata 是因为要区分从不同的城市发出的路线以及显示不同的颜色，即鼠标移入不同的<span class="backgroundBlock">legend</span>时，对应的路线应该亮起。要实现这个效果，<span class="importantBlock">legend 中的 data 数组项必须是 series 数组中存在的项的 name 字段</span>。某个 legend 处于 hover 状态时，对应的 series 也会处于 hover 状态（鼠标移入上海 legend 时，所有上海的路线都会 hover ）。</p>
+</li>
+</ol>
+<p>最后附上柱状-折现图的绘制方法：</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">drawBar() &#123;</span><br><span class="line">    <span class="hljs-keyword">let</span> option = &#123;</span><br><span class="line">        title: &#123;</span><br><span class="line">            text: <span class="hljs-string">'租赁情况'</span>,</span><br><span class="line">            <span class="hljs-comment">// subtext: '根据档口租赁情况给出',</span></span><br><span class="line">            textStyle: &#123;</span><br><span class="line">                fontStyle: <span class="hljs-string">'normal'</span>,</span><br><span class="line">                fontWeight: <span class="hljs-string">'600'</span>,</span><br><span class="line">                fontSize: <span class="hljs-number">16</span>,</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        legend: &#123;</span><br><span class="line">            data: [<span class="hljs-string">'租赁金额'</span>, <span class="hljs-string">'增长率'</span>],</span><br><span class="line">            left: <span class="hljs-string">'center'</span>,</span><br><span class="line">            bottom: <span class="hljs-number">0</span></span><br><span class="line">        &#125;,</span><br><span class="line">        tooltip: &#123;</span><br><span class="line">            trigger: <span class="hljs-string">'axis'</span>,</span><br><span class="line">            axisPointer: &#123;</span><br><span class="line">                type: <span class="hljs-string">'cross'</span>,</span><br><span class="line">                crossStyle: &#123;</span><br><span class="line">                    color: <span class="hljs-string">'#999'</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        xAxis: [</span><br><span class="line">            &#123;</span><br><span class="line">                type: <span class="hljs-string">'category'</span>,</span><br><span class="line">                data: [<span class="hljs-string">'1月'</span>, <span class="hljs-string">'2月'</span>, <span class="hljs-string">'3月'</span>, <span class="hljs-string">'4月'</span>, <span class="hljs-string">'5月'</span>, <span class="hljs-string">'6月'</span>, <span class="hljs-string">'7月'</span>, <span class="hljs-string">'8月'</span>, <span class="hljs-string">'9月'</span>, <span class="hljs-string">'10月'</span>, <span class="hljs-string">'11月'</span>, <span class="hljs-string">'12月'</span>],</span><br><span class="line">                axisPointer: &#123;</span><br><span class="line">                    type: <span class="hljs-string">'shadow'</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        ],</span><br><span class="line">        yAxis: [</span><br><span class="line">            &#123;</span><br><span class="line">                type: <span class="hljs-string">'value'</span>,</span><br><span class="line">                name: <span class="hljs-string">'租赁金额（元）'</span>,</span><br><span class="line">                min: <span class="hljs-number">0</span>,</span><br><span class="line">                max: <span class="hljs-number">300</span>,</span><br><span class="line">                interval: <span class="hljs-number">50</span>,</span><br><span class="line">                axisLabel: &#123;</span><br><span class="line">                    formatter: <span class="hljs-string">'&#123;value&#125; 元'</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                type: <span class="hljs-string">'value'</span>,</span><br><span class="line">                name: <span class="hljs-string">'百分比（%）'</span>,</span><br><span class="line">                min: <span class="hljs-number">0</span>,</span><br><span class="line">                max: <span class="hljs-number">30</span>,</span><br><span class="line">                interval: <span class="hljs-number">5</span>,</span><br><span class="line">                axisLabel: &#123;</span><br><span class="line">                    formatter: <span class="hljs-string">'&#123;value&#125; %'</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        ],</span><br><span class="line">        series: [</span><br><span class="line">            &#123;</span><br><span class="line">                name: <span class="hljs-string">'租赁金额'</span>,</span><br><span class="line">                type: <span class="hljs-string">'bar'</span>,</span><br><span class="line">                width: <span class="hljs-string">'3'</span>,</span><br><span class="line">                color: <span class="hljs-string">'#8EE5EE'</span>,</span><br><span class="line">                data: [<span class="hljs-number">46</span>, <span class="hljs-number">55.9</span>, <span class="hljs-number">69.0</span>, <span class="hljs-number">36.4</span>, <span class="hljs-number">28.7</span>, <span class="hljs-number">70.7</span>, <span class="hljs-number">175.6</span>, <span class="hljs-number">182.2</span>, <span class="hljs-number">48.7</span>, <span class="hljs-number">78.8</span>, <span class="hljs-number">46.0</span>, <span class="hljs-number">69.3</span>]</span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                name: <span class="hljs-string">'增长率'</span>,</span><br><span class="line">                type: <span class="hljs-string">'line'</span>,</span><br><span class="line">                color: <span class="hljs-string">'#A4D3EE'</span>,</span><br><span class="line">                yAxisIndex: <span class="hljs-number">1</span>,</span><br><span class="line">                data: [<span class="hljs-number">12.0</span>, <span class="hljs-number">12.2</span>, <span class="hljs-number">13.3</span>, <span class="hljs-number">14.5</span>, <span class="hljs-number">16.3</span>, <span class="hljs-number">20.2</span>, <span class="hljs-number">24.3</span>, <span class="hljs-number">27</span>, <span class="hljs-number">21.0</span>, <span class="hljs-number">24.5</span>, <span class="hljs-number">22.0</span>, <span class="hljs-number">16.2</span>]</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">var</span> chart = echarts.init(<span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'bar'</span>));</span><br><span class="line">    chart.setOption(option)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<div style="text-align:center;"><img src="https://s1.ax1x.com/2020/03/27/GP98bV.png"></div>
+
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/Echarts/" rel="tag">Echarts</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/images/zhifubaoPay.jpg" alt="支付宝"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/weixinPay.jpg" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/06/08/blog20/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">使用vuedraggable进行拖拽操作</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/03/20/blog18/">
+                <span class="level-item">对Js闭包的理解</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="valine-thread" class="content"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#valine-thread' ,
+        notify: false,
+        verify: false,
+        app_id: 'XICGs6n9m3NLPFkfB2l9Pg76-gzGzoHsz',
+        app_key: 'uxlHsYMfxumpS3JiCL1Hmrs5',
+        placeholder: '留下你的评论吧!'
+    });
+</script>
+
+    </div>
+</div>
+
+                        </div>
+                        
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+    <div class="card widget">
+        <div class="card-content">
+            <nav class="level">
+                <div class="level-item has-text-centered" style="flex-shrink: 1">
+                    <div>
+                        
+                            <figure class="image is-128x128 has-mb-6">
+                                <img class="" src="https://s2.ax1x.com/2020/01/03/lUMNLV.jpg" alt="王宏">
+                            </figure>
+                            
+                                <p class="is-size-4 is-block">
+                                    王宏
+                                </p>
+                                
+                                    
+                                        <p class="is-size-6 is-block">
+                                            人的梦想，是不会终结的
+                                        </p>
+                                        
+                                            
+                                                <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                                                    <i class="fas fa-map-marker-alt has-mr-7"></i>
+                                                    <span>浙江 杭州</span>
+                                                </p>
+                                                
+                    </div>
+                </div>
+            </nav>
+            <nav class="level is-mobile">
+                <div class="level-item has-text-centered is-marginless">
+                    <div>
+                        <p class="heading">
+                            文章
+                        </p>
+                        <a href="/archives">
+                            <p class="title has-text-weight-normal">
+                                20
+                            </p>
+                        </a>
+                    </div>
+                </div>
+                <div class="level-item has-text-centered is-marginless">
+                    <div>
+                        <p class="heading">
+                            分类
+                        </p>
+                        <a href="/categories">
+                            <p class="title has-text-weight-normal">
+                                9
+                            </p>
+                        </a>
+                    </div>
+                </div>
+                <div class="level-item has-text-centered is-marginless">
+                    <div>
+                        <p class="heading">
+                            标签
+                        </p>
+                        <a href="/tags">
+                            <p class="title has-text-weight-normal">
+                                14
+                            </p>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+            
+                <div class="level">
+                    <a class="level-item button is-link is-rounded" href="https://github.com/Sesshouin-Kiara" target="_blank">
+                        关注我
+                    </a>
+                </div>
+                
+                    
+                        
+        </div>
+    </div>
+    
+        
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://bilibili.com" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Bilibili</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">bilibili.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://lanshublog.top/" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">张瀚文</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">lanshublog.top</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/Ant-Design/">
+            <span class="level-start">
+                <span class="level-item">Ant Design</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">6</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/CSS/">
+            <span class="level-start">
+                <span class="level-item">CSS</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Echarts/">
+            <span class="level-start">
+                <span class="level-item">Echarts</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/HTML/">
+            <span class="level-start">
+                <span class="level-item">HTML</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/JavaScript/">
+            <span class="level-start">
+                <span class="level-item">JavaScript</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">11</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Vue/">
+            <span class="level-start">
+                <span class="level-item">Vue</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">8</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/categories/Vue/Axios/">
+            <span class="level-start">
+                <span class="level-item">Axios</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Vue/Vue-Router/">
+            <span class="level-start">
+                <span class="level-item">Vue Router</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Vue/Vuex/">
+            <span class="level-start">
+                <span class="level-item">Vuex</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li></ul></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/Ant-Design/" style="font-size: 15px;">Ant Design</a> <a href="/tags/Axios/" style="font-size: 11.67px;">Axios</a> <a href="/tags/CSS/" style="font-size: 11.67px;">CSS</a> <a href="/tags/Echarts/" style="font-size: 10px;">Echarts</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Vue/" style="font-size: 18.33px;">Vue</a> <a href="/tags/Vue-Router/" style="font-size: 13.33px;">Vue Router</a> <a href="/tags/Vuex/" style="font-size: 10px;">Vuex</a> <a href="/tags/sass/" style="font-size: 10px;">sass</a> <a href="/tags/vuedraggable/" style="font-size: 10px;">vuedraggable</a> <a href="/tags/%E5%B8%B8%E7%94%A8/" style="font-size: 16.67px;">常用</a> <a href="/tags/%E6%8B%96%E6%8B%BD/" style="font-size: 10px;">拖拽</a> <a href="/tags/%E9%97%AD%E5%8C%85/" style="font-size: 10px;">闭包</a>
+    </div>
+</div>
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/06/08/blog20/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2020/01/08/lgtuXd.jpg" alt="使用vuedraggable进行拖拽操作">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-08T06:08:50.000Z">2020-06-08</time></div>
+                    <a href="/2020/06/08/blog20/" class="title has-link-black-ter is-size-6 has-text-weight-normal">使用vuedraggable进行拖拽操作</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Vue/">Vue</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/27/blog19/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2019/12/31/l3E43j.jpg" alt="使用Echarts绘制geo航线图">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-27T02:35:18.000Z">2020-03-27</time></div>
+                    <a href="/2020/03/27/blog19/" class="title has-link-black-ter is-size-6 has-text-weight-normal">使用Echarts绘制geo航线图</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Echarts/">Echarts</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/20/blog18/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2020/01/03/lUPGBn.jpg" alt="对Js闭包的理解">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-20T08:39:49.000Z">2020-03-20</time></div>
+                    <a href="/2020/03/20/blog18/" class="title has-link-black-ter is-size-6 has-text-weight-normal">对Js闭包的理解</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JavaScript/">JavaScript</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/19/blog17/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2019/12/31/l3AAeK.jpg" alt="从零开始搭建后台管理系统（五）Utils、Mixins">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-19T01:52:27.000Z">2020-03-19</time></div>
+                    <a href="/2020/03/19/blog17/" class="title has-link-black-ter is-size-6 has-text-weight-normal">从零开始搭建后台管理系统（五）Utils、Mixins</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Ant-Design/">Ant Design</a> / <a class="has-link-grey -link" href="/categories/Vue/">Vue</a> / <a class="has-link-grey -link" href="/categories/Vue/Axios/">Axios</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/18/blog16/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2019/12/31/l3E5gs.jpg" alt="从零开始搭建后台管理系统（四）Ajax、Axios">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-18T02:52:58.000Z">2020-03-18</time></div>
+                    <a href="/2020/03/18/blog16/" class="title has-link-black-ter is-size-6 has-text-weight-normal">从零开始搭建后台管理系统（四）Ajax、Axios</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Ant-Design/">Ant Design</a> / <a class="has-link-grey -link" href="/categories/Vue/">Vue</a> / <a class="has-link-grey -link" href="/categories/Vue/Axios/">Axios</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/06/">
+                <span class="level-start">
+                    <span class="level-item">六月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">三月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">9</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Ant-Design/">
+                        <span class="tag">Ant Design</span>
+                        <span class="tag is-grey">6</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Axios/">
+                        <span class="tag">Axios</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/CSS/">
+                        <span class="tag">CSS</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Echarts/">
+                        <span class="tag">Echarts</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/HTML/">
+                        <span class="tag">HTML</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/JavaScript/">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag is-grey">11</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Vue/">
+                        <span class="tag">Vue</span>
+                        <span class="tag is-grey">8</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Vue-Router/">
+                        <span class="tag">Vue Router</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Vuex/">
+                        <span class="tag">Vuex</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/sass/">
+                        <span class="tag">sass</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vuedraggable/">
+                        <span class="tag">vuedraggable</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%B8%B8%E7%94%A8/">
+                        <span class="tag">常用</span>
+                        <span class="tag is-grey">7</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%8B%96%E6%8B%BD/">
+                        <span class="tag">拖拽</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%97%AD%E5%8C%85/">
+                        <span class="tag">闭包</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                            
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/06/08/blog20/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2020/01/08/lgtuXd.jpg" alt="使用vuedraggable进行拖拽操作">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-08T06:08:50.000Z">2020-06-08</time></div>
+                    <a href="/2020/06/08/blog20/" class="title has-link-black-ter is-size-6 has-text-weight-normal">使用vuedraggable进行拖拽操作</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Vue/">Vue</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/27/blog19/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2019/12/31/l3E43j.jpg" alt="使用Echarts绘制geo航线图">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-27T02:35:18.000Z">2020-03-27</time></div>
+                    <a href="/2020/03/27/blog19/" class="title has-link-black-ter is-size-6 has-text-weight-normal">使用Echarts绘制geo航线图</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Echarts/">Echarts</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/20/blog18/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2020/01/03/lUPGBn.jpg" alt="对Js闭包的理解">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-20T08:39:49.000Z">2020-03-20</time></div>
+                    <a href="/2020/03/20/blog18/" class="title has-link-black-ter is-size-6 has-text-weight-normal">对Js闭包的理解</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JavaScript/">JavaScript</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/19/blog17/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2019/12/31/l3AAeK.jpg" alt="从零开始搭建后台管理系统（五）Utils、Mixins">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-19T01:52:27.000Z">2020-03-19</time></div>
+                    <a href="/2020/03/19/blog17/" class="title has-link-black-ter is-size-6 has-text-weight-normal">从零开始搭建后台管理系统（五）Utils、Mixins</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Ant-Design/">Ant Design</a> / <a class="has-link-grey -link" href="/categories/Vue/">Vue</a> / <a class="has-link-grey -link" href="/categories/Vue/Axios/">Axios</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/18/blog16/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2019/12/31/l3E5gs.jpg" alt="从零开始搭建后台管理系统（四）Ajax、Axios">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-18T02:52:58.000Z">2020-03-18</time></div>
+                    <a href="/2020/03/18/blog16/" class="title has-link-black-ter is-size-6 has-text-weight-normal">从零开始搭建后台管理系统（四）Ajax、Axios</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Ant-Design/">Ant Design</a> / <a class="has-link-grey -link" href="/categories/Vue/">Vue</a> / <a class="has-link-grey -link" href="/categories/Vue/Axios/">Axios</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/06/">
+                <span class="level-start">
+                    <span class="level-item">六月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">三月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">9</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Ant-Design/">
+                        <span class="tag">Ant Design</span>
+                        <span class="tag is-grey">6</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Axios/">
+                        <span class="tag">Axios</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/CSS/">
+                        <span class="tag">CSS</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Echarts/">
+                        <span class="tag">Echarts</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/HTML/">
+                        <span class="tag">HTML</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/JavaScript/">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag is-grey">11</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Vue/">
+                        <span class="tag">Vue</span>
+                        <span class="tag is-grey">8</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Vue-Router/">
+                        <span class="tag">Vue Router</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Vuex/">
+                        <span class="tag">Vuex</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/sass/">
+                        <span class="tag">sass</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vuedraggable/">
+                        <span class="tag">vuedraggable</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%B8%B8%E7%94%A8/">
+                        <span class="tag">常用</span>
+                        <span class="tag is-grey">7</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%8B%96%E6%8B%BD/">
+                        <span class="tag">拖拽</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%97%AD%E5%8C%85/">
+                        <span class="tag">闭包</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+                    </div>
+
+                </div>
+            </section>
+            <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="使用Echarts绘制geo航线图" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 王宏&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commonsaaa" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+                <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+<script>
+var IcarusThemeSettings = {
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+    
+    
+<script src="/js/animation.js"></script>
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+    
+    
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/" target="_blank" rel="noopener">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+    
+    
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+                    
+                        <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+                            
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":180,"height":360},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+
+</html>
+<!-- 雪花特效 -->
+<script type="text/javascript" src="\js\snow.js"></script>
