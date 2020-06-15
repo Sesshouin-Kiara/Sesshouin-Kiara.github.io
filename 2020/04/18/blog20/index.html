@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html  lang="zh">
+
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 4.1.1" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>使用vuedraggable进行拖拽操作 - 王宏的个人网站</title>
+
+
+    <meta name="description" content="公司新项目需要实现拖拽排序的功能，包括 列表拖拽、表格拖拽、卡片拖拽 等等。这些不同的拖拽需求其原理是一样的，只不过是样式的区别而已。 我使用了vuedraggable这个插件，这里记录一下基本的使用方法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用vuedraggable进行拖拽操作">
+<meta property="og:url" content="https:&#x2F;&#x2F;sesshouin-kiara.github.io&#x2F;2020&#x2F;04&#x2F;18&#x2F;blog20&#x2F;index.html">
+<meta property="og:site_name" content="王宏的个人网站">
+<meta property="og:description" content="公司新项目需要实现拖拽排序的功能，包括 列表拖拽、表格拖拽、卡片拖拽 等等。这些不同的拖拽需求其原理是一样的，只不过是样式的区别而已。 我使用了vuedraggable这个插件，这里记录一下基本的使用方法。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;s2.ax1x.com&#x2F;2020&#x2F;01&#x2F;08&#x2F;lgtuXd.jpg">
+<meta property="article:published_time" content="2020-04-18T06:08:50.000Z">
+<meta property="article:modified_time" content="2020-06-15T08:27:33.364Z">
+<meta property="article:author" content="王宏">
+<meta property="article:tag" content="Vue">
+<meta property="article:tag" content="vuedraggable">
+<meta property="article:tag" content="拖拽">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;s2.ax1x.com&#x2F;2020&#x2F;01&#x2F;08&#x2F;lgtuXd.jpg">
+
+
+
+
+
+
+
+<link rel="icon" href="https://s2.ax1x.com/2020/01/03/lUMNLV.jpg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="使用vuedraggable进行拖拽操作" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">主页</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://github.com/Sesshouin-Kiara">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+        
+            <section class="section">
+                <div class="container">
+                    <div class="columns">
+                        <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
+                            
+<div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="https://s2.ax1x.com/2020/01/08/lgtuXd.jpg" alt="使用vuedraggable进行拖拽操作">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-04-18T06:08:50.000Z">2020-04-18</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/Vue/">Vue</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    4 分钟 读完 (大约 551 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                使用vuedraggable进行拖拽操作
+            
+        </h1>
+        <div class="content">
+            <p>公司新项目需要实现拖拽排序的功能，包括 列表拖拽、表格拖拽、卡片拖拽 等等。这些不同的拖拽需求其原理是一样的，只不过是样式的区别而已。</p>
+<p>我使用了<span class="backgroundBlock">vuedraggable</span>这个插件，这里记录一下基本的使用方法。</p>
+<a id="more"></a>
+<figure class="highlight sh hljs"><figcaption><span>安装</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install vuedraggable</span><br></pre></td></tr></table></figure>
+<p>直接上代码：</p>
+<figure class="highlight html hljs"><figcaption><span>html</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">content-view</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"home-page"</span>&gt;</span></span><br><span class="line">        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"bg-white pt24 pr32 pl32 pb32 content"</span>&gt;</span></span><br><span class="line">            <span class="hljs-comment">&lt;!-- 添加拖拽功能时，只需要添加一个 draggable 标签就行了 --&gt;</span></span><br><span class="line">            <span class="hljs-tag">&lt;<span class="hljs-name">draggable</span></span></span><br><span class="line"><span class="hljs-tag">                <span class="hljs-attr">v-model</span>=<span class="hljs-string">"listData"</span></span></span><br><span class="line"><span class="hljs-tag">                @<span class="hljs-attr">start</span>=<span class="hljs-string">"drag=true"</span></span></span><br><span class="line"><span class="hljs-tag">                @<span class="hljs-attr">end</span>=<span class="hljs-string">"drag=false"</span></span></span><br><span class="line"><span class="hljs-tag">                @<span class="hljs-attr">change</span>=<span class="hljs-string">"change"</span></span></span><br><span class="line"><span class="hljs-tag">            &gt;</span></span><br><span class="line">                <span class="hljs-comment">&lt;!-- 遍历数据，渲染卡片 --&gt;</span></span><br><span class="line">                <span class="hljs-tag">&lt;<span class="hljs-name">div</span></span></span><br><span class="line"><span class="hljs-tag">                    <span class="hljs-attr">class</span>=<span class="hljs-string">"card"</span></span></span><br><span class="line"><span class="hljs-tag">                    <span class="hljs-attr">v-for</span>=<span class="hljs-string">"(item,index) in listData"</span></span></span><br><span class="line"><span class="hljs-tag">                    <span class="hljs-attr">:key</span>=<span class="hljs-string">"index"</span></span></span><br><span class="line"><span class="hljs-tag">                &gt;</span></span><br><span class="line">                    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"left"</span>&gt;</span></span><br><span class="line">                        <span class="hljs-tag">&lt;<span class="hljs-name">div</span></span></span><br><span class="line"><span class="hljs-tag">                            <span class="hljs-attr">class</span>=<span class="hljs-string">"avatar"</span></span></span><br><span class="line"><span class="hljs-tag">                            <span class="hljs-attr">:style</span>=<span class="hljs-string">"`background-image:url($&#123;item.avatar&#125;)`"</span></span></span><br><span class="line"><span class="hljs-tag">                        &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="line">                    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="line">                    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"right"</span>&gt;</span></span><br><span class="line">                        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"name"</span>&gt;</span>姓名：&#123;&#123;item.name&#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="line">                        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"age"</span>&gt;</span>年龄：&#123;&#123;item.age&#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="line">                        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"age"</span>&gt;</span>地址：&#123;&#123;item.address&#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="line">                    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="line">                <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="line">            <span class="hljs-tag">&lt;/<span class="hljs-name">draggable</span>&gt;</span></span><br><span class="line">        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;/<span class="hljs-name">content-view</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js hljs"><figcaption><span>js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line"><span class="hljs-keyword">import</span> draggable <span class="hljs-keyword">from</span> <span class="hljs-string">"vuedraggable"</span>;    <span class="hljs-comment">// 引入vuedraggable</span></span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span><br><span class="line">    data() &#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> &#123;</span><br><span class="line">            listData: []</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;,</span><br><span class="line">    components: &#123;</span><br><span class="line">        draggable                       <span class="hljs-comment">// 注册vuedraggable组件</span></span><br><span class="line">    &#125;,</span><br><span class="line">    created() &#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.getList();</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    methods: &#123;</span><br><span class="line">        getList() &#123;</span><br><span class="line">            <span class="hljs-keyword">this</span>.listData = [];</span><br><span class="line">            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i &lt; <span class="hljs-number">6</span>; i++) &#123;</span><br><span class="line">                <span class="hljs-keyword">this</span>.listData.push(&#123;</span><br><span class="line">                    id: i,</span><br><span class="line">                    name: <span class="hljs-string">`王<span class="hljs-subst">$&#123;i&#125;</span>`</span>,</span><br><span class="line">                    age: <span class="hljs-number">20</span> + i,</span><br><span class="line">                    address: <span class="hljs-string">`海军本部G<span class="hljs-subst">$&#123;i&#125;</span>`</span>,</span><br><span class="line">                    avatar: <span class="hljs-string">"https://wh-1301033226.cos.ap-nanjing.myqcloud.com/Hexo_img/wzxAvatar.jpg"</span></span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="hljs-comment">// 拖拽时的触发事件</span></span><br><span class="line">        change(&#123;moved&#125;) &#123;</span><br><span class="line">            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'当前拖动的卡片：'</span>,moved);</span><br><span class="line">            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'整个卡片数组：'</span>,<span class="hljs-keyword">this</span>.listData)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&lt;<span class="hljs-regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<p>css其实没必要放上来，但是卡片头像那一块用到了<span class="importantBlock">背景图片自动填充且居中显示</span>的属性，就顺便贴一下。</p>
+<figure class="highlight hljs"><figcaption><span>css</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&lt;style lang="scss"&gt;</span><br><span class="line"><span class="hljs-selector-class">.content</span> &#123;</span><br><span class="line">    .card &#123;</span><br><span class="line">        <span class="hljs-selector-tag">width</span>: 420<span class="hljs-selector-tag">px</span>;</span><br><span class="line">        <span class="hljs-selector-tag">height</span>: 230<span class="hljs-selector-tag">px</span>;</span><br><span class="line">        <span class="hljs-selector-tag">margin-bottom</span>: 32<span class="hljs-selector-tag">px</span>;</span><br><span class="line">        <span class="hljs-selector-tag">border-radius</span>: 6<span class="hljs-selector-tag">px</span>;</span><br><span class="line">        <span class="hljs-selector-tag">display</span>: <span class="hljs-selector-tag">flex</span>;</span><br><span class="line">        <span class="hljs-selector-tag">padding</span>: 16<span class="hljs-selector-tag">px</span>;</span><br><span class="line">        background-color: rgba($color: #000000, $alpha: 0.05);</span><br><span class="line">        <span class="hljs-selector-class">.left</span> &#123;</span><br><span class="line">            <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;</span><br><span class="line">            <span class="hljs-attribute">width</span>: <span class="hljs-number">40%</span>;</span><br><span class="line">            .avatar &#123;</span><br><span class="line">                <span class="hljs-selector-tag">height</span>: 100%;</span><br><span class="line">                <span class="hljs-selector-tag">border-radius</span>: 6<span class="hljs-selector-tag">px</span>;</span><br><span class="line">                <span class="hljs-comment">/* 背景图片填充且居中 */</span></span><br><span class="line">                <span class="hljs-selector-tag">background-repeat</span>: <span class="hljs-selector-tag">no-repeat</span>;</span><br><span class="line">                <span class="hljs-selector-tag">background-size</span>: <span class="hljs-selector-tag">cover</span>;</span><br><span class="line">                <span class="hljs-selector-tag">background-position</span>: <span class="hljs-selector-tag">center</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-selector-class">.right</span> &#123;</span><br><span class="line">            <span class="hljs-attribute">flex</span>: <span class="hljs-number">1</span>;</span><br><span class="line">            <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;</span><br><span class="line">            <span class="hljs-attribute">display</span>: flex;</span><br><span class="line">            <span class="hljs-attribute">flex-direction</span>: column;</span><br><span class="line">            <span class="hljs-attribute">font-size</span>: <span class="hljs-number">18px</span>;</span><br><span class="line">            <span class="hljs-attribute">justify-content</span>: space-around;</span><br><span class="line">            <span class="hljs-attribute">padding-left</span>: <span class="hljs-number">24px</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+<p>效果图：</p>
+<div style="text-align:center;"><img src="https://wh-1301033226.cos.ap-nanjing.myqcloud.com/Hexo_img/blog_content/blog20_img2.png"></div>
+
+<p>在被拖拽组件的外层套一个<span class="backgroundBlock">draggable</span>标签，并将渲染卡片的数据<span class="backgroundBlock">listData</span>绑定到<span class="backgroundBlock">draggable</span>标签的<span class="backgroundBlock">v-model</span>中，就可以使用拖拽功能了。</p>
+<p>每次拖拽时，都会触发<span class="backgroundBlock">change</span>事件。一般业务逻辑的代码都会写在<span class="backgroundBlock">change</span>事件中，而这里面我们一般会用到两个数据：<span class="backgroundBlock">listData</span>和<span class="backgroundBlock">moved</span>。</p>
+<p><span class="importantBlock">listData是渲染的数据源，和draggable的v-model是双向绑定的。</span>拖拽发生后，listData会自动改变。</p>
+<p><span class="importantBlock">moved是change()默认参数的一个属性</span>，将其打印出来，发现这是一个由<span class="importantBlock">被拖拽的对象、拖拽之前的索引、拖拽之后的索引</span>所组成的对象。</p>
+<div style="text-align:center;"><img src="https://wh-1301033226.cos.ap-nanjing.myqcloud.com/Hexo_img/blog_content/blog20_img3.png"></div>
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/Vue/" rel="tag">Vue</a>, <a class="has-link-grey -link" href="/tags/vuedraggable/" rel="tag">vuedraggable</a>, <a class="has-link-grey -link" href="/tags/%E6%8B%96%E6%8B%BD/" rel="tag">拖拽</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/images/zhifubaoPay.jpg" alt="支付宝"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/weixinPay.jpg" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/05/09/blog21/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">移动端适配方案：postcss-px-to-viewport</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/03/27/blog19/">
+                <span class="level-item">使用Echarts绘制geo航线图</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="valine-thread" class="content"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#valine-thread' ,
+        notify: false,
+        verify: false,
+        app_id: 'XICGs6n9m3NLPFkfB2l9Pg76-gzGzoHsz',
+        app_key: 'uxlHsYMfxumpS3JiCL1Hmrs5',
+        placeholder: '留下你的评论吧!'
+    });
+</script>
+
+    </div>
+</div>
+
+                        </div>
+                        
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+    <div class="card widget">
+        <div class="card-content">
+            <nav class="level">
+                <div class="level-item has-text-centered" style="flex-shrink: 1">
+                    <div>
+                        
+                            <figure class="image is-128x128 has-mb-6">
+                                <img class="" src="https://wh-1301033226.cos.ap-nanjing.myqcloud.com/Hexo_img/wzxAvatar.jpg" alt="王宏">
+                            </figure>
+                            
+                                <p class="is-size-4 is-block">
+                                    王宏
+                                </p>
+                                
+                                    
+                                        <p class="is-size-6 is-block">
+                                            人的梦想，是不会终结的
+                                        </p>
+                                        
+                                            
+                                                <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                                                    <i class="fas fa-map-marker-alt has-mr-7"></i>
+                                                    <span>浙江 杭州</span>
+                                                </p>
+                                                
+                    </div>
+                </div>
+            </nav>
+            <nav class="level is-mobile">
+                <div class="level-item has-text-centered is-marginless">
+                    <div>
+                        <p class="heading">
+                            文章
+                        </p>
+                        <a href="/archives">
+                            <p class="title has-text-weight-normal">
+                                21
+                            </p>
+                        </a>
+                    </div>
+                </div>
+                <div class="level-item has-text-centered is-marginless">
+                    <div>
+                        <p class="heading">
+                            分类
+                        </p>
+                        <a href="/categories">
+                            <p class="title has-text-weight-normal">
+                                10
+                            </p>
+                        </a>
+                    </div>
+                </div>
+                <div class="level-item has-text-centered is-marginless">
+                    <div>
+                        <p class="heading">
+                            标签
+                        </p>
+                        <a href="/tags">
+                            <p class="title has-text-weight-normal">
+                                16
+                            </p>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+            
+                <div class="level">
+                    <a class="level-item button is-link is-rounded" href="https://github.com/Sesshouin-Kiara" target="_blank">
+                        关注我
+                    </a>
+                </div>
+                
+                    
+                        
+        </div>
+    </div>
+    
+        
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://bilibili.com" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Bilibili</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">bilibili.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://lanshublog.top/" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">张瀚文</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">lanshublog.top</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/Ant-Design/">
+            <span class="level-start">
+                <span class="level-item">Ant Design</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">6</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/CSS/">
+            <span class="level-start">
+                <span class="level-item">CSS</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Echarts/">
+            <span class="level-start">
+                <span class="level-item">Echarts</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/H5/">
+            <span class="level-start">
+                <span class="level-item">H5</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/HTML/">
+            <span class="level-start">
+                <span class="level-item">HTML</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/JavaScript/">
+            <span class="level-start">
+                <span class="level-item">JavaScript</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">11</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Vue/">
+            <span class="level-start">
+                <span class="level-item">Vue</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">8</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/categories/Vue/Axios/">
+            <span class="level-start">
+                <span class="level-item">Axios</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Vue/Vue-Router/">
+            <span class="level-start">
+                <span class="level-item">Vue Router</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Vue/Vuex/">
+            <span class="level-start">
+                <span class="level-item">Vuex</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li></ul></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/Ant-Design/" style="font-size: 15px;">Ant Design</a> <a href="/tags/Axios/" style="font-size: 11.67px;">Axios</a> <a href="/tags/CSS/" style="font-size: 11.67px;">CSS</a> <a href="/tags/Echarts/" style="font-size: 10px;">Echarts</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Vue/" style="font-size: 18.33px;">Vue</a> <a href="/tags/Vue-Router/" style="font-size: 13.33px;">Vue Router</a> <a href="/tags/Vuex/" style="font-size: 10px;">Vuex</a> <a href="/tags/sass/" style="font-size: 10px;">sass</a> <a href="/tags/vuedraggable/" style="font-size: 10px;">vuedraggable</a> <a href="/tags/%E5%B8%B8%E7%94%A8/" style="font-size: 16.67px;">常用</a> <a href="/tags/%E6%8B%96%E6%8B%BD/" style="font-size: 10px;">拖拽</a> <a href="/tags/%E7%A7%BB%E5%8A%A8%E7%AB%AF/" style="font-size: 10px;">移动端</a> <a href="/tags/%E9%97%AD%E5%8C%85/" style="font-size: 10px;">闭包</a>
+    </div>
+</div>
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/05/09/blog21/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2019/12/31/l3E5gs.jpg" alt="移动端适配方案：postcss-px-to-viewport">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-05-09T09:10:58.000Z">2020-05-09</time></div>
+                    <a href="/2020/05/09/blog21/" class="title has-link-black-ter is-size-6 has-text-weight-normal">移动端适配方案：postcss-px-to-viewport</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/H5/">H5</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/04/18/blog20/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2020/01/08/lgtuXd.jpg" alt="使用vuedraggable进行拖拽操作">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-18T06:08:50.000Z">2020-04-18</time></div>
+                    <a href="/2020/04/18/blog20/" class="title has-link-black-ter is-size-6 has-text-weight-normal">使用vuedraggable进行拖拽操作</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Vue/">Vue</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/27/blog19/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2019/12/31/l3E43j.jpg" alt="使用Echarts绘制geo航线图">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-27T02:35:18.000Z">2020-03-27</time></div>
+                    <a href="/2020/03/27/blog19/" class="title has-link-black-ter is-size-6 has-text-weight-normal">使用Echarts绘制geo航线图</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Echarts/">Echarts</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/20/blog18/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2020/01/03/lUPGBn.jpg" alt="对Js闭包的理解">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-20T08:39:49.000Z">2020-03-20</time></div>
+                    <a href="/2020/03/20/blog18/" class="title has-link-black-ter is-size-6 has-text-weight-normal">对Js闭包的理解</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JavaScript/">JavaScript</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/19/blog17/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2019/12/31/l3AAeK.jpg" alt="从零开始搭建后台管理系统（五）Utils、Mixins">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-19T01:52:27.000Z">2020-03-19</time></div>
+                    <a href="/2020/03/19/blog17/" class="title has-link-black-ter is-size-6 has-text-weight-normal">从零开始搭建后台管理系统（五）Utils、Mixins</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Ant-Design/">Ant Design</a> / <a class="has-link-grey -link" href="/categories/Vue/">Vue</a> / <a class="has-link-grey -link" href="/categories/Vue/Axios/">Axios</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/05/">
+                <span class="level-start">
+                    <span class="level-item">五月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/04/">
+                <span class="level-start">
+                    <span class="level-item">四月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">三月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">9</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Ant-Design/">
+                        <span class="tag">Ant Design</span>
+                        <span class="tag is-grey">6</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Axios/">
+                        <span class="tag">Axios</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/CSS/">
+                        <span class="tag">CSS</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Echarts/">
+                        <span class="tag">Echarts</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/H5/">
+                        <span class="tag">H5</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/HTML/">
+                        <span class="tag">HTML</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/JavaScript/">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag is-grey">11</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Vue/">
+                        <span class="tag">Vue</span>
+                        <span class="tag is-grey">8</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Vue-Router/">
+                        <span class="tag">Vue Router</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Vuex/">
+                        <span class="tag">Vuex</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/sass/">
+                        <span class="tag">sass</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vuedraggable/">
+                        <span class="tag">vuedraggable</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%B8%B8%E7%94%A8/">
+                        <span class="tag">常用</span>
+                        <span class="tag is-grey">7</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%8B%96%E6%8B%BD/">
+                        <span class="tag">拖拽</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%A7%BB%E5%8A%A8%E7%AB%AF/">
+                        <span class="tag">移动端</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%97%AD%E5%8C%85/">
+                        <span class="tag">闭包</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                            
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/05/09/blog21/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2019/12/31/l3E5gs.jpg" alt="移动端适配方案：postcss-px-to-viewport">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-05-09T09:10:58.000Z">2020-05-09</time></div>
+                    <a href="/2020/05/09/blog21/" class="title has-link-black-ter is-size-6 has-text-weight-normal">移动端适配方案：postcss-px-to-viewport</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/H5/">H5</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/04/18/blog20/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2020/01/08/lgtuXd.jpg" alt="使用vuedraggable进行拖拽操作">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-18T06:08:50.000Z">2020-04-18</time></div>
+                    <a href="/2020/04/18/blog20/" class="title has-link-black-ter is-size-6 has-text-weight-normal">使用vuedraggable进行拖拽操作</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Vue/">Vue</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/27/blog19/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2019/12/31/l3E43j.jpg" alt="使用Echarts绘制geo航线图">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-27T02:35:18.000Z">2020-03-27</time></div>
+                    <a href="/2020/03/27/blog19/" class="title has-link-black-ter is-size-6 has-text-weight-normal">使用Echarts绘制geo航线图</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Echarts/">Echarts</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/20/blog18/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2020/01/03/lUPGBn.jpg" alt="对Js闭包的理解">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-20T08:39:49.000Z">2020-03-20</time></div>
+                    <a href="/2020/03/20/blog18/" class="title has-link-black-ter is-size-6 has-text-weight-normal">对Js闭包的理解</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/JavaScript/">JavaScript</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/19/blog17/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2019/12/31/l3AAeK.jpg" alt="从零开始搭建后台管理系统（五）Utils、Mixins">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-19T01:52:27.000Z">2020-03-19</time></div>
+                    <a href="/2020/03/19/blog17/" class="title has-link-black-ter is-size-6 has-text-weight-normal">从零开始搭建后台管理系统（五）Utils、Mixins</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Ant-Design/">Ant Design</a> / <a class="has-link-grey -link" href="/categories/Vue/">Vue</a> / <a class="has-link-grey -link" href="/categories/Vue/Axios/">Axios</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/05/">
+                <span class="level-start">
+                    <span class="level-item">五月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/04/">
+                <span class="level-start">
+                    <span class="level-item">四月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">三月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">9</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Ant-Design/">
+                        <span class="tag">Ant Design</span>
+                        <span class="tag is-grey">6</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Axios/">
+                        <span class="tag">Axios</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/CSS/">
+                        <span class="tag">CSS</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Echarts/">
+                        <span class="tag">Echarts</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/H5/">
+                        <span class="tag">H5</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/HTML/">
+                        <span class="tag">HTML</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/JavaScript/">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag is-grey">11</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Vue/">
+                        <span class="tag">Vue</span>
+                        <span class="tag is-grey">8</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Vue-Router/">
+                        <span class="tag">Vue Router</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Vuex/">
+                        <span class="tag">Vuex</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/sass/">
+                        <span class="tag">sass</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vuedraggable/">
+                        <span class="tag">vuedraggable</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%B8%B8%E7%94%A8/">
+                        <span class="tag">常用</span>
+                        <span class="tag is-grey">7</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%8B%96%E6%8B%BD/">
+                        <span class="tag">拖拽</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%A7%BB%E5%8A%A8%E7%AB%AF/">
+                        <span class="tag">移动端</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E9%97%AD%E5%8C%85/">
+                        <span class="tag">闭包</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+                    </div>
+
+                </div>
+            </section>
+            <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="使用vuedraggable进行拖拽操作" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 王宏&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commonsaaa" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+                <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+<script>
+var IcarusThemeSettings = {
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+    
+    
+<script src="/js/animation.js"></script>
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+    
+    
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/" target="_blank" rel="noopener">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+    
+    
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+                    
+                        <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+                            
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":180,"height":360},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+
+</html>
+<!-- 雪花特效 -->
+<script type="text/javascript" src="\js\snow.js"></script>

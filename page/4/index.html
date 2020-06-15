@@ -137,6 +137,67 @@
 <div class="card">
     
     <div class="card-image">
+        <a href="/2020/01/01/blog6/" class="image is-7by1">
+            <img class="thumbnail" src="https://s2.ax1x.com/2019/12/31/l3E5gs.jpg" alt="js日期对象Date和字符串的互相转化">
+        </a>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-01-01T02:03:11.000Z">2020-01-01</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/JavaScript/">JavaScript</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    2 分钟 读完 (大约 279 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2020/01/01/blog6/">js日期对象Date和字符串的互相转化</a>
+            
+        </h1>
+        <div class="content">
+            <ol>
+<li><strong>Date对象转换为指定格式的字符串</strong>，如：<span class="backgroundBlock">YYYY-mm-dd HH:MM</span><span class="backgroundBlock">YYYY-mm-dd</span>等。<figure class="highlight javascript hljs"><figcaption><span>一个Date对象</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> now = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()</span><br><span class="line"><span class="hljs-built_in">console</span>.log(now) </span><br><span class="line"><span class="hljs-comment">//打印结果：Fri Jan 03 2020 10:05:48 GMT+0800 (中国标准时间)</span></span><br></pre></td></tr></table></figure>
+定义格式化Date的方法<span class="backgroundBlock">format</span>：<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">format(date,format)&#123;</span><br><span class="line">    <span class="hljs-keyword">let</span> dateFormatStr = <span class="hljs-string">''</span></span><br><span class="line">    <span class="hljs-keyword">let</span> year = date.getFullYear()</span><br><span class="line">    <span class="hljs-keyword">let</span> mouth = date.getMonth()+<span class="hljs-number">1</span> <span class="hljs-comment">//Date对象中月份为0-11</span></span><br><span class="line">    <span class="hljs-keyword">let</span> day = date.getDate()</span><br><span class="line">    <span class="hljs-keyword">let</span> hour = date.getHours()</span><br><span class="line">    <span class="hljs-keyword">let</span> min = date.getMinutes()</span><br><span class="line">    <span class="hljs-keyword">let</span> s = date.getSeconds()</span><br><span class="line">    <span class="hljs-comment">// 将format格式中的字符串替换</span></span><br><span class="line">    dateFormatStr = format.replace(<span class="hljs-regexp">/yyyy/</span>, year).replace(<span class="hljs-regexp">/MM/</span>, mouth).replace(<span class="hljs-regexp">/dd/</span>, day).replace(<span class="hljs-regexp">/hh/</span>, hour).replace(<span class="hljs-regexp">/mm/</span>, min).replace(<span class="hljs-regexp">/ss/</span>, s)</span><br><span class="line">    <span class="hljs-keyword">return</span> dateFormatStr</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ol>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2020/01/01/blog6/#more">阅读更多</a>
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+        
+    
+<div class="card">
+    
+    <div class="card-image">
         <a href="/2019/12/31/blog5/" class="image is-7by1">
             <img class="thumbnail" src="https://s2.ax1x.com/2020/01/08/lgtuXd.jpg" alt="发送手机验证码后按钮倒计时的功能">
         </a>
@@ -385,68 +446,6 @@
 
 
         
-    
-<div class="card">
-    
-    <div class="card-image">
-        <a href="/2019/12/22/blog1/" class="image is-7by1">
-            <img class="thumbnail" src="https://s2.ax1x.com/2019/12/31/l3E5gs.jpg" alt="js实现引用类型的深拷贝">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-12-22T07:01:51.000Z">2019-12-22</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/JavaScript/">JavaScript</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    2 分钟 读完 (大约 341 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/12/22/blog1/">js实现引用类型的深拷贝</a>
-            
-        </h1>
-        <div class="content">
-            <p><strong>var deepCloneObj = JSON.parse(JSON.stringify(obj))</strong></p>
-<h3 id="为什么要使用深拷贝？"><a href="#为什么要使用深拷贝？" class="headerlink" title="为什么要使用深拷贝？"></a>为什么要使用深拷贝？</h3><p>我们希望得到一个新的引用类型的变量（数组、对象），并且在修改这个引用类型变量的时候，不改变原数组（对象）的值。</p>
-<p>引用类型保存的值只是一个地址，浅拷贝会让两个变量指向同一块空间，从而让拷贝对象和源对象互相影响。我们从拷贝普通类型的变量知道，拷贝一个字符串会开辟一个新的存储地址，这样就切断了引用对象的指针联系。</p>
-<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> obj = &#123;</span><br><span class="line">    name: <span class="hljs-string">'Boa Hancock'</span>,</span><br><span class="line">    age: <span class="hljs-number">31</span>,</span><br><span class="line">    gender: <span class="hljs-string">'female'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">var</span> deepCloneObj = <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-built_in">JSON</span>.stringify(obj));<span class="hljs-comment">//拷贝对象</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-built_in">console</span>.log(<span class="hljs-string">'obj:'</span>,obj)</span><br><span class="line"><span class="hljs-built_in">console</span>.log(<span class="hljs-string">'deepCloneObj:'</span>,deepCloneObj)</span><br></pre></td></tr></table></figure>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/12/22/blog1/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-        
             
                 
 <div class="card card-transparent">
@@ -454,7 +453,7 @@
         <div class="pagination-previous">
             <a class="is-flex-grow has-text-black-ter" href="/page/3/">上一页</a>
         </div>
-        <div class="pagination-next is-invisible is-hidden-mobile">
+        <div class="pagination-next">
             <a class="is-flex-grow has-text-black-ter" href="/page/5/">下一页</a>
         </div>
         <ul class="pagination-list is-hidden-mobile">
@@ -466,6 +465,8 @@
             <li><a class="pagination-link has-text-black-ter" href="/page/3/">3</a></li>
             
             <li><a class="pagination-link is-current" href="/page/4/">4</a></li>
+            
+            <li><a class="pagination-link has-text-black-ter" href="/page/5/">5</a></li>
             
         </ul>
     </nav>
@@ -487,7 +488,7 @@
                     <div>
                         
                             <figure class="image is-128x128 has-mb-6">
-                                <img class="" src="https://s2.ax1x.com/2020/01/03/lUMNLV.jpg" alt="王宏">
+                                <img class="" src="https://wh-1301033226.cos.ap-nanjing.myqcloud.com/Hexo_img/wzxAvatar.jpg" alt="王宏">
                             </figure>
                             
                                 <p class="is-size-4 is-block">
@@ -516,7 +517,7 @@
                         </p>
                         <a href="/archives">
                             <p class="title has-text-weight-normal">
-                                20
+                                21
                             </p>
                         </a>
                     </div>
@@ -528,7 +529,7 @@
                         </p>
                         <a href="/categories">
                             <p class="title has-text-weight-normal">
-                                9
+                                10
                             </p>
                         </a>
                     </div>
@@ -540,7 +541,7 @@
                         </p>
                         <a href="/tags">
                             <p class="title has-text-weight-normal">
-                                14
+                                16
                             </p>
                         </a>
                     </div>
@@ -640,6 +641,14 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
+        <a class="level is-marginless" href="/categories/H5/">
+            <span class="level-start">
+                <span class="level-item">H5</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
         <a class="level is-marginless" href="/categories/HTML/">
             <span class="level-start">
                 <span class="level-item">HTML</span>
@@ -698,7 +707,7 @@
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/Ant-Design/" style="font-size: 15px;">Ant Design</a> <a href="/tags/Axios/" style="font-size: 11.67px;">Axios</a> <a href="/tags/CSS/" style="font-size: 11.67px;">CSS</a> <a href="/tags/Echarts/" style="font-size: 10px;">Echarts</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Vue/" style="font-size: 18.33px;">Vue</a> <a href="/tags/Vue-Router/" style="font-size: 13.33px;">Vue Router</a> <a href="/tags/Vuex/" style="font-size: 10px;">Vuex</a> <a href="/tags/sass/" style="font-size: 10px;">sass</a> <a href="/tags/vuedraggable/" style="font-size: 10px;">vuedraggable</a> <a href="/tags/%E5%B8%B8%E7%94%A8/" style="font-size: 16.67px;">常用</a> <a href="/tags/%E6%8B%96%E6%8B%BD/" style="font-size: 10px;">拖拽</a> <a href="/tags/%E9%97%AD%E5%8C%85/" style="font-size: 10px;">闭包</a>
+        <a href="/tags/Ant-Design/" style="font-size: 15px;">Ant Design</a> <a href="/tags/Axios/" style="font-size: 11.67px;">Axios</a> <a href="/tags/CSS/" style="font-size: 11.67px;">CSS</a> <a href="/tags/Echarts/" style="font-size: 10px;">Echarts</a> <a href="/tags/H5/" style="font-size: 10px;">H5</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Vue/" style="font-size: 18.33px;">Vue</a> <a href="/tags/Vue-Router/" style="font-size: 13.33px;">Vue Router</a> <a href="/tags/Vuex/" style="font-size: 10px;">Vuex</a> <a href="/tags/sass/" style="font-size: 10px;">sass</a> <a href="/tags/vuedraggable/" style="font-size: 10px;">vuedraggable</a> <a href="/tags/%E5%B8%B8%E7%94%A8/" style="font-size: 16.67px;">常用</a> <a href="/tags/%E6%8B%96%E6%8B%BD/" style="font-size: 10px;">拖拽</a> <a href="/tags/%E7%A7%BB%E5%8A%A8%E7%AB%AF/" style="font-size: 10px;">移动端</a> <a href="/tags/%E9%97%AD%E5%8C%85/" style="font-size: 10px;">闭包</a>
     </div>
 </div>
     
@@ -713,7 +722,26 @@
         
         <article class="media">
             
-            <a href="/2020/06/08/blog20/" class="media-left">
+            <a href="/2020/05/09/blog21/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2019/12/31/l3E5gs.jpg" alt="移动端适配方案：postcss-px-to-viewport">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-05-09T09:10:58.000Z">2020-05-09</time></div>
+                    <a href="/2020/05/09/blog21/" class="title has-link-black-ter is-size-6 has-text-weight-normal">移动端适配方案：postcss-px-to-viewport</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/H5/">H5</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/04/18/blog20/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="https://s2.ax1x.com/2020/01/08/lgtuXd.jpg" alt="使用vuedraggable进行拖拽操作">
                 </p>
@@ -721,8 +749,8 @@
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-08T06:08:50.000Z">2020-06-08</time></div>
-                    <a href="/2020/06/08/blog20/" class="title has-link-black-ter is-size-6 has-text-weight-normal">使用vuedraggable进行拖拽操作</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-18T06:08:50.000Z">2020-04-18</time></div>
+                    <a href="/2020/04/18/blog20/" class="title has-link-black-ter is-size-6 has-text-weight-normal">使用vuedraggable进行拖拽操作</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/Vue/">Vue</a>
                     </p>
@@ -787,25 +815,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2020/03/18/blog16/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://s2.ax1x.com/2019/12/31/l3E5gs.jpg" alt="从零开始搭建后台管理系统（四）Ajax、Axios">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-18T02:52:58.000Z">2020-03-18</time></div>
-                    <a href="/2020/03/18/blog16/" class="title has-link-black-ter is-size-6 has-text-weight-normal">从零开始搭建后台管理系统（四）Ajax、Axios</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Ant-Design/">Ant Design</a> / <a class="has-link-grey -link" href="/categories/Vue/">Vue</a> / <a class="has-link-grey -link" href="/categories/Vue/Axios/">Axios</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
         
@@ -818,9 +827,20 @@
         <ul class="menu-list">
         
         <li>
-            <a class="level is-marginless" href="/archives/2020/06/">
+            <a class="level is-marginless" href="/archives/2020/05/">
                 <span class="level-start">
-                    <span class="level-item">六月 2020</span>
+                    <span class="level-item">五月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/04/">
+                <span class="level-start">
+                    <span class="level-item">四月 2020</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">1</span>
@@ -903,6 +923,13 @@
                 </div>
                 
                 <div class="control">
+                    <a class="tags has-addons" href="/tags/H5/">
+                        <span class="tag">H5</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
                     <a class="tags has-addons" href="/tags/HTML/">
                         <span class="tag">HTML</span>
                         <span class="tag is-grey">1</span>
@@ -961,6 +988,13 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/%E6%8B%96%E6%8B%BD/">
                         <span class="tag">拖拽</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%A7%BB%E5%8A%A8%E7%AB%AF/">
+                        <span class="tag">移动端</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
@@ -996,7 +1030,26 @@
         
         <article class="media">
             
-            <a href="/2020/06/08/blog20/" class="media-left">
+            <a href="/2020/05/09/blog21/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="https://s2.ax1x.com/2019/12/31/l3E5gs.jpg" alt="移动端适配方案：postcss-px-to-viewport">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-05-09T09:10:58.000Z">2020-05-09</time></div>
+                    <a href="/2020/05/09/blog21/" class="title has-link-black-ter is-size-6 has-text-weight-normal">移动端适配方案：postcss-px-to-viewport</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/H5/">H5</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/04/18/blog20/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="https://s2.ax1x.com/2020/01/08/lgtuXd.jpg" alt="使用vuedraggable进行拖拽操作">
                 </p>
@@ -1004,8 +1057,8 @@
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-06-08T06:08:50.000Z">2020-06-08</time></div>
-                    <a href="/2020/06/08/blog20/" class="title has-link-black-ter is-size-6 has-text-weight-normal">使用vuedraggable进行拖拽操作</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-18T06:08:50.000Z">2020-04-18</time></div>
+                    <a href="/2020/04/18/blog20/" class="title has-link-black-ter is-size-6 has-text-weight-normal">使用vuedraggable进行拖拽操作</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/Vue/">Vue</a>
                     </p>
@@ -1070,25 +1123,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2020/03/18/blog16/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="https://s2.ax1x.com/2019/12/31/l3E5gs.jpg" alt="从零开始搭建后台管理系统（四）Ajax、Axios">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-18T02:52:58.000Z">2020-03-18</time></div>
-                    <a href="/2020/03/18/blog16/" class="title has-link-black-ter is-size-6 has-text-weight-normal">从零开始搭建后台管理系统（四）Ajax、Axios</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Ant-Design/">Ant Design</a> / <a class="has-link-grey -link" href="/categories/Vue/">Vue</a> / <a class="has-link-grey -link" href="/categories/Vue/Axios/">Axios</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
     
@@ -1101,9 +1135,20 @@
         <ul class="menu-list">
         
         <li>
-            <a class="level is-marginless" href="/archives/2020/06/">
+            <a class="level is-marginless" href="/archives/2020/05/">
                 <span class="level-start">
-                    <span class="level-item">六月 2020</span>
+                    <span class="level-item">五月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/04/">
+                <span class="level-start">
+                    <span class="level-item">四月 2020</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">1</span>
@@ -1186,6 +1231,13 @@
                 </div>
                 
                 <div class="control">
+                    <a class="tags has-addons" href="/tags/H5/">
+                        <span class="tag">H5</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
                     <a class="tags has-addons" href="/tags/HTML/">
                         <span class="tag">HTML</span>
                         <span class="tag is-grey">1</span>
@@ -1244,6 +1296,13 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/%E6%8B%96%E6%8B%BD/">
                         <span class="tag">拖拽</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%A7%BB%E5%8A%A8%E7%AB%AF/">
+                        <span class="tag">移动端</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
