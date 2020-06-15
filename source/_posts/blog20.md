@@ -1,6 +1,6 @@
 ---
 title: 使用vuedraggable进行拖拽操作
-date: 2020-06-08 14:08:50
+date: 2020-04-18 14:08:50
 categories:
 - Vue
 tags:
@@ -76,8 +76,7 @@ export default {
                     name: `王${i}`,
                     age: 20 + i,
                     address: `海军本部G${i}`,
-                    avatar:
-                        "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1591597325670&di=504d93541846972ea08c453d3113ac9e&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201710%2F06%2F20171006232402_CsVeK.thumb.700_0.jpeg"
+                    avatar: "https://wh-1301033226.cos.ap-nanjing.myqcloud.com/Hexo_img/wzxAvatar.jpg"
                 });
             }
         },
@@ -90,7 +89,8 @@ export default {
 };
 </script>
 ```
-```css css（这一块没必要看，可以收起来。。。）
+css其实没必要放上来，但是卡片头像那一块用到了<span class="importantBlock">背景图片自动填充且居中显示</span>的属性，就顺便贴一下。
+```css css
 <style lang="scss">
 .content {
     .card {
@@ -106,10 +106,11 @@ export default {
             width: 40%;
             .avatar {
                 height: 100%;
+                border-radius: 6px;
+                /* 背景图片填充且居中 */
                 background-repeat: no-repeat;
                 background-size: cover;
                 background-position: center;
-                border-radius: 6px;
             }
         }
         .right {
