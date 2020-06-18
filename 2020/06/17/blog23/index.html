@@ -8,22 +8,23 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>标签: 拖拽 - 王宏的个人网站</title>
+<title>常用es6/7语法汇总 - 王宏的个人网站</title>
 
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="王宏的个人网站">
-<meta property="og:url" content="https:&#x2F;&#x2F;sesshouin-kiara.github.io&#x2F;tags&#x2F;%E6%8B%96%E6%8B%BD&#x2F;index.html">
+    <meta name="description" content="本文整理了一些常用的es6、es7语法。 1. let和const  es5没有块级作用域的概念，es6新增了块级作用域的概念。let和const只能在块级作用域里访问，不能跨块访问。  其中，let定义变量，const定义常量（使用时必须初始化，即必须赋值，且不能修改）。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常用es6&#x2F;7语法汇总">
+<meta property="og:url" content="https:&#x2F;&#x2F;sesshouin-kiara.github.io&#x2F;2020&#x2F;06&#x2F;17&#x2F;blog23&#x2F;index.html">
 <meta property="og:site_name" content="王宏的个人网站">
+<meta property="og:description" content="本文整理了一些常用的es6、es7语法。 1. let和const  es5没有块级作用域的概念，es6新增了块级作用域的概念。let和const只能在块级作用域里访问，不能跨块访问。  其中，let定义变量，const定义常量（使用时必须初始化，即必须赋值，且不能修改）。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https:&#x2F;&#x2F;sesshouin-kiara.github.io&#x2F;images&#x2F;og_image.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;s2.ax1x.com&#x2F;2020&#x2F;01&#x2F;03&#x2F;lUPGBn.jpg">
+<meta property="article:published_time" content="2020-06-17T06:13:02.000Z">
+<meta property="article:modified_time" content="2020-06-18T14:01:34.365Z">
 <meta property="article:author" content="王宏">
-<meta property="article:tag" content="aaa">
-<meta property="article:tag" content="bbb">
-<meta property="article:tag" content="ccc">
-<meta property="article:tag" content="ddd">
+<meta property="article:tag" content="es6&#x2F;7">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;sesshouin-kiara.github.io&#x2F;images&#x2F;og_image.png">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;s2.ax1x.com&#x2F;2020&#x2F;01&#x2F;03&#x2F;lUPGBn.jpg">
 
 
 
@@ -82,7 +83,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo.svg" alt="王宏的个人网站" height="28">
+                <img src="/images/logo.svg" alt="常用es6/7语法汇总" height="28">
             
             </a>
         </div>
@@ -132,41 +133,30 @@
                 <div class="container">
                     <div class="columns">
                         <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
-                            <div class="card">
-    <div class="card-content">
-        <nav class="breadcrumb" aria-label="breadcrumbs">
-        <ul>
-            <li><a href="/tags">标签</a></li>
-            <li class="is-active"><a href="#" aria-current="page">拖拽</a></li>
-        </ul>
-        </nav>
-    </div>
-</div>
-
-    
+                            
 <div class="card">
     
     <div class="card-image">
-        <a href="/2020/04/18/blog20/" class="image is-7by1">
-            <img class="thumbnail" src="https://s2.ax1x.com/2020/01/08/lgtuXd.jpg" alt="使用vuedraggable进行拖拽操作">
-        </a>
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="https://s2.ax1x.com/2020/01/03/lUPGBn.jpg" alt="常用es6/7语法汇总">
+        </span>
     </div>
     
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-04-18T06:08:50.000Z">2020-04-18</time>
+                <time class="level-item has-text-grey" datetime="2020-06-17T06:13:02.000Z">2020-06-17</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/Vue/">Vue</a>
+                <a class="has-link-grey -link" href="/categories/es6-7/">es6/7</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    4 分钟 读完 (大约 551 个字)
+                    10 分钟 读完 (大约 1459 个字)
                 </span>
                 
                 
@@ -175,22 +165,120 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2020/04/18/blog20/">使用vuedraggable进行拖拽操作</a>
+                常用es6/7语法汇总
             
         </h1>
         <div class="content">
-            <p>公司新项目需要实现拖拽排序的功能，包括 列表拖拽、表格拖拽、卡片拖拽 等等。这些不同的拖拽需求其原理是一样的，只不过是样式的区别而已。</p>
-<p>我使用了<span class="backgroundBlock">vuedraggable</span>这个插件，这里记录一下基本的使用方法。</p>
+            <p>本文整理了一些常用的es6、es7语法。</p>
+<p><strong>1. let和const</strong></p>
+<blockquote>
+<p>es5没有块级作用域的概念，es6新增了块级作用域的概念。let和const只能在<span class="importantBlock">块级作用域</span>里访问，不能跨块访问。</p>
+</blockquote>
+<p>其中，<span class="backgroundBlock">let</span>定义变量，<span class="backgroundBlock">const</span>定义常量（使用时必须初始化，即必须赋值，且不能修改）。</p>
+<a id="more"></a>
+<br>
+
+<p><strong>2. 模板字符串（``）</strong></p>
+<figure class="highlight js hljs"><figcaption><span>以下a和b是一样的：</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> name = <span class="hljs-string">'Boa'</span></span><br><span class="line"><span class="hljs-keyword">var</span> a = <span class="hljs-string">'my name is '</span>+ name</span><br><span class="line"><span class="hljs-keyword">var</span> b = <span class="hljs-string">`my name is <span class="hljs-subst">$&#123;name&#125;</span>`</span></span><br></pre></td></tr></table></figure>
+<br>
+
+<p><strong>3. 解构赋值</strong></p>
+<figure class="highlight js hljs"><figcaption><span>数组</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">var</span> [a,b] = [<span class="hljs-number">11</span>,<span class="hljs-number">22</span>]</span><br><span class="line"><span class="hljs-built_in">console</span>.log(a,b)   <span class="hljs-comment">//11 22</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js hljs"><figcaption><span>对象（不完全解构）</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">var</span> &#123;name,age&#125; = &#123;<span class="hljs-attr">name</span>:<span class="hljs-string">'tom'</span>,<span class="hljs-attr">age</span>:<span class="hljs-number">22</span>,<span class="hljs-attr">id</span>:<span class="hljs-string">'430181xxxxxxxx'</span>&#125; <span class="hljs-comment">//不完全解构</span></span><br><span class="line"><span class="hljs-built_in">console</span>.log(name,age)   <span class="hljs-comment">//tom 22</span></span><br></pre></td></tr></table></figure>
+<br>
+
+<p><strong>4. 扩展运算符（…）</strong><br>其功能是将一个数组转为<span class="importantBlock">用逗号分隔的参数序列</span>。</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">console</span>.log(...[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>])  <span class="hljs-comment">// 1 2 </span></span><br><span class="line"><span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span>, ...[<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>], <span class="hljs-number">5</span>)  <span class="hljs-comment">// 1 2 3 4 5</span></span><br></pre></td></tr></table></figure>
+<br>
+
+<p><strong>5. 箭头函数</strong></p>
+<blockquote>
+<p>注：箭头函数this永远指向其<span class="importantBlock">父作用域</span></p>
+</blockquote>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 基本形式如下：</span></span><br><span class="line"><span class="hljs-keyword">var</span> func = <span class="hljs-function">(<span class="hljs-params">a,b</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> a+b</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-comment">// 当参数只有一个时，可省略参数的括号:</span></span><br><span class="line"><span class="hljs-keyword">var</span> func = <span class="hljs-function"><span class="hljs-params">a</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> a+<span class="hljs-number">1</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-comment">// 箭头后直接接表达式（省略大括号和return），代表直接返回箭头后面的表达式:</span></span><br><span class="line"><span class="hljs-keyword">var</span> func = <span class="hljs-function"><span class="hljs-params">a</span> =&gt;</span> a+<span class="hljs-number">1</span></span><br></pre></td></tr></table></figure>
+<br>
+
+<p><strong>6. 对象简洁写法</strong></p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> name = <span class="hljs-string">'Boa'</span></span><br><span class="line"><span class="hljs-keyword">let</span> obj = &#123;</span><br><span class="line">    <span class="hljs-comment">// name: name  //es5写法，必须写完整的key-value键值对</span></span><br><span class="line">    name,          <span class="hljs-comment">//es6写法，当键值对前后相等时，可缩写。</span></span><br><span class="line">    age:<span class="hljs-number">32</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<br>
+
+<p><strong>7. Promise</strong></p>
+<blockquote>
+<p>Promise的含义：</p>
+<ul>
+<li>Promise 的英文本意是承诺。古人云：“君子一诺千金”，这种“承诺将来会执行”的对象在 JavaScript 中称为 Promise 对象。</li>
+<li>它是一个容器，里面保存着某个未来才会结束的事件（通常是一个异步操作）的结果，并且这个事件提供统一的 API ，可供进一步处理。</li>
+</ul>
+</blockquote>
+<p><span class="backgroundBlock">Promise</span>出现之前，代码往往会有过多的回调或者嵌套，导致可读性差、耦合度高、扩展性低，甚至出现<span class="importantBlock">回调地狱</span>。  </p>
+<p><span class="backgroundBlock">Promise</span>就是<span class="importantBlock">用同步编程的方式来编写异步代码</span>，保存线性的代码逻辑，极大的降低了代码耦合性而提高了程序的可扩展性。</p>
+<p><span class="backgroundBlock">Promise</span>机制的出现，扁平化了代码的结构，大大提高了代码可读性；</p>
+<figure class="highlight js hljs"><figcaption><span>一个promise对象</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(</span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">resolve, reject</span>) </span>&#123;</span><br><span class="line">    <span class="hljs-comment">// 一段耗时的异步操作</span></span><br><span class="line">    resolve(<span class="hljs-string">'成功'</span>) <span class="hljs-comment">// 数据处理完成</span></span><br><span class="line">    <span class="hljs-comment">// reject('失败') // 数据处理出错</span></span><br><span class="line">  &#125;</span><br><span class="line">).then(</span><br><span class="line">  (res) =&gt; &#123;<span class="hljs-built_in">console</span>.log(res)&#125;,  <span class="hljs-comment">// 成功</span></span><br><span class="line">  (err) =&gt; &#123;<span class="hljs-built_in">console</span>.log(err)&#125;   <span class="hljs-comment">// 失败</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>promise对象有<span class="importantBlock">三个状态</span>：</p>
+<ol>
+<li><span class="backgroundBlock">pending</span>初始状态，表示【进行中】；</li>
+<li><span class="backgroundBlock">fulfilled</span>【已成功】；</li>
+<li><span class="backgroundBlock">rejected</span>【已失败】</li>
+</ol>
+<blockquote>
+<p>resolve 作用是，将Promise对象的状态从【进行中】变为【已成功】（即从 pending 变为 fulfilled），在异步操作成功时调用，并将异步操作的结果，作为参数传递出去；</p>
+</blockquote>
+<blockquote>
+<p>reject 作用是，将Promise对象的状态从【进行中】变为【已失败】（即从 pending 变为 rejected），在异步操作失败时调用，并将异步操作报出的错误，作为参数传递出去。</p>
+</blockquote>
+<p><span class="importantBlock">当promise状态发生改变，就会触发then()里的响应函数处理后续步骤；</span></p>
+<blockquote>
+<p>Promise对象的状态改变，只有两种可能：</p>
+<ol>
+<li>从 pending 变为 fulfilled</li>
+<li>从 pending 变为 rejected</li>
+</ol>
+</blockquote>
+<p>这两种情况只要发生，状态就凝固了。也就是说，<span class="importantBlock">promise状态一经改变，就不会再变。</span></p>
+<p>相关文档：<a href="https://es6.ruanyifeng.com/#docs/promise" target="_blank" rel="noopener">阮一峰ES6之promise</a></p>
+<br>
+
+<p><strong>8. async/await</strong></p>
+<p><span class="backgroundBlock">async</span>函数是<span class="backgroundBlock">Generator</span>函数的语法糖。</p>
+<p>我们先来看看<span class="backgroundBlock">async</span>函数是怎么处理他的返回值的：</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">testAsync</span>(<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-string">"hello async"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-keyword">const</span> result = testAsync();</span><br><span class="line"><span class="hljs-built_in">console</span>.log(result);</span><br></pre></td></tr></table></figure>
+<p>输出结果如图：</p>
+<div style="text-align:center;"><img src="https://wh-1301033226.cos.ap-nanjing.myqcloud.com/Hexo_img/blog_content/blog23_img1.png"></div>
+
+<blockquote>
+<p>注：有时候认为resolved和fulfilled是等价的表述，甚至用resolved表示fulfilled。</p>
+</blockquote>
+<p>得出结论：<span class="importantBlock">async函数返回的是一个Promise对象</span>。</p>
+<p>如果在 async 函数中 return 一个直接量，async 会把这个直接量通过<span class="backgroundBlock">Promise.resolve()</span>封装成Promise对象。</p>
+<p>再来看一个实际运用<span class="backgroundBlock">async/await</span>例子：</p>
+<figure class="highlight html hljs"><figcaption><span>html</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"navMain"</span>&gt;</span></span><br><span class="line">        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"print"</span>&gt;</span>打印<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js hljs"><figcaption><span>js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span><br><span class="line">    data() &#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> &#123;</span><br><span class="line">            state: <span class="hljs-string">"幼虫"</span></span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">        grow() &#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="hljs-comment">// 模拟一段耗时的异步操作</span></span><br><span class="line">                setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;</span><br><span class="line">                    <span class="hljs-keyword">let</span> resData = <span class="hljs-string">"成虫"</span>;</span><br><span class="line">                    resolve(resData); <span class="hljs-comment">// 状态从pending变为fulfilled，并将resData作为参数传到then中</span></span><br><span class="line">                &#125;, <span class="hljs-number">1000</span>);</span><br><span class="line">            &#125;).then(</span><br><span class="line">                res =&gt; &#123;</span><br><span class="line">                    <span class="hljs-built_in">console</span>.log(res);</span><br><span class="line">                    <span class="hljs-keyword">this</span>.state = res</span><br><span class="line">                &#125;, <span class="hljs-comment">// 成功</span></span><br><span class="line">                err =&gt; &#123;</span><br><span class="line">                    <span class="hljs-built_in">console</span>.log(err);</span><br><span class="line">                &#125; <span class="hljs-comment">// 失败</span></span><br><span class="line">            );</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="hljs-keyword">async</span> print() &#123;</span><br><span class="line">            <span class="hljs-keyword">await</span> <span class="hljs-keyword">this</span>.grow();</span><br><span class="line">            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"现在的状态是："</span>, <span class="hljs-keyword">this</span>.state);</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&lt;<span class="hljs-regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<p>点击按钮，控制台输出字符串：”现在的状态是：成虫”。</p>
+<p><strong>分析：</strong><br>grow函数：</p>
+<ol>
+<li><p><span class="backgroundBlock">grow</span>函数包含一个耗时的异步操作，可以理解为实际开发中的向后台请求接口数据。该函数返回一个<span class="backgroundBlock">promise</span>对象，通过<span class="backgroundBlock">then</span>添加回调函数。</p>
+</li>
+<li><p>可以看到，这个<span class="backgroundBlock">promise</span>对象一直在等待异步操作（定时器）执行，定时器触发之后通过<span class="backgroundBlock">resolve</span>将<span class="backgroundBlock">promise</span>对象的状态从<span class="backgroundBlock">pending</span>变为<span class="backgroundBlock">fulfilled</span>，从而触发<span class="backgroundBlock">then</span>中的成功回调，并将<span class="backgroundBlock">resData</span>作为参数传到<span class="backgroundBlock">then</span>中。</p>
+</li>
+</ol>
+<p>按照我们的需求，<span class="backgroundBlock">print</span>函数是依赖<span class="backgroundBlock">grow</span>函数执行结果的，也就是说需要等<span class="backgroundBlock">grow</span>执行完毕后再执行自己的代码。</p>
+<p>所以我们使用<span class="backgroundBlock">async/await</span>：</p>
+<blockquote>
+<p><span class="importantBlock">当 async 函数（即 print 函数）执行的时候，一旦遇到了 await ，并且 await 的是一个 Promise 对象，就会阻塞后面的代码，等待这个 Promise 对象 resolve 。异步操作完成后，再接着执行函数体内后面的语句。</span></p>
+</blockquote>
+<p>相关文档：<a href="https://segmentfault.com/a/1190000007535316" target="_blank" rel="noopener">理解 JavaScript 的 async/await</a></p>
+<br>
         </div>
         
-        
-        <div class="level is-mobile">
+        <div class="level is-size-7 is-uppercase">
             <div class="level-start">
                 <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2020/04/18/blog20/#more">阅读更多</a>
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/es6-7/" rel="tag">es6/7</a>
                 </div>
             </div>
         </div>
+        
         
         
     </div>
@@ -198,12 +286,74 @@
 
 
 
-
-
-
-
-        
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
             
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/images/zhifubaoPay.jpg" alt="支付宝"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/weixinPay.jpg" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/05/17/blog22/">
+                <span class="level-item">移动端适配方案：postcss-px-to-viewport</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="valine-thread" class="content"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#valine-thread' ,
+        notify: false,
+        verify: false,
+        app_id: 'XICGs6n9m3NLPFkfB2l9Pg76-gzGzoHsz',
+        app_key: 'uxlHsYMfxumpS3JiCL1Hmrs5',
+        placeholder: '留下你的评论吧!'
+    });
+</script>
+
+    </div>
+</div>
+
                         </div>
                         
 
@@ -1108,7 +1258,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo.svg" alt="王宏的个人网站" height="28">
+                    <img src="/images/logo.svg" alt="常用es6/7语法汇总" height="28">
                 
                 </a>
                 <p class="is-size-7">
