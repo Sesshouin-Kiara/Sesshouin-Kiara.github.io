@@ -1,5 +1,5 @@
 ---
-title: 不百度就不会用的技巧-HTML/CSS篇
+title: 盘点一些常用的语法和知识点-HTML/CSS篇
 date: 2019-12-30 14:19:04
 categories:
 - [HTML]
@@ -11,10 +11,10 @@ tags:
 thumbnail: https://s2.ax1x.com/2019/12/31/l3E43j.jpg
 ---
 （持续更新中......）
-本文罗列了一些工作中经常使用到、但是不查百度就不会用的一些知识点和技巧。
+本文盘点了一些工作中会经常使用到的，或者是比较重要但是不太熟练的语法和知识点。
 
 #### 一、Flex 布局
-内容转自[阮一峰的Flex 布局教程](http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html),不过个人觉得阮一峰老师教程页面的布局和色调不是很利于阅读，于是在这里重构一下。详细内容还是建议看原文。
+内容转自[阮一峰的Flex 布局教程](http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html),不过个人觉得阮一峰老师教程页面的色调不是很利于阅读，于是在这里重构一下，仅供个人阅读使用。
 ```css
 .box{
   display: flex;
@@ -103,3 +103,38 @@ thumbnail: https://s2.ax1x.com/2019/12/31/l3E43j.jpg
     }
 }
 ```
+<br/>
+
+#### 三、背景图片填充且居中
+```css
+.avatar {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+```
+<br/>
+
+#### 四、背景渐变
+```css
+.backDiv {
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.35) 30%,
+        rgba(255, 255, 255, 0.6) 40%,
+        rgba(255, 255, 255, 0.8) 60%,
+        rgba(255, 255, 255, 0.95) 70%,
+        #ffffff 100%
+    );
+}
+```
+<br/>
+
+#### 五、屏幕可见区域单位：**vh**
+类似于px的长度单位，100vh代表屏幕可见区域的100%，50vh代表屏幕可见区域的50%。
+<br/>
+
+#### 六、计算css的函数：**calc() 函数**
+例如 height: calc(100vh-220px) 表示高度为屏幕可见区域的100%减去220px。
+<br/>

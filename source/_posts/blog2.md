@@ -1,5 +1,5 @@
 ---
-title: 不百度就不会用的技巧-JavaScript篇
+title: 盘点一些常用的语法和知识点-JavaScript篇
 date: 2019-12-26 18:21:14
 categories:
 - JavaScript
@@ -9,7 +9,7 @@ tags:
 thumbnail: https://s2.ax1x.com/2019/12/31/l3AAeK.jpg
 ---
 （持续更新中......）
-本文罗列了一些工作中经常使用到、但是不查百度就不会用的一些知识点和技巧。
+本文盘点了一些工作中会经常使用到的，或者是比较重要但是不太熟练的语法和知识点。
 
 1. 数组常用的一些方法
 [传送门（js数组常用方法）](https://wanghong.cool/2019/12/26/blog3)
