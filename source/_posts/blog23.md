@@ -16,7 +16,7 @@ thumbnail: https://s2.ax1x.com/2020/01/03/lUPGBn.jpg
 <!-- more -->
 <br/>
 
-**2. 模板字符串（``）**
+**2. 模板字符串（\`\`）**
 ```js 以下a和b是一样的：
 const name = 'Boa'
 var a = 'my name is '+ name
