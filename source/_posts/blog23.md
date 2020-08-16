@@ -9,14 +9,41 @@ thumbnail: https://s2.ax1x.com/2020/01/03/lUPGBn.jpg
 ---
 本文整理了一些常用的es6、es7语法。
 
-**1. let和const**
->es5没有块级作用域的概念，es6新增了块级作用域的概念。let和const只能在<span class="importantBlock">块级作用域</span>里访问，不能跨块访问。
+**1. let 和 const**
+>let 定义变量，const 定义常量（使用时必须初始化，即必须赋值，且不能修改）。
 
-其中，<span class="backgroundBlock">let</span>定义变量，<span class="backgroundBlock">const</span>定义常量（使用时必须初始化，即必须赋值，且不能修改）。
+>相比于var，let不会变量提升；
+es5没有块级作用域的概念，es6新增了块级作用域的概念。let和const只能在<span class="importantBlock">块级作用域</span>里访问，不能跨块访问。
 <!-- more -->
+通过一个简单的例子来说明let和var的区别：
+```js
+if(true){
+    let a = 1
+    var b = 2
+}else{
+    let c = 3
+    var d = 4
+}
+
+console.log(a)
+// 报错"a is not defined"，因为块作用域
+
+console.log(b)
+// 输出2
+
+console.log(c)
+// 报错"c is not defined"，因为块作用域
+
+console.log(d)
+// 输出 undefined，
+// 因为if条件为false，代码块没有执行，所以赋值的操作不会执行。
+// 但是由于var变量提升，即便if条件为false，var后面的变量也会在最开始进行定义，
+// 所以d已经定义了，只是没有赋值，因而输出 undefined
+```
+
 <br/>
 
-**2. 模板字符串（\`\`）**
+**2. 模板字符串（\` \`）**
 ```js 以下a和b是一样的：
 const name = 'Boa'
 var a = 'my name is '+ name
