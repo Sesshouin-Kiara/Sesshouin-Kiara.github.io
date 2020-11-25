@@ -65,4 +65,28 @@ console.log(arr.slice(0,5))  //输出[1,2,3,4,5]
 ```
 
 
+6. 实现函数的重载
+<div class="myhr"></div>
+我们知道，js是没有函数重载这一概念的。因为函数实际上就是对象，声明两个同名函数，结果只会是后面的函数覆盖了前面的函数（<span class="whdiv2">覆盖引用</span>）。
+<div class="myhr"></div>
+那么，我们怎么来模拟函数的重载功能吗？答案是<span class="whdiv2">函数的参数</span><span class="whdiv1">arguments</span>。
+<div class="myhr"></div>
+arguments 对象 与 数组 类似，可以使用 方括号语法，通过 arguments 可以访问函数接收到的<span class="whdiv2">实参数组</span>。
+
+```js
+function addFunc() {
+     if(arguments.length === 1){
+          return arguments[0]+1
+     }else if(arguments.length === 2){
+          return arguments[0]+arguments[1]
+     }else if(arguments.length >= 3){
+          return '超出计算范围'
+     }
+}
+
+addFunc(1)  // 2
+addFunc(5,6)  // 11
+addFunc(1,2,3)  // '超出计算范围'
+```
+
 

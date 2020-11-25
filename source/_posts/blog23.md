@@ -43,7 +43,7 @@ console.log(d)
 
 <br/>
 
-**2. 模板字符串（\` \`）**
+**2. 模板字符串**
 ```js 以下a和b是一样的：
 const name = 'Boa'
 var a = 'my name is '+ name
@@ -63,11 +63,38 @@ console.log(name,age)   //tom 22
 <br/>
 
 **4. 扩展运算符（...）**
-其功能是将一个数组转为<span class="importantBlock">用逗号分隔的参数序列</span>。
+其功能是将一个数组或对象转为<span class="importantBlock">用逗号分隔的参数序列</span>。
 ```js
-console.log(...[1, 2])  // 1 2 
-console.log(1, ...[2, 3, 4], 5)  // 1 2 3 4 5 
+console.log(1, ...[2, 3, 4], 5)  // 输出 1 2 3 4 5 
+
+console.log({name:'WangHong',...{age:22,address:'HangZhou'}})
+// 输出 {name: "WangHong", age: 22, address: "HangZhou"}
 ```
+拓展：扩展运算符是深拷贝还是浅拷贝呢？
+
+看如下例子：
+```js 
+let arr = [1,2,3]
+let clone_arr = [...arr]
+
+clone_arr[0] = 4
+
+console.log(arr)        // 输出[1, 2, 3]
+console.log(clone_arr)  // 输出[4, 2, 3]
+```
+看到这里你以为是深拷贝吗？不不不，我们继续看一个例子：
+```js 
+let obj = {
+    arr:[7,8,9]
+}
+let clone_obj = {...obj}
+
+clone_obj.arr[0] = 6
+
+console.log(obj)        // 输出{arr: [6, 8, 9]}  
+console.log(clone_obj)  // 输出{arr: [6, 8, 9]}  
+```
+所以还是浅拷贝。
 <br/>
 
 **5. 箭头函数**
