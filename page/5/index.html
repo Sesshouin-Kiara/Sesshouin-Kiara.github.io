@@ -35,7 +35,7 @@
 
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/5.13.0/css/all.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
 
@@ -221,7 +221,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    2 分钟 读完 (大约 260 个字)
+                    3 分钟 读完 (大约 433 个字)
                 </span>
                 
                 
@@ -285,7 +285,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    8 分钟 读完 (大约 1132 个字)
+                    9 分钟 读完 (大约 1285 个字)
                 </span>
                 
                 
@@ -302,7 +302,7 @@
 <h4 id="一、数组检测方法"><a href="#一、数组检测方法" class="headerlink" title="一、数组检测方法"></a>一、数组检测方法</h4><ul>
 <li><strong>instanceof</strong></li>
 <li><strong>Array.isArray()（推荐）</strong><figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> arr = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>];</span><br><span class="line"><span class="hljs-built_in">console</span>.log(arr <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Array</span>); <span class="hljs-comment">// true </span></span><br><span class="line"><span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">Array</span>.isArray(arr)); <span class="hljs-comment">// true</span></span><br></pre></td></tr></table></figure>
-<span class="backgroundBlock">instanceof</span>在跨多个 iframe（即多个全局执行环境）时会失效，<span class="backgroundBlock">Array.isArray()</span>才是最终的解决办法。</li></ul>
+<span class="whdiv1">instanceof</span>在跨多个 iframe（即多个全局执行环境）时会失效，<span class="whdiv1">Array.isArray()</span>才是最终的解决办法。</li></ul>
         </div>
         
         
@@ -364,7 +364,6 @@
             <p><strong>var deepCloneObj = JSON.parse(JSON.stringify(obj))</strong></p>
 <h3 id="为什么要使用深拷贝？"><a href="#为什么要使用深拷贝？" class="headerlink" title="为什么要使用深拷贝？"></a>为什么要使用深拷贝？</h3><p>我们希望得到一个新的引用类型的变量（数组、对象），并且在修改这个引用类型变量的时候，不改变原数组（对象）的值。</p>
 <p>引用类型保存的值只是一个地址，浅拷贝会让两个变量指向同一块空间，从而让拷贝对象和源对象互相影响。我们从拷贝普通类型的变量知道，拷贝一个字符串会开辟一个新的存储地址，这样就切断了引用对象的指针联系。</p>
-<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> obj = &#123;</span><br><span class="line">    name: <span class="hljs-string">'Boa Hancock'</span>,</span><br><span class="line">    age: <span class="hljs-number">31</span>,</span><br><span class="line">    gender: <span class="hljs-string">'female'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">var</span> deepCloneObj = <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-built_in">JSON</span>.stringify(obj));<span class="hljs-comment">//拷贝对象</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-built_in">console</span>.log(<span class="hljs-string">'obj:'</span>,obj)</span><br><span class="line"><span class="hljs-built_in">console</span>.log(<span class="hljs-string">'deepCloneObj:'</span>,deepCloneObj)</span><br></pre></td></tr></table></figure>
         </div>
         
         

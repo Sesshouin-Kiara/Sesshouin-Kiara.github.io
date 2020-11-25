@@ -60,7 +60,6 @@
     background-color:rgb(240,240,240);
     padding:3px 6px;
     margin:0 6px;
-    /* border: 1px rgb(240,240,240) solid; */
     border-radius: 3px;
 }
 
@@ -68,4 +67,25 @@
     color: #42b983;
     margin:0 6px;
     font-weight: 600;
+}
+
+.myhr{
+    height:12px;
+}
+
+.whdiv1{
+    background-color:rgb(240,240,240);
+    padding:3px 6px;
+    margin:0 6px;
+    border-radius: 3px;
+}
+
+.whdiv2{
+    color: #42b983;
+    margin:0 6px;
+    font-weight: 600;
+}
+
+.whhr{
+    height:12px;
 }
